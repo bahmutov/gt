@@ -27,7 +27,7 @@ istanbul cover gt.js ./tests.js -- -l 0
 Example
 =======
 
-A simple example is in [examples subfolder](gt/glob/master/examples "gt Examples")
+A simple example is in [examples subfolder](gt/tree/master/examples "gt Examples")
 
 Unit tests
 
