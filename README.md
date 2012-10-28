@@ -8,12 +8,12 @@ Simple JS unit testing framework similar to QUnit.
 
 ## Install and run
 
-'''gt''' requires nodejs and a few modules to run.
+**gt** requires *nodejs* and a few modules to run.
 
 ```shell
 npm install
 ```
-NPM will look through the package.json and will install all necessary modules.
+npm application will look through the *package.json* and will install all necessary modules.
 
 ```shell
 node gt ./tests.js -l 0
