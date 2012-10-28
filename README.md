@@ -1,9 +1,15 @@
 gt
 ==
 
-Simple JS unit testing framework similar to QUnit
+Simple JS unit testing framework similar to QUnit.
 
-## Run
+Goals
+=====
+# Make sure QUnit tests work with [istanbul](https://github.com/gotwarlost/istanbul "Istanbul at GitHub") JS coverage tool
+# Experiment with JS unit testing by writing a framework from scratch.
+
+Run
+===
 
 ```shell
 node gt ./tests.js -l 0
@@ -18,7 +24,8 @@ Compatible with istanbul JS coverage tool
 istanbul cover gt.js ./tests.js -- -l 0
 ```
 
-## Changes
+Changes
+=======
 
 * 0.1.0 - refactored code into separate modules for storing / running code.
 * 0.0.9 - added custom logger with different verbosity levels, use -l option.
