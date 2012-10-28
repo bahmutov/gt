@@ -1,0 +1,17 @@
+{
+  "name": "gt",
+  "version": "0.1.0",
+  "description": "Simple javascript unit testing framework, similar to QUnit",
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "dependencies": {
+    "cli-color": "*",
+    "sprintf": "*",
+    "optimist": "*",
+		"custom-logger": "*"
+  },
+	"main": "gt",
+  "scripts" : { 
+		"test": "node gt tests",
+		"cover": "istanbul cover gt tests"
+	}
+}

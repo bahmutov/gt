@@ -5,8 +5,8 @@ Simple JS unit testing framework similar to QUnit.
 
 Goals
 =====
-# Make sure QUnit tests work with [istanbul](https://github.com/gotwarlost/istanbul "Istanbul at GitHub") JS coverage tool
-# Experiment with JS unit testing by writing a framework from scratch.
+1. Make sure QUnit tests work with [istanbul](https://github.com/gotwarlost/istanbul "Istanbul at GitHub") JS coverage tool
+2. Experiment with JS unit testing by writing a framework from scratch.
 
 Run
 ===
