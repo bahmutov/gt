@@ -27,7 +27,7 @@ istanbul cover gt.js ./tests.js -- -l 0
 Example
 =======
 
-A simple example is in [examples subfolder](/examples "gt Examples")
+A simple example is in [examples subfolder](gt/examples "gt Examples")
 
 Unit tests
 
@@ -42,7 +42,7 @@ test("get N '='", function () {
 ...
 ```
 
-Sample output [image](example.png "Console screenshot")
+Sample output [image](gt/example.png "Console screenshot")
 
 Changes
 =======
