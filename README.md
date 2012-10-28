@@ -47,6 +47,7 @@ Sample output [image](gt/blob/master/example.png "Console screenshot")
 Changes
 =======
 
+* 0.1.1 - moved code around.
 * 0.1.0 - refactored code into separate modules for storing / running code.
 * 0.0.9 - added custom logger with different verbosity levels, use -l option.
 		-l 0 prints debug messages, verbose
