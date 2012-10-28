@@ -45,7 +45,7 @@ test("get N '='", function () {
 ...
 ```
 
-Sample output [image](gt/blob/master/example.png "Console screenshot")
+Sample output [image](gt/blob/master/examples/example.png "Console screenshot")
 
 ## Changes
 
