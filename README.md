@@ -24,6 +24,26 @@ Compatible with istanbul JS coverage tool
 istanbul cover gt.js ./tests.js -- -l 0
 ```
 
+Example
+=======
+
+A simple example is in [examples subfolder](/examples "gt Examples")
+
+Unit tests
+
+```javascript
+test("get N '='", function () {
+	ok(typeof getLines === "function", "getLines is a function");
+	equal(getLines(0), "", "0 character");
+	equal(getLines(1), "=", "1 character");
+	equal(getLines(3), "===", "3 character");
+	equal(getLines(6), "======", "6 character");
+});
+...
+```
+
+Sample output [image](example.png "Console screenshot")
+
 Changes
 =======
 

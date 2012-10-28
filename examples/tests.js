@@ -65,6 +65,7 @@ test("code functions exist", function () {
 moduleName("code functions");
 
 test("get N '='", function () {
+	ok(typeof getLines === "function", "getLines is a function");
 	equal(getLines(0), "", "0 character");
 	equal(getLines(1), "=", "1 character");
 	equal(getLines(3), "===", "3 character");
