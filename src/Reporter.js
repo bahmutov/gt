@@ -1,6 +1,6 @@
 // formatting results utility functions
-var getLines = require('./code').getLines;
-var centerMessage = require('./code').centerMessage;
+var getLines = require('./utils').getLines;
+var centerMessage = require('./utils').centerMessage;
 var sprintf = require('sprintf').sprintf;
 
 // console colors
