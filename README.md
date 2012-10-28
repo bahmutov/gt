@@ -10,9 +10,8 @@ Simple JS unit testing framework similar to QUnit.
 
 **gt** requires *nodejs* and a few modules to run.
 
-```shell
-npm install
-```
+	npm install
+
 npm application will look through the *package.json* and will install all necessary modules.
 
 ```shell
@@ -24,9 +23,7 @@ options:
 
 Compatible with istanbul JS coverage tool
 
-```shell
-istanbul cover gt.js ./tests.js -- -l 0
-```
+	istanbul cover gt.js ./tests.js -- -l 0
 
 ## Example
 
@@ -46,17 +43,14 @@ test("get N '='", function () {
 ```
 
 Create unit test report
-```shell
-C:\git\gt>node gt.js ./examples/tests.js
-```
+	C:\git\gt>node gt.js ./examples/tests.js
 
 Sample output [image](gt/blob/master/examples/example.png "Console screenshot")
 
 Create JS coverage by executing the next command (assuming *istanbul* is installed)
 
-```shell
-C:\git\gt>istanbul cover gt.js ./examples/tests.js
-```
+	C:\git\gt>istanbul cover gt.js ./examples/tests.js
+
 Sample coverage output [image](gt/blob/master/examples/coverage.png "Coverage page screenshot")
 
 ## Changes
