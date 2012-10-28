@@ -1,15 +1,19 @@
-gt
-==
+# gt
 
 Simple JS unit testing framework similar to QUnit.
 
-Goals
-=====
+## Goals
 1. Make sure QUnit tests work with [istanbul](https://github.com/gotwarlost/istanbul "Istanbul at GitHub") JS coverage tool
 2. Experiment with JS unit testing by writing a framework from scratch.
 
-Run
-===
+## Install and run
+
+'''gt''' requires nodejs and a few modules to run.
+
+```shell
+npm install
+```
+NPM will look through the package.json and will install all necessary modules.
 
 ```shell
 node gt ./tests.js -l 0
@@ -24,8 +28,7 @@ Compatible with istanbul JS coverage tool
 istanbul cover gt.js ./tests.js -- -l 0
 ```
 
-Example
-=======
+## Example
 
 A simple example is in [examples subfolder](gt/tree/master/examples "gt Examples")
 
@@ -44,8 +47,7 @@ test("get N '='", function () {
 
 Sample output [image](gt/blob/master/example.png "Console screenshot")
 
-Changes
-=======
+## Changes
 
 * 0.1.1 - moved code around.
 * 0.1.0 - refactored code into separate modules for storing / running code.
