@@ -29,15 +29,15 @@ global.log = log;
 var testModuleName = args._[0];
  
 log.debug("importing test reporter module");
-var Reporter = require("./Reporter").Reporter;
+var Reporter = require("./src/Reporter").Reporter;
 console.assert(Reporter, "Reporter is undefined");
 
 log.debug("importing test collection module");
-var TestCollection = require("./TestCollection").TestCollection;
+var TestCollection = require("./src/TestCollection").TestCollection;
 console.assert(TestCollection, "TestCollection is undefined");
 
 log.debug("importing test runner module");
-var TestRunner = require("./TestRunner").TestRunner;
+var TestRunner = require("./src/TestRunner").TestRunner;
 console.assert(TestRunner, "cannot find TestRunner");
 
 log.debug("binding methods to preserve original object information in global invocations");
