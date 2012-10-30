@@ -26,7 +26,7 @@ function _log(tests) {
 			}
 		}
 		
-		var message = sprintf("%-40s : %3d%% (%d / %d)", info, percent, good, total, failed);
+		var message = sprintf("%-50s : %3d%% (%d / %d)", info, percent, good, total, failed);
 		var fullMessage = sprintf("%-60s : %s", message, status);
 		
 		var color = (failed > 0 ? fail : success);

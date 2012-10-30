@@ -20,11 +20,11 @@ test("test without assertions", function () {
 	expect(0);
 });
 
-test("wrong number of expected assertions", function () {
+test("CRASH: wrong number of expected assertions", function () {
 	expect(-2);
 });
 
-test("crash after assertions", function () {
+test("CRASH: crash after assertions", function () {
 	var obj = {};
 	equal(typeof obj, "object", "obj exists");
 	// fail assertion on purpose
@@ -34,26 +34,27 @@ test("crash after assertions", function () {
 	ok(false, "never reach here");
 });
 
-test("just crash", function () {
+test("CRASH: just crash", function () {
 	// crash on purpose
 	equal(typeof bar.foo, "string", "bar is undefined, crash!");
 	ok(false, "never reach here");
 });
 
-test("incomplete", function () {
+test("CRASH: crash inside ok condition", function () {
+	ok(typeof obj.foo === "something", "condition on non existent object");
+});
+
+test("INCOMPLETE: incomplete", function () {
 	expect(4);
 	ok(true, "single existing assertion out of 4");
 });
 
-test("incomplete with failed tests", function () {
+test("INCOMPLETE: incomplete with failed tests", function () {
 	expect(4);
 	ok(true, "good assertion out of 4");
 	ok(false, "bad assertion out of 4");
 });
 
-test("crash inside ok condition", function () {
-	ok(typeof obj.foo === "something", "condition on non existent object");
-});
 
 test("code functions exist", function () {
 	equal(typeof code.getLines, "function", "code.getLines is not a function");
@@ -86,19 +87,19 @@ test("center message", function () {
 	equal(centerMessage(5, ""), "=====", "5 empty");
 });
 
-test("add is a function", function () {
-	ok(typeof add === "function", "add exists and is a function");
-	// now fail!
-	ok(false, "ok with false condition on purpose");
-});
-
 test("basic +", function () {
 	equal(add(1, 2), 3, "1 + 2 = 3");
 	equal(add(2, 1), 3, "2 + 1 = 3");
 	equal(add(-1, 1), 0, "-1 + 1 = 0");
 });
 
-test("fail +", function () {
+test("FAIL: add is a function", function () {
+	ok(typeof add === "function", "add exists and is a function");
+	// now fail!
+	ok(false, "ok with false condition on purpose");
+});
+
+test("FAIL: fail +", function () {
 	equal(add(10, 0), 10, "10 + 0 = 10");
 	// now fail!
 	equal(add(0, 0), 3, "0 + 0 = 3 should fail.");

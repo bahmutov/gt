@@ -1,7 +1,7 @@
 var log = require("custom-logger");
 
 var args = require("optimist").argv,
-	help = "run just tests:\n\tnode gt <test module> \n\
+	help = "run just tests:\n\tnode gt <test module1, module2, ...> \n\
 run tests and coverage:\n\tistanbul cover gt <test module> \n\
 example:\n\tnode gt tests.js \n\
 options: \n\
@@ -28,8 +28,6 @@ log.config({
 });
 log.debug("log level", logMode);
 global.log = log;
-
-var testModuleName = args._[0];
 
 log.debug("dir name", __dirname); 
 
@@ -64,15 +62,19 @@ global.moduleName = TestRunner.module.bind(TestRunner);
 global.equal = TestRunner.equal.bind(TestRunner);
 global.ok = TestRunner.ok.bind(TestRunner);
 global.expect = TestRunner.expect.bind(TestRunner);
+global.raises = TestRunner.raises.bind(TestRunner);
 
-log.debug("loading module with unit tests", testModuleName);
-try {
-	require(testModuleName);
-} catch (errors) {
-	console.error(errors);
-	console.log();
-	console.log(help);
-	process.exit(1);
+for (var k = 0; k < args._.length; k += 1) {
+	var testModuleName = args._[k];
+	log.debug("loading module with unit tests", testModuleName);
+	try {
+		require(testModuleName);
+	} catch (errors) {
+		console.error(errors);
+		console.log();
+		console.log(help);
+		process.exit(1);
+	}
 }
 log.debug("loaded", TestCollection.getNumberOfTests(), "tests from '" + testModuleName + "'");
 console.log();

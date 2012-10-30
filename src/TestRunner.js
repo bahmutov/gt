@@ -46,6 +46,26 @@ var TestRunner = {
 	module: function (name) {
 		log.log("module '" + name + "'");
 	},
+	
+	raises: function(code, expectedExceptionType, message) {
+		console.assert(this._currentTest !== undefined, "current test is undefined");
+		console.assert(expectedExceptionType !== undefined, "expected error type undefined");
+		console.assert(typeof message === "string", "message should be a string");
+		this._beforeAssertion();
+		
+		var typeName = expectedExceptionType.name;
+		try {
+			code();
+		} catch (error) {
+			if (error.name === typeName) {
+				return;
+			}
+			var caughtType = error.name || typeof error;
+			this._brokenAssertion("expected exception of type '" + typeName + "', caught '" + caughtType + "' '" + message + "'");
+			return;
+		}
+		this._brokenAssertion("exception of type '" + typeName + "' not thrown, '" + message + "'");
+	},
 
 	// collecting errors during unit test run
 	_currentTest: undefined,
