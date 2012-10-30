@@ -59,11 +59,16 @@ One can use *amdefine* package to simulate define/require features in place of N
 modules. See [require js](http://requirejs.org/docs/node.html#nodeModules "requirejs.org with AMD")
 
 **gt** supports unit testing these modules
+
 	C:\git\gt\examples\requirejs>node c:\git\gt\gt.js ./examples/requirejs/test/RectangleTest
 
 Unfortunately, JS code coverage using *istanbul* is not working in these situations yet.
 
 ## Changes
+
+* 0.1.3 - added option to report only failed tests
+	-r 1 reports failed tests only
+	-r 0 (default) report all test results
 
 * 0.1.2 - added example that uses RequireJS module loading system.
 * 0.1.1 - moved code around.
