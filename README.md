@@ -68,6 +68,7 @@ Unfortunately, JS code coverage using *istanbul* is not working in these situati
 
 * 0.1.4 
 		- added raises(function, expected error type, message) support
+		
 		- you can run multiple tests at once, just list all test modules
 		*note* to pass parameters to **gt** from istanbul use *--* and then list arguments, for example
 		
