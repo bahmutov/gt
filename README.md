@@ -53,8 +53,19 @@ Create JS coverage by executing the next command (assuming *istanbul* is install
 
 Sample coverage output [image](gt/blob/master/examples/coverage.png "Coverage page screenshot")
 
+## RequireJS example
+
+One can use *amdefine* package to simulate define/require features in place of Node
+modules. See [require js](http://requirejs.org/docs/node.html#nodeModules "requirejs.org with AMD")
+
+**gt** supports unit testing these modules
+	C:\git\gt\examples\requirejs>node c:\git\gt\gt.js ./examples/requirejs/test/RectangleTest
+
+Unfortunately, JS code coverage using *istanbul* is not working in these situations yet.
+
 ## Changes
 
+* 0.1.2 - added example that uses RequireJS module loading system.
 * 0.1.1 - moved code around.
 * 0.1.0 - refactored code into separate modules for storing / running code.
 * 0.0.9 - added custom logger with different verbosity levels, use -l option.

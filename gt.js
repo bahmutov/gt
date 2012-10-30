@@ -27,7 +27,8 @@ log.debug("log level", logMode);
 global.log = log;
 
 var testModuleName = args._[0];
- 
+
+log.debug("dir name", __dirname); 
 log.debug("importing test reporter module");
 var Reporter = require("./src/Reporter").Reporter;
 console.assert(Reporter, "Reporter is undefined");
