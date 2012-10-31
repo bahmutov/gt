@@ -43,6 +43,7 @@ test("get N '='", function () {
 ```
 
 Create unit test report
+
 	C:\git\gt>node gt.js ./examples/tests.js
 
 Sample output [image](gt/blob/master/examples/example.png "Console screenshot")
@@ -87,12 +88,13 @@ Unfortunately, JS code coverage using *istanbul* is not working in these situati
 * 0.1.2 - added example that uses RequireJS module loading system.
 * 0.1.1 - moved code around.
 * 0.1.0 - refactored code into separate modules for storing / running code.
-* 0.0.9
-    * added custom logger with different verbosity levels, use -l option.
-    * -l 0 prints debug messages, verbose
-    * -l 1 is the standard output
-    * -l 2 prints warnings
-    * -l 3 prints errors only
+* 0.0.9 - added custom logger with different verbosity levels, use -l option.
+
+    -l 0 prints debug messages, verbose
+    -l 1 is the standard output
+    -l 2 prints warnings
+    -l 3 prints errors only
+
 * 0.0.8 - added incomplete tests (using number of expected assertions)
 * 0.0.7 - handle crashes inside test code, report them.
 * 0.0.6 - run unit tests using npm commands

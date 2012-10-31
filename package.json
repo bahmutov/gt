@@ -8,11 +8,10 @@
     "url": "https://github.com/bahmutov/gt.git"
   },
   "keywords": [
-    "testing",
-    "unit testing",
-    "js",
-    "coverage",
-    "code coverage"
+    "testing", "unit test", "unit testing",
+    "js", "javascript",
+    "coverage", "code coverage", 
+    "istanbul", "qunit"
   ],
   "dependencies": {
     "cli-color": "*",
