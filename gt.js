@@ -30,7 +30,9 @@ log.config({
 log.debug("log level", logMode);
 global.log = log;
 
-log.debug("dir name", __dirname); 
+log.debug("module dir name", __dirname); 
+var currDirname = process.cwd();
+log.debug("working dir name", currDirname);
 
 log.debug("importing test reporter module, level", reporterLevel);
 switch (reporterLevel) {
@@ -70,10 +72,13 @@ var coverage = require("./coverage");
 var verboseCoverageHook = false;
 coverage.hookRequire(verboseCoverageHook);
 
+var path = require("path");
 var k;
 for (k = 0; k < args._.length; k += 1) {
 	var testModuleName = args._[k];
+	testModuleName = path.resolve(testModuleName);
 	log.log("will add code coverage for", testModuleName);
+	args._[k] = testModuleName;
 	coverage.addInstrumentCandidate(testModuleName);
 }
 

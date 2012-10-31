@@ -71,6 +71,11 @@ The MIT License, see [*MIT-License.txt*](gt/blob/master/MIT-License.txt "MIT-Lic
 
 ## Vesion history
 
+* 0.1.9 - added test module resolution, so relative paths work well. 
+This will compute test results and js coverage for all local modules including unit tests themselves.
+
+		gt example\basic\tests.js example\basic\something.js ...
+
 * 0.1.8 - every module required that does not come from *node_modules* 
 folder will be instrumented. Coverage results will be written into folder *cover*
 
