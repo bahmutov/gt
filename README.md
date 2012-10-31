@@ -65,7 +65,11 @@ modules. See [require js](http://requirejs.org/docs/node.html#nodeModules "requi
 
 Unfortunately, JS code coverage using *istanbul* is not working in these situations yet.
 
-## Changes
+## License
+
+The MIT License, see *MIT-License.txt*
+
+## Vesion history
 
 * 0.1.6 - Global install of **gt** is working.
 
