@@ -1,4 +1,4 @@
-Copyright 2012 Gleb Bahmutov
+Copyright 2012 Gleb Bahmutov <gleb.bahmutov@gmail.com>
 http://github.com/bahmutov/gt
 
 Permission is hereby granted, free of charge, to any person obtaining

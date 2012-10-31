@@ -67,7 +67,7 @@ Unfortunately, JS code coverage using *istanbul* is not working in these situati
 
 ## License
 
-The MIT License, see *MIT-License.txt*
+The MIT License, see [*MIT-License.txt*](gt/blob/master/MIT-License.txt "MIT-License.txt")
 
 ## Vesion history
 
