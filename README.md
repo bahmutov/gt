@@ -66,26 +66,27 @@ Unfortunately, JS code coverage using *istanbul* is not working in these situati
 
 ## Changes
 
-* 0.1.4 
-** added raises(function, expected error type, message) support
-** you can run multiple tests at once, just list all test modules
-
-*note* to pass parameters to **gt** from istanbul use *--* and then list arguments, for example
+* 0.1.4
+    * added raises(function, expected error type, message) support
+    * you can run multiple tests at once, just list all test modules
+    * *note* to pass parameters to **gt** from istanbul use *--* and then list arguments, for example
+				
+				C:\git\gt>istanbul cover gt.js ./examples/exceptionTests ./examples/tests -- -r 1
 		
-		C:\git\gt>istanbul cover gt.js ./examples/exceptionTests ./examples/tests -- -r 1
-		
-* 0.1.3 - added option to report only failed tests
-** -r 1 reports failed tests only
-** -r 0 (default) report all test results
+* 0.1.3
+    * added option to report only failed tests
+    * -r 1 reports failed tests only
+    * -r 0 (default) report all test results
 
 * 0.1.2 - added example that uses RequireJS module loading system.
 * 0.1.1 - moved code around.
 * 0.1.0 - refactored code into separate modules for storing / running code.
-* 0.0.9 - added custom logger with different verbosity levels, use -l option.
-** -l 0 prints debug messages, verbose
-** -l 1 is the standard output
-** -l 2 prints warnings
-** -l 3 prints errors only
+* 0.0.9
+    * added custom logger with different verbosity levels, use -l option.
+    * -l 0 prints debug messages, verbose
+    * -l 1 is the standard output
+    * -l 2 prints warnings
+    * -l 3 prints errors only
 * 0.0.8 - added incomplete tests (using number of expected assertions)
 * 0.0.7 - handle crashes inside test code, report them.
 * 0.0.6 - run unit tests using npm commands
