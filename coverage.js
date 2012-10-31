@@ -48,10 +48,13 @@ function addInstrumentCandidate(file) {
  * @param verbose true for debug messages
  */
 function hookRequire(verbose) {
-
+		// match local files, but not installed modules
     var matchFn = function (file) {
-        var match = fileMap[file],
-            what = match ? 'Hooking ' : 'NOT hooking ';
+        var match = fileMap[file];
+				if (!match) {
+					match = !file.match(/node_modules/);
+				}
+        var what = match ? 'Hooking ' : 'NOT hooking ';
         if (verbose) { console.log(what + file); }
         return match;
     }, transformFn = instrumenter.instrumentSync.bind(instrumenter);

@@ -71,6 +71,9 @@ The MIT License, see [*MIT-License.txt*](gt/blob/master/MIT-License.txt "MIT-Lic
 
 ## Vesion history
 
+* 0.1.8 - every module required that does not come from *node_modules* 
+folder will be instrumented. Coverage results will be written into folder *cover*
+
 * 0.1.7 - added running istanbul as a module to gt. 
 Still need to figure out how to determine which files to instrument!
 
