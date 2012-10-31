@@ -24,5 +24,6 @@
   "scripts" : { 
     "test": "node gt tests",
     "cover": "istanbul cover gt tests"
-  }
+  },
+  "license": "MIT"
 }
