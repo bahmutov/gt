@@ -27,9 +27,9 @@ Compatible with istanbul JS coverage tool
 
 ## Example
 
-A simple example is in [examples subfolder](gt/tree/master/examples "gt Examples")
+A simple example is in [examples subfolder](gt/tree/master/examples/basic "gt Examples")
 
-Unit tests
+Unit tests follow QUnit approach.
 
 ```javascript
 test("get N '='", function () {
@@ -44,13 +44,13 @@ test("get N '='", function () {
 
 Create unit test report
 
-	C:\git\gt>node gt.js ./examples/tests.js
+	C:\git\gt>node gt ./examples/basic/tests ./examples/basic/exceptionTests
 
 Sample output [image](gt/blob/master/examples/example.png "Console screenshot")
 
 Create JS coverage by executing the next command (assuming *istanbul* is installed)
 
-	C:\git\gt>istanbul cover gt.js ./examples/tests.js
+	C:\git\gt>istanbul cover gt.js ./examples/basic/tests.js
 
 Sample coverage output [image](gt/blob/master/examples/coverage.png "Coverage page screenshot")
 
