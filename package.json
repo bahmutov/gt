@@ -1,6 +1,6 @@
 {
   "name": "gt",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Simple javascript unit testing framework, similar to QUnit",
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
   "repository": {
@@ -21,9 +21,16 @@
     "custom-logger": "*"
   },
   "main": "gt",
+  "engines": {
+    "node": "0.8"
+  },
   "scripts" : { 
     "test": "node gt tests",
     "cover": "istanbul cover gt tests"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "preferGlobal": "true",
+  "bin": {
+    "filesearch" : "gt.js"
+  }
 }

@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 var log = require("custom-logger");
 
 var args = require("optimist").argv,
