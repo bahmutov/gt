@@ -66,6 +66,11 @@ Unfortunately, JS code coverage using *istanbul* is not working in these situati
 
 ## Changes
 
+* 0.1.6 - Global install of **gt** is working.
+
+		npm i -g gt
+		gt <test module full path>
+
 * 0.1.5 - trying to install gt as bin node tool
 * 0.1.4
     * added raises(function, expected error type, message) support
