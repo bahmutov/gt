@@ -90,10 +90,12 @@ Unfortunately, JS code coverage using *istanbul* is not working in these situati
 * 0.1.0 - refactored code into separate modules for storing / running code.
 * 0.0.9 - added custom logger with different verbosity levels, use -l option.
 
+```shell
     -l 0 prints debug messages, verbose
     -l 1 is the standard output
     -l 2 prints warnings
     -l 3 prints errors only
+```
 
 * 0.0.8 - added incomplete tests (using number of expected assertions)
 * 0.0.7 - handle crashes inside test code, report them.
