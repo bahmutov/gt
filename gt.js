@@ -65,7 +65,19 @@ global.ok = TestRunner.ok.bind(TestRunner);
 global.expect = TestRunner.expect.bind(TestRunner);
 global.raises = TestRunner.raises.bind(TestRunner);
 
-for (var k = 0; k < args._.length; k += 1) {
+// var path = require("path");
+var coverage = require("./coverage");
+var verboseCoverageHook = false;
+coverage.hookRequire(verboseCoverageHook);
+
+var k;
+for (k = 0; k < args._.length; k += 1) {
+	var testModuleName = args._[k];
+	log.log("will add code coverage for", testModuleName);
+	coverage.addInstrumentCandidate(testModuleName);
+}
+
+for (k = 0; k < args._.length; k += 1) {
 	var testModuleName = args._[k];
 	log.debug("loading module with unit tests", testModuleName);
 	try {
@@ -80,6 +92,11 @@ for (var k = 0; k < args._.length; k += 1) {
 log.debug("loaded", TestCollection.getNumberOfTests(), "tests from '" + testModuleName + "'");
 console.log();
 
+process.once("exit", function () {
+	console.log("writing code coverage");
+	coverage.writeReports("cover");
+});
+
 // todo: replace with mixin
 TestRunner._tests = TestCollection._tests;
 TestRunner.runTests();
@@ -87,4 +104,5 @@ TestRunner.runTests();
 console.log();
 var failedTestNumber = Reporter.log(TestCollection._tests);
 console.assert(typeof failedTestNumber === "number", "reporter has not returned number of failed tests");
+log.debug(failedTestNumber, "tests failed");
 process.exit(failedTestNumber);
