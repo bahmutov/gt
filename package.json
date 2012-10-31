@@ -3,6 +3,17 @@
   "version": "0.1.4",
   "description": "Simple javascript unit testing framework, similar to QUnit",
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bahmutov/gt.git"
+  },
+  "keywords": [
+    "testing",
+    "unit testing",
+    "js",
+    "coverage",
+    "code coverage"
+  ],
   "dependencies": {
     "cli-color": "*",
     "sprintf": "*",
