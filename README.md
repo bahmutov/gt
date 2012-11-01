@@ -8,22 +8,13 @@ Simple JS unit testing framework similar to QUnit.
 
 ## Install and run
 
-**gt** requires *nodejs* and a few modules to run.
+**gt** requires *nodejs* and a few modules to run. Assuming you wrote a few qunit tests in tests.js:
 
-	npm install
+	npm install -g gt
+	gt tests.js
 
-npm application will look through the *package.json* and will install all necessary modules.
-
-```shell
-node gt ./tests.js -l 0
-
-options:
-	-l debug level: 0 = debug, 1 = standard, 2 = warnings, 3 = errors
-```
-
-Compatible with istanbul JS coverage tool
-
-	istanbul cover gt.js ./tests.js -- -l 0
+	options:
+		-l debug level: 0 = debug, 1 = standard, 2 = warnings, 3 = errors
 
 ## Example
 
