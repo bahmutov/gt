@@ -30,8 +30,15 @@ function _log(tests) {
 			return;
 		}
 		
-		var message = sprintf("%-50s : %3d%% (%d / %d)", info, percent, good, total, failed);
-		var fullMessage = sprintf("%-60s : %s", message, status);
+		var message = "";
+		
+		if (test && test.module) {
+			message = sprintf("%-70s : %3d%% (%d / %d)", test.module + ':' + info, percent, good, total, failed);
+		} else {
+			message = sprintf("%-70s : %3d%% (%d / %d)", info, percent, good, total, failed);
+		}
+		
+		var fullMessage = sprintf("%-90s : %s", message, status);
 		
 		var color = (failed > 0 ? fail : success);
 		if (test) {
@@ -44,7 +51,8 @@ function _log(tests) {
 		console.log(color(fullMessage));
 	}
 
-	console.log(centerMessage(80, "Failed Tests"));
+	var lineLength = 100;
+	console.log(centerMessage(lineLength, "Failed Tests"));
 	// console.dir(_tests);
 
 	var totalTests = 0;
@@ -66,7 +74,7 @@ function _log(tests) {
 		}
 	};
 
-	console.log(centerMessage(80));
+	console.log(centerMessage(lineLength));
 	var good = totalTests - totalFailedTests;
 	var percent = (totalTests === 0 ? 100 : good / totalTests * 100);
 

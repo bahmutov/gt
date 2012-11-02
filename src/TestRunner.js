@@ -16,6 +16,7 @@ var TestRunner = {
 					test.hasCrashed = true;
 				}
 				log.debug("finished test '" + testName + "'", this._currentTest.assertions + " assertions,", this._currentTest.broken, "broken");
+				this._afterTest();
 			}
 		}
 	},
@@ -41,10 +42,6 @@ var TestRunner = {
 		console.assert(this._currentTest !== undefined, "current test is undefined");
 		console.assert(numberOfAssertions >= 0, "invalid number of expected assertion", numberOfAssertions, "test", this._currentTest.name);
 		this._currentTest.expected = numberOfAssertions;
-	},
-
-	module: function (name) {
-		log.log("module '" + name + "'");
 	},
 	
 	raises: function(code, expectedExceptionType, message) {
@@ -79,6 +76,10 @@ var TestRunner = {
 		console.assert(typeof test.code === "function", name, "should have code");
 		this._currentTest = test;
 		return test;
+	},
+	
+	_afterTest: function () {
+		this._currentTest = undefined;
 	},
 
 	_beforeAssertion: function () {

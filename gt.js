@@ -60,8 +60,10 @@ console.assert(TestRunner, "cannot find TestRunner");
 
 log.debug("binding methods to preserve original object information in global invocations");
 console.assert(typeof Function.prototype.bind === "function", "bind is unavailable!");
+
 global.test = TestCollection.add.bind(TestCollection);
-global.moduleName = TestRunner.module.bind(TestRunner);
+global.moduleName = TestCollection.module.bind(TestCollection);
+
 global.deepEqual = global.equal = TestRunner.equal.bind(TestRunner);
 global.ok = TestRunner.ok.bind(TestRunner);
 global.expect = TestRunner.expect.bind(TestRunner);

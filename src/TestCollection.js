@@ -10,8 +10,16 @@ var TestCollection = {
 			assertions: 0,
 			broken: 0,
 			expected: undefined,
-			hasCrashed: false
+			hasCrashed: false,
+			module: this._moduleName
 		};
+		// log.debug("added test", name, "module", this._moduleName);
+	},
+	
+	module: function (name) {
+		console.assert(name && (typeof name === "string"), "module name should be a string");
+		log.log("module '" + name + "'");
+		this._moduleName = name;
 	},
 	
 	getNumberOfTests: function () {
