@@ -1,16 +1,18 @@
 // #! /usr/bin/env node
 var log = require("custom-logger");
 
-var args = require("optimist").argv,
-		help = "run just tests:\n\tnode gt <test module1, module2, ...> \n\
-run tests and coverage:\n\tistanbul cover gt <test module> \n\
-example:\n\tnode gt tests.js \n\
-options: \n\
-\t-l <log level>, from 0 (debug) - 3 (errors only) \n\
-\t-r <reporter level>, 0 (all tests) - 1 (failed tests only)";
+var optimist = require("optimist");
+var args = optimist.usage("JS unit testing and coverage in a single shot.\nUsage: $0")
+		.default({l: 1, r: 0, h: 0})
+		.alias('l', 'log')
+		.alias('r', 'report')
+		.alias('h', 'help')
+		.describe('l', "log level, 0 - debug, 1 - normal, 2 - warnings, 3 - errors only")
+		.describe('r', "report level, 0 - all test results, 1 - failed tests only")
+		.argv;
 
 if (args.h || args.help || !args._.length) {
-	console.log(help);
+	console.log(optimist.showHelp());
 	process.exit(0);
 }
 
