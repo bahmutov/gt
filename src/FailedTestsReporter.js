@@ -33,7 +33,7 @@ function _log(tests) {
 		var message = "";
 		
 		if (test && test.module) {
-			message = sprintf("%-70s : %3d%% (%d / %d)", test.module + ':' + info, percent, good, total, failed);
+			message = sprintf("%-70s : %3d%% (%d / %d)", test.module + ': ' + info, percent, good, total, failed);
 		} else {
 			message = sprintf("%-70s : %3d%% (%d / %d)", info, percent, good, total, failed);
 		}

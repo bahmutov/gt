@@ -62,6 +62,8 @@ The MIT License, see [*MIT-License.txt*](gt/blob/master/MIT-License.txt "MIT-Lic
 
 ## Vesion history
 
+* 0.2.0 - better reporting, including module name
+
 * 0.1.9 - added test module resolution, so relative paths work well. 
 This will compute test results and js coverage for all local modules including unit tests themselves.
 
