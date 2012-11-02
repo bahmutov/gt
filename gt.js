@@ -1,8 +1,8 @@
-#! /usr/bin/env node
+// #! /usr/bin/env node
 var log = require("custom-logger");
 
 var args = require("optimist").argv,
-	help = "run just tests:\n\tnode gt <test module1, module2, ...> \n\
+		help = "run just tests:\n\tnode gt <test module1, module2, ...> \n\
 run tests and coverage:\n\tistanbul cover gt <test module> \n\
 example:\n\tnode gt tests.js \n\
 options: \n\
@@ -14,10 +14,13 @@ if (args.h || args.help || !args._.length) {
 	process.exit(0);
 }
 
+var coverage = require("./lib/coverage");
+var verboseCoverageHook = false;
+
 var logMode = (typeof args.l === "number" ? args.l : 1);
 var reporterLevel = (typeof args.r === "number" ? args.r : 0);
 
-log.new({
+log["new"]({
 	debug: { level: 0, event: "debug", color: "yellow" },
 	log: { level: 1, event: "log" },
 	warn: { level: 2, event: "warn", color: "orange" },
@@ -30,7 +33,7 @@ log.config({
 log.debug("log level", logMode);
 global.log = log;
 
-log.debug("module dir name", __dirname); 
+log.debug("module dir name", __dirname);
 var currDirname = process.cwd();
 log.debug("working dir name", currDirname);
 
@@ -68,13 +71,10 @@ global.deepEqual = global.equal = TestRunner.equal.bind(TestRunner);
 global.ok = TestRunner.ok.bind(TestRunner);
 global.expect = TestRunner.expect.bind(TestRunner);
 global.raises = TestRunner.raises.bind(TestRunner);
-global.notDeepEqual = function() {
+global.notDeepEqual = function () {
 	return !global.deepEqual(arguments);
-}
+};
 
-// var path = require("path");
-var coverage = require("./coverage");
-var verboseCoverageHook = false;
 coverage.hookRequire(verboseCoverageHook);
 
 var path = require("path");
@@ -107,7 +107,6 @@ process.once("exit", function () {
 	coverage.writeReports("cover");
 });
 
-// todo: replace with mixin
 TestRunner._tests = TestCollection._tests;
 TestRunner.runTests();
 
