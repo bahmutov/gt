@@ -3,10 +3,11 @@ var log = require("custom-logger");
 
 var optimist = require("optimist");
 var args = optimist.usage("JS unit testing and coverage in a single shot.\nUsage: $0")
-		.default({l: 1, r: 0, h: 0})
-		.alias('l', 'log')
-		.alias('r', 'report')
-		.alias('h', 'help')
+		.default({
+			log: 1,
+			report: 0,
+			help: 0
+		}).alias('l', 'log').alias('r', 'report').alias('h', 'help')
 		.describe('l', "log level, 0 - debug, 1 - normal, 2 - warnings, 3 - errors only")
 		.describe('r', "report level, 0 - all test results, 1 - failed tests only")
 		.argv;
@@ -17,7 +18,6 @@ if (args.h || args.help || !args._.length) {
 }
 
 var coverage = require("./lib/coverage");
-var verboseCoverageHook = false;
 
 var logMode = (typeof args.l === "number" ? args.l : 1);
 var reporterLevel = (typeof args.r === "number" ? args.r : 0);
@@ -40,18 +40,19 @@ var currDirname = process.cwd();
 log.debug("working dir name", currDirname);
 
 log.debug("importing test reporter module, level", reporterLevel);
+var Reporter;
 switch (reporterLevel) {
 case 0:
 	log.debug("using standard reporter of all tests");
-	var Reporter = require("./src/Reporter").Reporter;
+	Reporter = require("./src/Reporter").Reporter;
 	break;
 case 1:
 	log.debug("using reporter of failed tests only");
-	var Reporter = require("./src/FailedTestsReporter").Reporter;
+	Reporter = require("./src/FailedTestsReporter").Reporter;
 	break;
 default:
 	log.debug("using standard reporter of all tests");
-	var Reporter = require("./src/Reporter").Reporter;
+	Reporter = require("./src/Reporter").Reporter;
 }
 console.assert(Reporter, "Reporter is undefined, level", reporterLevel);
 
@@ -77,31 +78,25 @@ global.notDeepEqual = function () {
 	return !global.deepEqual(arguments);
 };
 
-coverage.hookRequire(verboseCoverageHook);
+function installCoverage(testModules) {
+	var verboseCoverageHook = false;
+	coverage.hookRequire(verboseCoverageHook);
 
-var path = require("path");
-var k;
-for (k = 0; k < args._.length; k += 1) {
-	var testModuleName = args._[k];
-	testModuleName = path.resolve(testModuleName);
-	log.log("will add code coverage for", testModuleName);
-	args._[k] = testModuleName;
-	coverage.addInstrumentCandidate(testModuleName);
-}
+	var path = require("path");
+	var k;
+	var testModuleName;
 
-for (k = 0; k < args._.length; k += 1) {
-	var testModuleName = args._[k];
-	log.debug("loading module with unit tests", testModuleName);
-	try {
-		require(testModuleName);
-	} catch (errors) {
-		console.error(errors);
-		console.log();
-		console.log(help);
-		process.exit(1);
+	for (k = 0; k < testModules.length; k += 1) {
+		testModuleName = testModules[k];
+		testModuleName = path.resolve(testModuleName);
+		log.log("will add code coverage for", testModuleName);
+		testModules[k] = testModuleName;
+		coverage.addInstrumentCandidate(testModuleName);
 	}
 }
-log.debug("loaded", TestCollection.getNumberOfTests(), "tests from '" + testModuleName + "'");
+
+installCoverage(args._);
+TestCollection.collectTests(args._);
 console.log();
 
 process.once("exit", function () {

@@ -1,6 +1,8 @@
 ## Vesion history
 
 * 0.2.1 - better usage message using *optimist* module
+Refactored main method for clarity and jslint
+
 * 0.2.0 - better reporting, including module name
 
 * 0.1.9 - added test module resolution, so relative paths work well. 
