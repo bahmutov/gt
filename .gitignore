@@ -2,3 +2,5 @@
 /coverage
 /examples/coverage
 /cover
+/.idea
+/examples/basic/cover
