@@ -62,10 +62,13 @@ log.debug("binding methods to preserve original object information in global inv
 console.assert(typeof Function.prototype.bind === "function", "bind is unavailable!");
 global.test = TestCollection.add.bind(TestCollection);
 global.moduleName = TestRunner.module.bind(TestRunner);
-global.equal = TestRunner.equal.bind(TestRunner);
+global.deepEqual = global.equal = TestRunner.equal.bind(TestRunner);
 global.ok = TestRunner.ok.bind(TestRunner);
 global.expect = TestRunner.expect.bind(TestRunner);
 global.raises = TestRunner.raises.bind(TestRunner);
+global.notDeepEqual = function() {
+	return !global.deepEqual(arguments);
+}
 
 // var path = require("path");
 var coverage = require("./coverage");
