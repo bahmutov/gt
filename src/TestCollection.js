@@ -1,5 +1,7 @@
+var Test = require("./Test").Test;
+
 var TestCollection = {
-	_tests: {},
+	_tests: [],
 
 	collectTests: function (moduleNames) {
 		console.assert(Array.isArray(moduleNames), "expected list of test modules");
@@ -24,6 +26,7 @@ var TestCollection = {
 	add: function (name, code) {
 		console.assert(this._tests, "this._tests is defined");
 
+		/*
 		this._tests[name] = {
 			name: name,
 			code: code,
@@ -33,6 +36,9 @@ var TestCollection = {
 			hasCrashed: false,
 			module: this._moduleName
 		};
+		*/
+		var test = new Test(name, code, this._moduleName);
+		this._tests.push(test);
 		// log.debug("added test", name, "module", this._moduleName);
 	},
 
@@ -43,7 +49,7 @@ var TestCollection = {
 	},
 
 	getNumberOfTests: function () {
-		return Object.keys(this._tests).length;
+		return this._tests.length;
 	}
 };
 
