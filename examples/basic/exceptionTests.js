@@ -1,4 +1,4 @@
-if (typeof moduleName === "undefined") {
+if ("undefined" === typeof moduleName) {
 	moduleName = module;
 }
 

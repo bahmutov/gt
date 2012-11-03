@@ -108,7 +108,15 @@ TestRunner._tests = TestCollection._tests;
 TestRunner.runTests();
 
 console.log();
+
+/*
 var failedTestNumber = Reporter.log(TestCollection._tests);
 console.assert(typeof failedTestNumber === "number", "reporter has not returned number of failed tests");
-log.debug(failedTestNumber, "tests failed");
-process.exit(failedTestNumber);
+*/
+Reporter.log(TestCollection._tests);
+
+var failedTests = TestCollection.getFailedTests();
+console.assert(Array.isArray(failedTests), "could not get failed tests", failedTests);
+
+log.log(TestCollection._tests.length - failedTests.length, " / ", TestCollection._tests.length, "tests passed");
+process.exit(failedTests.length);

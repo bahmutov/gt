@@ -10,6 +10,17 @@ var success = clc.greenBright;
 var crash = clc.magentaBright;
 var incomplete = clc.yellowBright;
 
+
+function _report(tests) {
+	console.assert(Array.isArray(tests), "tests is not an array");
+	var k;
+	for (k = 0; k < tests.length; k += 1) {
+		var test = tests[k];
+		var message = test.formMessage();
+		console.log(message);
+	}
+}
+
 function _log(tests) {
 	console.assert(tests, "tests is undefined");
 
@@ -89,5 +100,6 @@ function _log(tests) {
 }
 
 exports.Reporter = {
-	log: _log
+	// log: _log
+	log: _report
 };

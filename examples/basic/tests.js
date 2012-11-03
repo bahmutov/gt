@@ -3,7 +3,7 @@ console.assert(typeof equal === "function", "equal is undefined");
 console.assert(typeof ok === "function", "ok is undefined");
 console.assert(typeof expect === "function", "expect is undefined");
 
-if (typeof moduleName === "undefined") {
+if (moduleName === undefined) {
 	moduleName = module;
 }
 console.assert(typeof moduleName === "function", "module is undefined");
@@ -15,6 +15,15 @@ console.assert(typeof code.add === "function", "add is not defined");
 var add = code.add,
 	getLines = code.getLines,
 	centerMessage = code.centerMessage;
+
+test("comparing with undefined", function () {
+	expect(1);
+	if ("undefined" === typeof ffff) {
+		ok(true, "ffff is undefined");
+	} else {
+		ok(false, "ffff is defined!");
+	}
+});
 
 test("test without assertions", function () {
 	expect(0);
@@ -81,7 +90,7 @@ test("center message", function () {
 	equal(centerMessage(5, "a"), "= a =", "5 a");
 	equal(centerMessage(5, "aa"), " aa =", "5 aa");
 	equal(centerMessage(5, "a"), "= a =", "5 a");
-	
+
 	equal(centerMessage(1, ""), "=", "1 empty");
 	equal(centerMessage(2, ""), "==", "2 empty");
 	equal(centerMessage(5, ""), "=====", "5 empty");

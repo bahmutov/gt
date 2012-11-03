@@ -1,11 +1,12 @@
-function getLines (n) {
+function getLines(n) {
 	console.assert(n >= 0 && n < 200, "invalid number of characters", n);
 	if (n === 0) {
 		return "";
 	}
-	
+
 	var str = "";
-	for (var k = 0; k < n; k += 1) {
+	var k;
+	for (k = 0; k < n; k += 1) {
 		str += "=";
 	}
 	return str;
@@ -13,7 +14,7 @@ function getLines (n) {
 
 function centerMessage(n, message) {
 	console.assert(n > 0 && n < 200, "invalid number of characters", n);
-	
+
 	var str = '';
 	if (typeof message === "string" && message.length > 0) {
 		message = ' ' + message + ' ';
@@ -37,7 +38,7 @@ function centerMessage(n, message) {
 	} else {
 		str = getLines(n);
 	}
-	
+
 	console.assert(str.length === n, "need string with", n, "characters, got", str.length, "string '" + str + "'");
 	return str;
 }

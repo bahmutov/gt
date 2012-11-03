@@ -25,21 +25,8 @@ var TestCollection = {
 
 	add: function (name, code) {
 		console.assert(this._tests, "this._tests is defined");
-
-		/*
-		this._tests[name] = {
-			name: name,
-			code: code,
-			assertions: 0,
-			broken: 0,
-			expected: undefined,
-			hasCrashed: false,
-			module: this._moduleName
-		};
-		*/
 		var test = new Test(name, code, this._moduleName);
 		this._tests.push(test);
-		// log.debug("added test", name, "module", this._moduleName);
 	},
 
 	module: function (name) {
@@ -50,6 +37,20 @@ var TestCollection = {
 
 	getNumberOfTests: function () {
 		return this._tests.length;
+	},
+
+	getFailedTests: function () {
+		console.assert(Array.isArray(this._tests), "tests are not defined");
+		var failedTests = [];
+
+		var k;
+		for (k = 0; k < this._tests.length; k += 1) {
+			var test = this._tests[k];
+			if (test.hasFailed()) {
+				failedTests.push(test);
+			}
+		}
+		return failedTests;
 	}
 };
 
