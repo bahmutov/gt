@@ -117,5 +117,9 @@ Reporter.log(TestCollection._tests);
 var failedTests = TestCollection.getFailedTests();
 console.assert(Array.isArray(failedTests), "could not get failed tests", failedTests);
 
-log.log(TestCollection._tests.length - failedTests.length, " / ", TestCollection._tests.length, "tests passed");
+var clc = require('cli-color');
+var color = (failedTests.length > 0 ? clc.redBright : clrc.greenBright);
+var goodTests = TestCollection._tests.length - failedTests.length;
+var percent = (TestCollection._tests.length > 0 ? goodTests / TestCollection._tests.length : 100) * 100;
+console.log(color(goodTests, " / ", TestCollection._tests.length, "(" + Math.round(percent) + "%) tests passed"));
 process.exit(failedTests.length);
