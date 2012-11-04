@@ -118,8 +118,8 @@ var failedTests = TestCollection.getFailedTests();
 console.assert(Array.isArray(failedTests), "could not get failed tests", failedTests);
 
 var clc = require('cli-color');
-var color = (failedTests.length > 0 ? clc.redBright : clrc.greenBright);
-var goodTests = TestCollection._tests.length - failedTests.length;
-var percent = (TestCollection._tests.length > 0 ? goodTests / TestCollection._tests.length : 100) * 100;
-console.log(color(goodTests, " / ", TestCollection._tests.length, "(" + Math.round(percent) + "%) tests passed"));
+var color = (failedTests.length > 0 ? clc.redBright : clc.greenBright);
+var percent = TestCollection.passedPercentage();
+var goodTests = TestCollection.getNumberOfTests() - failedTests.length;
+console.log(color(Math.round(percent) + "%", "(" + goodTests, "/", TestCollection.getNumberOfTests() + ") tests passed"));
 process.exit(failedTests.length);

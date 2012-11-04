@@ -51,6 +51,13 @@ var TestCollection = {
 			}
 		}
 		return failedTests;
+	},
+
+	passedPercentage: function () {
+		var failed = this.getFailedTests();
+		var goodTests = this._tests.length - failed.length;
+		var percent = (this._tests.length > 0 ? goodTests / this._tests.length : 100) * 100;
+		return percent;
 	}
 };
 
