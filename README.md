@@ -13,7 +13,7 @@ Simple JS unit testing framework similar to QUnit.
 	npm install -g gt
 	gt tests.js
 
-	options:
+	some of the options (-h for all):
 		-l <debug level> 0 = debug, 1 = default, 2 = warnings, 3 = errors
 		-r <report level> 0 = all (default), 1 = failed tests only
 
