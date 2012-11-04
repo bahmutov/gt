@@ -14,6 +14,21 @@ var ModuleTests = function (name) {
 		return this._tests.length;
 	};
 
+	this.getTests = function () {
+		return this._tests;
+	};
+
+	this.hasFailed = function () {
+		var k;
+		for (k = 0; k < this._tests.length; k += 1) {
+			var test = this._tests[k];
+			if (test.hasFailed()) {
+				return true;
+			}
+		}
+		return false;
+	};
+
 	this.getFailedTests = function () {
 		console.assert(Array.isArray(this._tests), "tests are not defined");
 		var failedTests = [];
@@ -26,6 +41,17 @@ var ModuleTests = function (name) {
 			}
 		}
 		return failedTests;
+	};
+
+	this.getPassedTests = function () {
+		var good = 0;
+		var k;
+		for (k = 0; k < this._tests.length; k += 1) {
+			if (!this._tests[k].hasFailed()) {
+				good += 1;
+			}
+		}
+		return good;
 	};
 
 	this.passedPercentage = function () {

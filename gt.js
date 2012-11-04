@@ -107,12 +107,13 @@ process.once("exit", function () {
 	coverage.writeReports(args.cover);
 });
 
-TestRunner._tests = TestCollection._tests;
+TestRunner._tests = TestCollection.getAllTests();
+console.assert(Array.isArray(TestRunner._tests), "could not get all tests");
 TestRunner.runTests();
 
 console.log();
 
-Reporter.log(TestCollection._tests);
+Reporter.log(TestCollection.modules);
 
 var failedTests = TestCollection.getFailedTests();
 console.assert(Array.isArray(failedTests), "could not get failed tests", failedTests);

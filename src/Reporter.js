@@ -7,11 +7,8 @@ var clc = require('cli-color');
 var Test = require("./Test").Test;
 console.assert("string" === typeof Test.PASS, "Test.PASS is undefined");
 
-function _report(tests) {
+function _reportTests(tests) {
 	console.assert(Array.isArray(tests), "tests is not an array");
-
-	var lineLength = 100;
-	console.log(centerMessage(lineLength, "Individual Test Results"));
 
 	var k;
 	for (k = 0; k < tests.length; k += 1) {
@@ -22,6 +19,26 @@ function _report(tests) {
 		var color = _statusColor(status);
 		console.assert("function" === typeof color, "could not get color for test status", test.status());
 		console.log(color(message));
+	}
+}
+
+function _report(modules) {
+	console.assert(Array.isArray(modules), "modules is not an array");
+
+	var lineLength = 100;
+	console.log(centerMessage(lineLength, "Individual Test Results"));
+
+	var k;
+	for (k = 0; k < modules.length; k += 1) {
+		var module = modules[k];
+		console.assert("string" === typeof module.name, "could not find name for module", k);
+		_reportTests(module.getTests());
+
+		var good = module.getPassedTests();
+		var total = module.getNumberOfTests();
+		var percentage = module.passedPercentage();
+		var color = (module.hasFailed() ? clc.redBright : clc.greenBright);
+		console.log(color(module.name  + ":", Math.round(percentage) + "% (" + good + "/" + total + ")"));
 	}
 
 	console.log(centerMessage(lineLength));

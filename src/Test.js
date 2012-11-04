@@ -54,11 +54,11 @@ var Test = function (name, code, moduleName) {
 		var percent = (this.assertions === 0 ? 100 : good / this.assertions * 100);
 
 		var message = "";
-		if ("string" === typeof this.module) {
-			message = sprintf("%-70s : %3d%% (%d / %d)", this.module + ': ' + this.name, percent, good, this.assertions);
-		} else {
-			message = sprintf("%-70s : %3d%% (%d / %d)", this.name, percent, good, this.assertions);
-		}
+		//if ("string" === typeof this.module) {
+		//	message = sprintf("%-70s : %3d%% (%d / %d)", this.module + ': ' + this.name, percent, good, this.assertions);
+		//} else {
+			message = sprintf("  %-70s : %3d%% (%d / %d)", this.name, percent, good, this.assertions);
+		//}
 
 		var status = this.status();
 		console.assert("string" === typeof status, "could not get status for", message);
