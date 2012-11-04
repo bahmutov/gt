@@ -6,10 +6,13 @@ var args = optimist.usage("JS unit testing and coverage in a single shot.\nUsage
 		.default({
 			log: 1,
 			report: 0,
-			help: 0
-		}).alias('l', 'log').alias('r', 'report').alias('h', 'help')
+			help: 0,
+			cover: "cover"
+		}).alias('l', 'log').alias('r', 'report').alias('h', 'help').alias('c', 'cover')
+		.string("cover")
 		.describe('l', "log level, 0 - debug, 1 - normal, 2 - warnings, 3 - errors only")
 		.describe('r', "report level, 0 - all test results, 1 - failed tests only")
+		.describe("cover", "output folder with coverage")
 		.argv;
 
 if (args.h || args.help || !args._.length) {
@@ -100,8 +103,8 @@ TestCollection.collectTests(args._);
 console.log();
 
 process.once("exit", function () {
-	console.log("writing code coverage");
-	coverage.writeReports("cover");
+	log.debug("writing code coverage to folder", args.cover);
+	coverage.writeReports(args.cover);
 });
 
 TestRunner._tests = TestCollection._tests;
@@ -109,10 +112,6 @@ TestRunner.runTests();
 
 console.log();
 
-/*
-var failedTestNumber = Reporter.log(TestCollection._tests);
-console.assert(typeof failedTestNumber === "number", "reporter has not returned number of failed tests");
-*/
 Reporter.log(TestCollection._tests);
 
 var failedTests = TestCollection.getFailedTests();

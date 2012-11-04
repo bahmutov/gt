@@ -34,15 +34,16 @@ var Test = function (name, code, moduleName) {
 	};
 
 	this.status = function () {
-		var status = "PASS";
+		console.assert("string" === typeof Test.PASS, "Test.PASS is undefined");
+		var status = Test.PASS;
 		if (this.hasFailed()) {
-			status = "FAIL";
+			status = Test.FAIL;
 		}
 		if (("undefined" !== typeof this.expected) && (this.expected !== this.assertions)) {
-			status = "INCOMPLETE";
+			status = Test.INCOMPLETE;
 		}
 		if (this.hasCrashed) {
-			status = "CRASH";
+			status = Test.CRASH;
 		}
 		return status;
 	};
@@ -59,9 +60,15 @@ var Test = function (name, code, moduleName) {
 			message = sprintf("%-70s : %3d%% (%d / %d)", this.name, percent, good, this.assertions);
 		}
 
-		var fullMessage = sprintf("%-90s : %s", message, this.status());
-		return fullMessage;
+		var status = this.status();
+		console.assert("string" === typeof status, "could not get status for", message);
+		return sprintf("%-90s : %s", message, this.status());
 	};
 };
+
+Test.PASS = "PASS";
+Test.FAIL = "FAIL";
+Test.CRASH = "CRASH";
+Test.INCOMPLETE = "INCOMPLETE";
 
 exports.Test = Test;
