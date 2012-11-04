@@ -7,12 +7,15 @@ var clc = require('cli-color');
 var Test = require("./Test").Test;
 console.assert("string" === typeof Test.PASS, "Test.PASS is undefined");
 
-function _reportTests(tests) {
+function _reportTests(tests, skipPassed) {
 	console.assert(Array.isArray(tests), "tests is not an array");
 
 	var k;
 	for (k = 0; k < tests.length; k += 1) {
 		var test = tests[k];
+		if (!test.hasFailed() && skipPassed) {
+			continue;
+		}
 		var message = test.formMessage();
 		var status = test.status();
 		console.assert("string" === typeof status, "could not get status", message);
@@ -22,7 +25,7 @@ function _reportTests(tests) {
 	}
 }
 
-function _report(modules) {
+function _report(modules, skipPassed) {
 	console.assert(Array.isArray(modules), "modules is not an array");
 
 	var lineLength = 100;
@@ -32,7 +35,7 @@ function _report(modules) {
 	for (k = 0; k < modules.length; k += 1) {
 		var module = modules[k];
 		console.assert("string" === typeof module.name, "could not find name for module", k);
-		_reportTests(module.getTests());
+		_reportTests(module.getTests(), skipPassed);
 
 		var good = module.getPassedTests();
 		var total = module.getNumberOfTests();

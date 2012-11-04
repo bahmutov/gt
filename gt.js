@@ -11,7 +11,7 @@ var args = optimist.usage("JS unit testing and coverage in a single shot.\nUsage
 		}).alias('l', 'log').alias('r', 'report').alias('h', 'help').alias('c', 'cover')
 		.string("cover")
 		.describe('l', "log level, 0 - debug, 1 - normal, 2 - warnings, 3 - errors only")
-		.describe('r', "report level, 0 - all test results, 1 - failed tests only")
+		.describe('r', "report level, 0 - all test results, 1 - skip passed tests")
 		.describe("cover", "output folder with coverage")
 		.argv;
 
@@ -23,7 +23,6 @@ if (args.h || args.help || !args._.length) {
 var coverage = require("./lib/coverage");
 
 var logMode = (typeof args.l === "number" ? args.l : 1);
-var reporterLevel = (typeof args.r === "number" ? args.r : 0);
 
 log["new"]({
 	debug: { level: 0, event: "debug", color: "yellow" },
@@ -42,22 +41,7 @@ log.debug("module dir name", __dirname);
 var currDirname = process.cwd();
 log.debug("working dir name", currDirname);
 
-log.debug("importing test reporter module, level", reporterLevel);
-var Reporter;
-switch (reporterLevel) {
-case 0:
-	log.debug("using standard reporter of all tests");
-	Reporter = require("./src/Reporter").Reporter;
-	break;
-case 1:
-	log.debug("using reporter of failed tests only");
-	Reporter = require("./src/FailedTestsReporter").Reporter;
-	break;
-default:
-	log.debug("using standard reporter of all tests");
-	Reporter = require("./src/Reporter").Reporter;
-}
-console.assert(Reporter, "Reporter is undefined, level", reporterLevel);
+var Reporter = require("./src/Reporter").Reporter;
 
 log.debug("importing test collection module");
 var TestCollection = require("./src/TestCollection").TestCollection;
@@ -113,7 +97,8 @@ TestRunner.runTests();
 
 console.log();
 
-Reporter.log(TestCollection.modules);
+log.debug("reporting test results, skipping passed tests?", args.r);
+Reporter.log(TestCollection.modules, args.r);
 
 var failedTests = TestCollection.getFailedTests();
 console.assert(Array.isArray(failedTests), "could not get failed tests", failedTests);
