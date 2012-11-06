@@ -106,6 +106,8 @@ console.assert(Array.isArray(failedTests), "could not get failed tests", failedT
 var clc = require('cli-color');
 var color = (failedTests.length > 0 ? clc.redBright : clc.greenBright);
 var percent = TestCollection.passedPercentage();
+console.assert(percent >= 0.0 && percent <= 100.0, "invalid tests passed percentage", percent);
+
 var goodTests = TestCollection.getNumberOfTests() - failedTests.length;
 console.log(color(Math.round(percent) + "%", "(" + goodTests, "/", TestCollection.getNumberOfTests() + ") tests passed"));
 process.exit(failedTests.length);

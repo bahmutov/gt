@@ -81,7 +81,7 @@ var TestCollection = {
 		var all = this.getNumberOfTests();
 		var failed = this.getFailedTests();
 		var goodTests = all - failed.length;
-		var percent = (all > 0 ? goodTests / all : 100) * 100;
+		var percent = (all > 0 ? goodTests / all * 100 : 100);
 		return percent;
 	}
 };

@@ -4,3 +4,5 @@
 /cover
 /.idea
 /examples/basic/cover
+/doc/JUnitResultsExample.xml
+/examples/requirejs/cover

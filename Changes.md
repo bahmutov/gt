@@ -1,5 +1,7 @@
 ## Vesion history
 
+* 0.2.2 - better require example using amdefine with working js code coverage
+
 * 0.2.1 - better usage message using *optimist* module
 Refactored main method for clarity and jslint
 
