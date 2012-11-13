@@ -7,12 +7,14 @@ var args = optimist.usage("JS unit testing and coverage in a single shot.\nUsage
 			log: 1,
 			report: 0,
 			help: 0,
-			cover: "cover"
+			cover: "cover",
+			xml: null
 		}).alias('l', 'log').alias('r', 'report').alias('h', 'help').alias('c', 'cover')
-		.string("cover")
+		.string("cover").string("xml")
 		.describe('l', "log level, 0 - debug, 1 - normal, 2 - warnings, 3 - errors only")
 		.describe('r', "report level, 0 - all test results, 1 - skip passed tests")
 		.describe("cover", "output folder with coverage")
+		.describe("xml", "output JUnit xml filename")
 		.argv;
 
 if (args.h || args.help || !args._.length) {
@@ -42,6 +44,7 @@ var currDirname = process.cwd();
 log.debug("working dir name", currDirname);
 
 var Reporter = require("./src/Reporter").Reporter;
+var JUnitReporter = require("./src/JUnitReporter").Reporter;
 
 log.debug("importing test collection module");
 var TestCollection = require("./src/TestCollection").TestCollection;
@@ -70,11 +73,8 @@ function installCoverage(testModules) {
 	coverage.hookRequire(verboseCoverageHook);
 
 	var path = require("path");
-	var k;
-	var testModuleName;
-
-	for (k = 0; k < testModules.length; k += 1) {
-		testModuleName = testModules[k];
+	for (var k = 0; k < testModules.length; k += 1) {
+		var testModuleName = testModules[k];
 		testModuleName = path.resolve(testModuleName);
 		log.log("will add code coverage for", testModuleName);
 		testModules[k] = testModuleName;
@@ -86,11 +86,6 @@ installCoverage(args._);
 TestCollection.collectTests(args._);
 console.log();
 
-process.once("exit", function () {
-	log.debug("writing code coverage to folder", args.cover);
-	coverage.writeReports(args.cover);
-});
-
 TestRunner._tests = TestCollection.getAllTests();
 console.assert(Array.isArray(TestRunner._tests), "could not get all tests");
 TestRunner.runTests();
@@ -99,6 +94,9 @@ console.log();
 
 log.debug("reporting test results, skipping passed tests?", args.r);
 Reporter.log(TestCollection.modules, args.r);
+if (args.xml) {
+	JUnitReporter.log(TestCollection.modules, args.xml);
+}
 
 var failedTests = TestCollection.getFailedTests();
 console.assert(Array.isArray(failedTests), "could not get failed tests", failedTests);
@@ -110,4 +108,8 @@ console.assert(percent >= 0.0 && percent <= 100.0, "invalid tests passed percent
 
 var goodTests = TestCollection.getNumberOfTests() - failedTests.length;
 console.log(color(Math.round(percent) + "%", "(" + goodTests, "/", TestCollection.getNumberOfTests() + ") tests passed"));
+
+log.debug("writing code coverage to folder", args.cover);
+coverage.writeReports(args.cover);
+
 process.exit(failedTests.length);
