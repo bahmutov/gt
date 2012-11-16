@@ -8,6 +8,7 @@ var Test = function (name, code, moduleName) {
 	this.expected = undefined;
 	this.hasCrashed = false;
 	this.module = moduleName;
+	this.messages = [];
 
 	this.check = function () {
 		console.assert(typeof this.name === "string", "test name should be a string");
@@ -16,6 +17,14 @@ var Test = function (name, code, moduleName) {
 		console.assert(typeof this.code === "function", this.name, "should have code");
 	};
 
+	this.errorMessage = function(msg) {
+		this.messages.push(msg);
+	};
+	
+	this.getMessages = function () {
+		return this.messages;
+	};
+	
 	this.hasFailed = function () {
 		if (this.broken > 0) {
 			log.debug(this.name, "has", this.broken, "broken assertions, failed");
@@ -49,7 +58,6 @@ var Test = function (name, code, moduleName) {
 	};
 
 	this.formMessage = function () {
-
 		var good = this.assertions - this.broken;
 		var percent = (this.assertions === 0 ? 100 : good / this.assertions * 100);
 

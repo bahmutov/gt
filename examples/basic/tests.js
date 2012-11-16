@@ -25,6 +25,13 @@ test("comparing with undefined", function () {
 	}
 });
 
+
+test("FAIL: several failed oks", function() {
+	ok(false, "ok 1 failed");
+	ok(false, "ok 2 failed");
+	ok(false, "ok 3 failed");
+});
+
 test("test without assertions", function () {
 	expect(0);
 });

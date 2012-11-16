@@ -27,7 +27,7 @@ var TestRunner = {
 		this._beforeAssertion();
 
 		if (a !== b) {
-			this._brokenAssertion("computed " + a + ", expected " + b + ", " + message);
+			this._brokenAssertion(a + " !== " + b + ", " + message);
 		}
 	},
 
@@ -80,7 +80,9 @@ var TestRunner = {
 	_brokenAssertion: function (message) {
 		console.assert(this._currentTest !== undefined, "current test is undefined");
 		this._currentTest.broken += 1;
-		console.error("ERROR in '" + this._currentTest.name + "', " + message);
+		var msg = "ERROR in '" + this._currentTest.name + "', " + message;
+		console.error(msg);
+		this._currentTest.errorMessage(msg);
 	}
 };
 
