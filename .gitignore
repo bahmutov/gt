@@ -6,3 +6,4 @@
 /examples/basic/cover
 /doc/JUnitResultsExample.xml
 /examples/requirejs/cover
+/examples/basic/*.xml
