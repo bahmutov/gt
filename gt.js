@@ -18,7 +18,7 @@ var args = optimist.usage("JS unit testing and coverage in a single shot.\nUsage
 		.argv;
 
 if (args.h || args.help || !args._.length) {
-	console.log(optimist.showHelp());
+	optimist.showHelp();
 	process.exit(0);
 }
 
