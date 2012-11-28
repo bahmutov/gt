@@ -1,8 +1,14 @@
 // #! /usr/bin/env node
-var log = require("custom-logger");
+try {
+	var log = require("custom-logger");
+} catch (err) {
+	console.error(err);
+	console.error('could not load custom logger, have you forgot to run npm install?');
+	process.exit(-1);
+}
 
 var optimist = require("optimist");
-var args = optimist.usage("JS unit testing and coverage in a single shot.\nUsage: $0")
+global.args = optimist.usage("JS unit testing and coverage in a single shot.\nUsage: $0")
 		.default({
 			log: 1,
 			report: 0,
@@ -17,15 +23,16 @@ var args = optimist.usage("JS unit testing and coverage in a single shot.\nUsage
 		.describe("xml", "output JUnit xml filename")
 		.argv;
 
-if (args.h || args.help || !args._.length) {
-	optimist.showHelp();
-	process.exit(0);
+if (!module.parent) {
+	if (args.h || args.help || !args._.length) {
+		optimist.showHelp();
+		process.exit(0);
+	}
 }
 
-var coverage = require("./lib/coverage");
+// var coverage = require("./lib/coverage");
 
 var logMode = (typeof args.l === "number" ? args.l : 1);
-
 log["new"]({
 	debug: { level: 0, event: "debug", color: "yellow" },
 	log: { level: 1, event: "log" },
@@ -43,6 +50,11 @@ log.debug("module dir name", __dirname);
 var currDirname = process.cwd();
 log.debug("working dir name", currDirname);
 
+var sure = require('./sure');
+console.assert(sure, 'loaded sure');
+console.log(sure);
+
+/*
 var Reporter = require("./src/Reporter").Reporter;
 var JUnitReporter = require("./src/JUnitReporter").Reporter;
 
@@ -83,33 +95,23 @@ function installCoverage(testModules) {
 }
 
 installCoverage(args._);
+*/
+
+sure.init();
+sure.collect();
+
+/*
 TestCollection.collectTests(args._);
 console.log();
+*/
 
+/*
 TestRunner._tests = TestCollection.getAllTests();
 console.assert(Array.isArray(TestRunner._tests), "could not get all tests");
 TestRunner.runTests();
 
 console.log();
-
-log.debug("reporting test results, skipping passed tests?", args.r);
-Reporter.log(TestCollection.modules, args.r);
-if (args.xml) {
-	JUnitReporter.log(TestCollection.modules, args.xml);
-}
-
-var failedTests = TestCollection.getFailedTests();
-console.assert(Array.isArray(failedTests), "could not get failed tests", failedTests);
-
-var clc = require('cli-color');
-var color = (failedTests.length > 0 ? clc.redBright : clc.greenBright);
-var percent = TestCollection.passedPercentage();
-console.assert(percent >= 0.0 && percent <= 100.0, "invalid tests passed percentage", percent);
-
-var goodTests = TestCollection.getNumberOfTests() - failedTests.length;
-console.log(color(Math.round(percent) + "%", "(" + goodTests, "/", TestCollection.getNumberOfTests() + ") tests passed"));
-
-log.debug("writing code coverage to folder", args.cover);
-coverage.writeReports(args.cover);
-
-process.exit(failedTests.length);
+*/
+sure.run();
+var failed = sure.report();
+process.exit(failed);
