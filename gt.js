@@ -30,8 +30,6 @@ if (!module.parent) {
 	}
 }
 
-// var coverage = require("./lib/coverage");
-
 var logMode = (typeof args.l === "number" ? args.l : 1);
 log["new"]({
 	debug: { level: 0, event: "debug", color: "yellow" },
@@ -51,67 +49,11 @@ var currDirname = process.cwd();
 log.debug("working dir name", currDirname);
 
 var sure = require('./sure');
-console.assert(sure, 'loaded sure');
-console.log(sure);
-
-/*
-var Reporter = require("./src/Reporter").Reporter;
-var JUnitReporter = require("./src/JUnitReporter").Reporter;
-
-log.debug("importing test collection module");
-var TestCollection = require("./src/TestCollection").TestCollection;
-console.assert(TestCollection, "TestCollection is undefined");
-
-log.debug("importing test runner module");
-var TestRunner = require("./src/TestRunner").TestRunner;
-console.assert(TestRunner, "cannot find TestRunner");
-
-log.debug("binding methods to preserve original object information in global invocations");
-console.assert(typeof Function.prototype.bind === "function", "bind is unavailable!");
-
-global.test = TestCollection.add.bind(TestCollection);
-global.moduleName = TestCollection.module.bind(TestCollection);
-
-global.deepEqual = global.equal = TestRunner.equal.bind(TestRunner);
-global.ok = TestRunner.ok.bind(TestRunner);
-global.expect = TestRunner.expect.bind(TestRunner);
-global.raises = TestRunner.raises.bind(TestRunner);
-global.notDeepEqual = function () {
-	return !global.deepEqual(arguments);
-};
-
-function installCoverage(testModules) {
-	var verboseCoverageHook = false;
-	coverage.hookRequire(verboseCoverageHook);
-
-	var path = require("path");
-	for (var k = 0; k < testModules.length; k += 1) {
-		var testModuleName = testModules[k];
-		testModuleName = path.resolve(testModuleName);
-		log.log("will add code coverage for", testModuleName);
-		testModules[k] = testModuleName;
-		coverage.addInstrumentCandidate(testModuleName);
-	}
-}
-
-installCoverage(args._);
-*/
+console.assert(typeof sure === "object", 'loaded sure module');
 
 sure.init();
 sure.collect();
-
-/*
-TestCollection.collectTests(args._);
-console.log();
-*/
-
-/*
-TestRunner._tests = TestCollection.getAllTests();
-console.assert(Array.isArray(TestRunner._tests), "could not get all tests");
-TestRunner.runTests();
-
-console.log();
-*/
 sure.run();
+
 var failed = sure.report();
 process.exit(failed);
