@@ -1,5 +1,7 @@
 ## Vesion history
 
+* 0.2.4 - made a separate module with gt's functionality
+
 * 0.2.3 - junit xml output, use --xml <filename> command line
 
 * 0.2.2 - better require example using amdefine with working js code coverage

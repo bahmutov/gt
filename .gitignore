@@ -7,3 +7,4 @@
 /doc/JUnitResultsExample.xml
 /examples/requirejs/cover
 /examples/basic/*.xml
+/examples/use-gt-as-module/cover
