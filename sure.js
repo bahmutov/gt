@@ -5,6 +5,12 @@ var config = {
 	cover: null // output cover folder name
 };
 
+if (typeof log === 'undefined') {
+	// if there is no custom logger (like custom-logger), do not show debug statements
+	global.log = console;
+	global.log.debug = function() {};
+}
+
 var coverage = require("./lib/coverage");
 var Reporter = require("./src/Reporter").Reporter;
 var JUnitReporter = require("./src/JUnitReporter").Reporter;
@@ -101,11 +107,11 @@ function reportFinalCount() {
 
 module.exports = {
 	init: init,
-	collect: collectTests,
-	run: runTests,
-	report: function () {
+	run: function () {
+		collectTests();
+		runTests();
 		writeReport();
 		writeCoverateReport();
-		return reportFinalCount();
+		return reportFinalCount();	
 	}
 };

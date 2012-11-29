@@ -52,8 +52,5 @@ var sure = require('./sure');
 console.assert(typeof sure === "object", 'loaded sure module');
 
 sure.init(args);
-sure.collect();
-sure.run();
-
-var failed = sure.report();
+var failed = sure.run();
 process.exit(failed);

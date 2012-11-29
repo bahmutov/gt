@@ -1,5 +1,7 @@
-var gt = require('../../gt');
-console.assert(gt, 'loaded gt');
-console.assert(typeof gt === 'object', 'gt is an object');
-
-console.log('loaded gt', gt);
+var gt = require('../../sure.js');
+gt.init({
+	files: ['fooTest.js']
+});
+var failed = gt.run();
+console.log(failed + ' tests failed');
+process.exit(failed);
