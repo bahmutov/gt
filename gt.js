@@ -8,7 +8,7 @@ try {
 }
 
 var optimist = require("optimist");
-global.args = optimist.usage("JS unit testing and coverage in a single shot.\nUsage: $0")
+args = optimist.usage("JS unit testing and coverage in a single shot.\nUsage: $0")
 		.default({
 			log: 1,
 			report: 0,
@@ -51,7 +51,7 @@ log.debug("working dir name", currDirname);
 var sure = require('./sure');
 console.assert(typeof sure === "object", 'loaded sure module');
 
-sure.init();
+sure.init(args);
 sure.collect();
 sure.run();
 

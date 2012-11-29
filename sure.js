@@ -1,4 +1,9 @@
-console.assert(args, "null args object");
+var config = {
+	files: [], // test files to process
+	xml: null, // output xml report filename, compatible with JUnit
+	reporter: 0, // reporter format
+	cover: null // output cover folder name
+};
 
 var coverage = require("./lib/coverage");
 var Reporter = require("./src/Reporter").Reporter;
@@ -6,7 +11,18 @@ var JUnitReporter = require("./src/JUnitReporter").Reporter;
 var TestCollection = require("./src/TestCollection").TestCollection;
 var TestRunner = require("./src/TestRunner").TestRunner;
 
-function init() {
+function initConfig(options) {
+	options = options || {};
+	config.files = options._ || options.files || config.files;
+	config.xml = options.xml || config.xml;
+	config.reporter = options.r || config.reporter;
+	config.cover = options.cover || config.cover;
+}
+
+function init(options) {
+	initConfig(options);
+	console.assert(config, "undefined config");
+
 	console.assert(TestCollection, "TestCollection is undefined");
 	console.assert(TestRunner, "cannot find TestRunner");
 
@@ -38,11 +54,12 @@ function init() {
 		}
 	}
 
-	installCoverage(args._);
+	installCoverage(config.files);
 }
 
 function collectTests() {
-	TestCollection.collectTests(args._);
+	console.assert(Array.isArray(config.files), "config files is not an arrya");
+	TestCollection.collectTests(config.files);
 	console.log();
 }
 
@@ -54,17 +71,17 @@ function runTests() {
 }
 
 function writeReport() {
-	log.debug("reporting test results, skipping passed tests?", args.r);
-	Reporter.log(TestCollection.modules, args.r);
-	if (args.xml) {
-		JUnitReporter.log(TestCollection.modules, args.xml);
+	log.debug("reporting test results, skipping passed tests?", config.reporter);
+	Reporter.log(TestCollection.modules, config.reporter);
+	if (config.xml) {
+		JUnitReporter.log(TestCollection.modules, config.xml);
 	}
 }
 
 function writeCoverateReport() {
-	if (args.cover && coverage) {
-		log.debug("writing code coverage to folder", args.cover);
-		coverage.writeReports(args.cover);
+	if (config.cover && coverage) {
+		log.debug("writing code coverage to folder", config.cover);
+		coverage.writeReports(config.cover);
 	}
 }
 
