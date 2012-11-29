@@ -47,6 +47,11 @@ function init(options) {
 	};
 
 	function installCoverage(testModules) {
+		console.assert(Array.isArray(testModules), "test modules is not an array");
+		if (testModules.length < 1) {
+			log.warn('empty list of test modules');
+			return;
+		}
 		var verboseCoverageHook = false;
 		coverage.hookRequire(verboseCoverageHook);
 
