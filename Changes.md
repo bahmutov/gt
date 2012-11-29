@@ -1,5 +1,7 @@
 ## Vesion history
 
+* 0.2.5 - added example of unit testing and code coverage for Dojo toolkit
+
 * 0.2.4 - made a separate module with gt's functionality
 
 * 0.2.3 - junit xml output, use --xml <filename> command line
