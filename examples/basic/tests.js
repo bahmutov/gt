@@ -25,6 +25,9 @@ test("comparing with undefined", function () {
 	}
 });
 
+test('arrays', function () {
+	aequal([1, 2, 3], [1, 2, 3], 'arrays should be equal');
+});
 
 test("FAIL: several failed oks", function() {
 	ok(false, "ok 1 failed");

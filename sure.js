@@ -39,6 +39,9 @@ function init(options) {
 	global.moduleName = TestCollection.module.bind(TestCollection);
 
 	global.deepEqual = global.equal = TestRunner.equal.bind(TestRunner);
+	global.aequal = function(array1, array2, message) {
+		global.equal(array1.toString(), array2.toString(), message);
+	};
 	global.ok = TestRunner.ok.bind(TestRunner);
 	global.expect = TestRunner.expect.bind(TestRunner);
 	global.raises = TestRunner.raises.bind(TestRunner);

@@ -55,6 +55,9 @@ var TestRunner = {
 		try {
 			code();
 		} catch (error) {
+			if (typeof error === expectedExceptionType) {
+				return;
+			}
 			if (error.name === typeName) {
 				return;
 			}
