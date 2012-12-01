@@ -1,5 +1,7 @@
 ## Vesion history
 
+* 0.2.7 - improved assertion tests for raised exceptions
+
 * 0.2.6 - refactored coverage from unit test module
 
 * 0.2.5 - added example of unit testing and code coverage for Dojo toolkit

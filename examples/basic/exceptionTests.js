@@ -16,6 +16,12 @@ test("CRASH: raises crashes without message", function () {
 	raises(function () {}, Error);
 });
 
+test('AssertionError', function () {
+	raisesAssertion(function () {
+		console.assert(false, 'this always raises assertion error');
+	}, 'should raise assertion error');
+});
+
 test("FAIL: catches if exception is not thrown", function () {
 	raises(function () {
 		return "foo";

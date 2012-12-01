@@ -42,6 +42,7 @@ function init(options) {
 	global.ok = TestRunner.ok.bind(TestRunner);
 	global.expect = TestRunner.expect.bind(TestRunner);
 	global.raises = TestRunner.raises.bind(TestRunner);
+	global.raisesAssertion = TestRunner.raisesAssertion.bind(TestRunner);
 	global.notDeepEqual = function () {
 		return !global.deepEqual(arguments);
 	};

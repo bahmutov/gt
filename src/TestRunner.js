@@ -55,7 +55,10 @@ var TestRunner = {
 		try {
 			code();
 		} catch (error) {
-			if (typeof error === expectedExceptionType) {
+			if (expectedExceptionType === typeof error) {
+				return;
+			}
+			if (error.name === expectedExceptionType) {
 				return;
 			}
 			if (error.name === typeName) {
@@ -67,6 +70,10 @@ var TestRunner = {
 		}
 		this._brokenAssertion("exception of type '" + typeName + "' not thrown, '" + message + "'");
 	},
+
+	raisesAssertion: function (code, message) {
+  	raises(code, 'AssertionError', message);
+  },
 
 	// collecting errors during unit test run
 	_currentTest: undefined,
