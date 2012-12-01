@@ -16,43 +16,29 @@ try {
 				report: 0,
 				help: 0,
 				cover: "cover",
-				xml: null
+				xml: null,
+				colors: true
 			}).alias('l', 'log').alias('r', 'report').alias('h', 'help').alias('c', 'cover')
 			.string("cover").string("xml")
+			.boolean("colors")
 			.describe('l', "log level, 0 - debug, 1 - normal, 2 - warnings, 3 - errors only")
 			.describe('r', "report level, 0 - all test results, 1 - skip passed tests")
 			.describe("cover", "output folder with coverage")
 			.describe("xml", "output JUnit xml filename")
+			.describe('colors', 'use terminal colors for output, might not work with continuous build servers')
 			.argv;
 
 	if (!module.parent) {
 		if (args.h || args.help || !args._.length) {
 			optimist.showHelp();
+			console.log(args);
 			process.exit(0);
 		}
 	}
 }());
 
-// setup logger
-(function() {
-	var logMode = (typeof args.l === "number" ? args.l : 1);
-	log["new"]({
-		debug: { level: 0, event: "debug", color: "yellow" },
-		log: { level: 1, event: "log" },
-		warn: { level: 2, event: "warn", color: "orange" },
-		error: { level: 3, event: "error", color: "red" }
-	});
-
-	log.config({
-		level: logMode
-	});
-	log.debug("log level", logMode);
-	global.log = log;
-
-	log.debug("module dir name", __dirname);
-	var currDirname = process.cwd();
-	log.debug("working dir name", currDirname);
-}());
+var logger = require('optional-color-logger');
+logger.init(args);
 
 var sure = require('./covered');
 console.assert(typeof sure === "object", 'loaded sure module');

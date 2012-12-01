@@ -1,6 +1,6 @@
 {
   "name": "gt",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "description": "Simple javascript unit testing framework, similar to QUnit, but with JS code coverage via istanbul",
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
   "repository": {
@@ -14,6 +14,7 @@
     "istanbul", "qunit"
   ],
   "dependencies": {
+    "optional-color-logger": "latest",
     "cli-color": "*",
     "sprintf": "*",
     "optimist": "*",
