@@ -1,5 +1,7 @@
 ## Vesion history
 
+* 0.2.8 - writing Cobertura coverage report into the same folder as other reports
+
 * 0.2.7 - improved assertion tests for raised exceptions
 
 * 0.2.6 - refactored coverage from unit test module
