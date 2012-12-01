@@ -19,9 +19,19 @@ function _reportTests(tests, skipPassed) {
 		var message = test.formMessage();
 		var status = test.status();
 		console.assert("string" === typeof status, "could not get status", message);
-		var color = _statusColor(status);
-		console.assert("function" === typeof color, "could not get color for test status", test.status());
-		console.log(color(message));
+
+		var useColors = true;
+		if (typeof args !== 'undefined') {
+			useColors = args.colors;
+		}
+
+		if (useColors) {
+			var color = _statusColor(status);
+			console.assert("function" === typeof color, "could not get color for test status", test.status());
+			console.log(color(message));
+		} else {
+			console.log(message);
+		}
 	}
 }
 
@@ -40,8 +50,18 @@ function _report(modules, skipPassed) {
 		var good = module.getPassedTests();
 		var total = module.getNumberOfTests();
 		var percentage = module.passedPercentage();
-		var color = (module.hasFailed() ? clc.redBright : clc.greenBright);
-		console.log(color(module.name  + ":", Math.round(percentage) + "% (" + good + "/" + total + ")"));
+		var message = module.name  + " : " + Math.round(percentage) + "% (" + good + "/" + total + ")";
+
+		var useColors = true;
+		if (typeof args !== 'undefined') {
+			useColors = args.colors;
+		}
+		if (useColors) {
+			var color = (module.hasFailed() ? clc.redBright : clc.greenBright);
+			console.log(color(message));
+		} else {
+			console.log(message);
+		}
 	}
 
 	console.log(centerMessage(lineLength));

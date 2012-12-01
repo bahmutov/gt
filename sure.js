@@ -79,7 +79,16 @@ function reportFinalCount() {
 	console.assert(percent >= 0.0 && percent <= 100.0, "invalid tests passed percentage", percent);
 
 	var goodTests = TestCollection.getNumberOfTests() - failedTests.length;
-	console.log(color(Math.round(percent) + "%", "(" + goodTests, "/", TestCollection.getNumberOfTests() + ") tests passed"));
+	var message = Math.round(percent) + "% (" + goodTests + " / " + TestCollection.getNumberOfTests() + ") tests passed";
+	var useColors = true;
+	if (typeof args !== 'undefined') {
+		useColors = args.colors;
+	}
+	if (useColors) {
+		console.log(color(message));
+	} else {
+		console.log(message);
+	}
 	return failedTests.length;
 }
 
