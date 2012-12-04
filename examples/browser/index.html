@@ -3,10 +3,40 @@
 <head>
 	<meta charset="utf-8">
 	<title>Unit testing from browser</title>
-	<link rel="stylesheet" url="qunit/qunit-1.10.0.css" />	
+	<link rel="stylesheet" href="qunit/qunit-1.10.0.css">
 </head>
 <body>
-	<div id="qunit"></div>
-	<script src="qunit/qunit-1.10.0.js"></script>
+<div id="qunit"></div>
+<script src="qunit/qunit-1.10.0.js"></script>
+<script src="../../src/QUnitBrowserAdapter.js"></script>
+
+<script>
+dojoConfig = {
+  async: false,
+  cacheBust: true,
+  baseUrl: ".",
+  packages: [
+  {
+      name: 'dojo',
+      location: './dojo-1.8.1'
+  },
+  {
+      name: "test",
+      location: "test"
+  },
+  {
+      name: "src",
+      location: "src"
+  }]
+};
+</script>
+<script src="./dojo-1.8.1/dojo.js"></script>
+<script>
+	require([
+    "test/FooTest"
+	], function () {
+		console.log('finished running tests');
+	});
+</script>
 </body>
 </html>

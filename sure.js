@@ -32,19 +32,24 @@ function init(options) {
 	log.debug("binding methods to preserve original object information in global invocations");
 	console.assert(typeof Function.prototype.bind === "function", "bind is unavailable!");
 
-	global.test = TestCollection.add.bind(TestCollection);
-	global.moduleName = TestCollection.module.bind(TestCollection);
+	// do not pollute global namespace, put all our stuff under single object
+	global.gt = {
+		module: TestCollection.module.bind(TestCollection),
+		test: TestCollection.add.bind(TestCollection),
 
-	global.deepEqual = global.equal = TestRunner.equal.bind(TestRunner);
-	global.aequal = function(array1, array2, message) {
-		global.equal(array1.toString(), array2.toString(), message);
-	};
-	global.ok = TestRunner.ok.bind(TestRunner);
-	global.expect = TestRunner.expect.bind(TestRunner);
-	global.raises = TestRunner.raises.bind(TestRunner);
-	global.raisesAssertion = TestRunner.raisesAssertion.bind(TestRunner);
-	global.notDeepEqual = function () {
-		return !global.deepEqual(arguments);
+		deepEqual: TestRunner.equal.bind(TestRunner),
+		equal: TestRunner.equal.bind(TestRunner),
+		aequal: function(array1, array2, message) {
+			this.equal(array1.toString(), array2.toString(), message);
+		},
+		notDeepEqual: function () {
+			return !global.deepEqual(arguments);
+		},
+
+		ok: TestRunner.ok.bind(TestRunner),
+		expect: TestRunner.expect.bind(TestRunner),
+		raises: TestRunner.raises.bind(TestRunner),
+		raisesAssertion: TestRunner.raisesAssertion.bind(TestRunner)
 	};
 }
 
