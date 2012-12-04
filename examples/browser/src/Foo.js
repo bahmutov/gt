@@ -1,3 +1,5 @@
+console.log('original foo');
+
 define([], function () {
 	return function() {
 		if (5 > 10) {

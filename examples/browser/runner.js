@@ -52,7 +52,14 @@ function onfinishedTests() {
 	var output = page.evaluate(function() {
 			return JSON.stringify(window.qunitDone);
 	});
-	phantom.exit(JSON.parse(output).failed > 0 ? 1 : 0);
+
+	var testResults = JSON.parse(output);
+	var codeCoverageResults = page.evaluate(function() {
+		return window.__coverage__;
+	});
+	console.log('code coverage results\n', codeCoverageResults);
+
+	phantom.exit(testResults.failed > 0 ? 1 : 0);
 }
 
 function addLogging() {

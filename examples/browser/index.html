@@ -12,28 +12,30 @@
 
 <script>
 dojoConfig = {
-  async: false,
+  async: true,
   cacheBust: true,
   baseUrl: ".",
+  isDebug: true,
   packages: [
-  {
-      name: 'dojo',
-      location: './dojo-1.8.1'
-  },
-  {
-      name: "test",
-      location: "test"
-  },
-  {
-      name: "src",
-      location: "src"
-  }]
+    {
+        name: 'dojo',
+        location: './dojo-1.8.1'
+    },
+    {
+        name: "tests",
+        location: "test"
+    },
+    {
+        name: "./src/",
+        location: "srcInstrumented" // istanbul src -o srcInstrumented
+    }]
 };
 </script>
+
 <script src="./dojo-1.8.1/dojo.js"></script>
 <script>
 	require([
-    "test/FooTest"
+    "tests/FooTest"
 	], function () {
 		console.log('finished running tests');
 	});
