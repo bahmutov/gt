@@ -1,5 +1,4 @@
 var gt = require('../../sure.js');
-
 gt.init();
 
 /*
