@@ -43,7 +43,7 @@ function init(options) {
 			this.equal(array1.toString(), array2.toString(), message);
 		},
 		notDeepEqual: function () {
-			return !global.deepEqual(arguments);
+			return !this.deepEqual(arguments);
 		},
 
 		ok: TestRunner.ok.bind(TestRunner),

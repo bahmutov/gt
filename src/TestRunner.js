@@ -47,7 +47,7 @@ var TestRunner = {
 
 	raises: function (code, expectedExceptionType, message) {
 		console.assert(this._currentTest !== undefined, "current test is undefined");
-		console.assert(expectedExceptionType !== undefined, "expected error type undefined");
+		console.assert(expectedExceptionType !== undefined, "undefined expected exception type, message:", message);
 		console.assert(typeof message === "string", "message should be a string");
 		this._beforeAssertion();
 
@@ -72,7 +72,7 @@ var TestRunner = {
 	},
 
 	raisesAssertion: function (code, message) {
-  	raises(code, 'AssertionError', message);
+  	this.raises(code, 'AssertionError', message);
   },
 
 	// collecting errors during unit test run

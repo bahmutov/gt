@@ -1,47 +1,43 @@
-if ("undefined" === typeof moduleName) {
-	moduleName = module;
-}
+gt.module("exception testing");
 
-moduleName("exception testing");
-
-test("raises exists", function () {
-	equal(typeof raises, "function", "raises exists");
+gt.test("raises exists", function () {
+	gt.equal(typeof gt.raises, "function", "raises exists");
 });
 
-test("CRASH: raises crashes without error type", function () {
-	raises(function () {});
+gt.test("CRASH: raises crashes without error type", function () {
+	gt.raises(function () {});
 });
 
-test("CRASH: raises crashes without message", function () {
-	raises(function () {}, Error);
+gt.test("CRASH: raises crashes without message", function () {
+	gt.raises(function () {}, Error);
 });
 
-test('AssertionError', function () {
-	raisesAssertion(function () {
+gt.test('expect AssertionError', function () {
+	gt.raisesAssertion(function () {
 		console.assert(false, 'this always raises assertion error');
 	}, 'should raise assertion error');
 });
 
-test("FAIL: catches if exception is not thrown", function () {
-	raises(function () {
+gt.test("FAIL: catches if exception is not thrown", function () {
+	gt.raises(function () {
 		return "foo";
 	}, Error, "function does not raises an exception on purpose");
 });
 
-test("FAIL: raises wrong type", function () {
-	raises(function () {
+gt.test("FAIL: raises wrong type", function () {
+	gt.raises(function () {
 		throw "something";
 	}, Error, "function raises an error");
 });
 
-test("correct raises string", function () {
-	raises(function () {
+gt.test("correct raises string", function () {
+	gt.raises(function () {
 		throw "something";
 	}, "string", "function raises a string");
 });
 
-test("correct raises Error", function () {
-	raises(function () {
+gt.test("correct raises Error", function () {
+	gt.raises(function () {
 		throw new Error("something");
 	}, Error, "function raises an Error");
 });
