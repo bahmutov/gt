@@ -1,5 +1,6 @@
-var gt = require('../../sure.js');
-gt.init();
+// var gt = require('../../sure.js');
+// gt.init();
+// var coverage = require("../../lib/coverage");
 
 /*
  * Qt+WebKit powered headless test runner using Phantomjs
@@ -17,9 +18,6 @@ gt.init();
 /*global phantom:true require:true console:true */
 var url = phantom.args[0],
 	page = require('webpage').create();
-
-
-
 
 // Route "console.log()" calls from within the Page context to the main Phantom context (i.e. current "this")
 page.onConsoleMessage = function(msg) {
