@@ -24,10 +24,12 @@ A simple example is in [examples subfolder](gt/tree/master/examples/basic "gt Ex
 Unit tests follow QUnit approach:
 
 ```javascript
-test("get N '='", function () {
-	ok(typeof getLines === "function", "getLines is a function");
-	equal(getLines(0), "", "0 character");
-	equal(getLines(1), "=", "1 character");
+gt.module("Basic tests");
+
+gt.test("get N '='", function () {
+	gt.ok(typeof getLines === "function", "getLines is a function");
+	gt.equal(getLines(0), "", "0 character");
+	gt.equal(getLines(1), "=", "1 character");
 });
 ```
 
@@ -38,6 +40,10 @@ Creates unit test report (stdout only) and JS code coverage (stdout plus Lines o
 Sample unit test output [image](gt/blob/master/examples/example.png "Console screenshot")
 
 Sample JS coverage output [image](gt/blob/master/examples/coverage.png "Coverage page screenshot")
+
+## Running in browser
+
+See example **examples/browser**
 
 ## License
 

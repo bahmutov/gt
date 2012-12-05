@@ -6,6 +6,18 @@
 	<link rel="stylesheet" href="qunit/qunit-1.10.0.css">
 </head>
 <body>
+
+To cover unit tests running in the browser:
+<ol>
+  <li>instrument source folder using istanbul
+<pre>istanbul instrument src --output srcInstrumented</pre>
+  <li>run phantomjs qunit runner on this file (does not need webserver)
+<pre>phantomjs runner.js index.html</pre>
+  <li>the runner saves coverage report code_coverage_report.json
+  <li>write complete report including line by line indicators
+<pre>istanbul report --root . -v html code_coverage_report.json --dir cover</pre>
+</ol>
+
 <div id="qunit"></div>
 <script src="qunit/qunit-1.10.0.js"></script>
 <script src="../../src/QUnitBrowserAdapter.js"></script>
