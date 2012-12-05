@@ -14,6 +14,7 @@
 dojoConfig = {
   async: true,
   cacheBust: true,
+  parseOnLoad: false,
   baseUrl: ".",
   isDebug: true,
   packages: [
@@ -26,9 +27,10 @@ dojoConfig = {
         location: "test"
     },
     {
-        name: "./src/",
-        location: "srcInstrumented" // istanbul src -o srcInstrumented
-    }]
+      name: "src",
+      location: "srcInstrumented"
+    }
+  ]
 };
 </script>
 

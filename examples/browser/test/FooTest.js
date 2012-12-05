@@ -1,6 +1,4 @@
-require([
-    "src/Foo.js"
-], function (foo) {
+require(["src/Foo"], function (foo) {
 	console.log('Running Foo tests');
   gt.module("Foo tests");
   gt.test("Foo tests", function () {
