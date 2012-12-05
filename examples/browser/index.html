@@ -31,12 +31,12 @@ dojoConfig = {
   isDebug: true,
   packages: [
     {
-        name: 'dojo',
-        location: './dojo-1.8.1'
+      name: 'dojo',
+      location: './dojo-1.8.1'
     },
     {
-        name: "tests",
-        location: "test"
+      name: "tests",
+      location: "testInstrumented"
     },
     {
       name: "src",
@@ -48,11 +48,7 @@ dojoConfig = {
 
 <script src="./dojo-1.8.1/dojo.js"></script>
 <script>
-	require([
-    "tests/FooTest"
-	], function () {
-		console.log('finished running tests');
-	});
+	require(["tests/FooTest"]);
 </script>
 </body>
 </html>
