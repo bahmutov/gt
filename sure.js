@@ -10,6 +10,16 @@ if (typeof log === 'undefined') {
 	global.log.debug = function() {};
 }
 
+if (typeof Function.prototype.bind !== "function") {
+  Function.prototype.bind = function (o) {
+      var thisFunction = this;
+      return function () {
+          return thisFunction.apply(o, [].slice.call(arguments));
+      };
+  };
+  log.debug('added Function.prototype.bind manually');
+}
+
 var Reporter = require("./src/Reporter").Reporter;
 var JUnitReporter = require("./src/JUnitReporter").Reporter;
 var TestCollection = require("./src/TestCollection").TestCollection;
