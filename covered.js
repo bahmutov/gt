@@ -1,5 +1,7 @@
 var sure = require('./sure');
 var coverage = require("./lib/coverage");
+var path = require('path');
+var fs = require('fs');
 
 var config = {
 	files: [], // files to compute coverage for
@@ -45,11 +47,64 @@ function writeCoverageReport() {
 	}
 }
 
+function coveredPercent(fileLineInfo) {
+  var lines = Object.keys(fileLineInfo);
+
+  var covered = 0;
+  var total = 0;
+
+  lines.forEach(function(line) {
+      var timesCovered = fileLineInfo[line];
+      console.assert(timesCovered >= 0, "invalid number of times covered", timesCovered);
+      covered += (timesCovered > 0 ? 1 : 0);
+      total += 1;
+  });
+
+  console.assert(!isNaN(covered), 'number of covered lines', covered, 'is not a number');
+  console.assert(!isNaN(total), 'total lines', total, 'is not a number');
+  if (total < 1) {
+      return 100.0;
+  } else {
+      return Math.round(covered / total * 100);
+  }
+}
+
+function writeCoverageSummary(coverFolder, basePath) {
+  console.assert(coverage, 'null coverage object');
+  console.assert(typeof coverage.getFinalCoverage === 'function', 'getFinalCoverage does not exist');
+  var info = coverage.getFinalCoverage();
+  console.assert(info, 'could not get final coverage info');
+  basePath = basePath || '.';
+  console.assert(basePath, 'null base path');
+
+  var coverageReport = {};
+
+  Object.keys(info).forEach(function(filename) {
+      var fileInfo = info[filename];
+      var covered = coveredPercent(fileInfo.l);
+      console.assert(covered >= 0.0 && covered <= 100.0, "invalid coverage % " + covered + " for file " + filename);
+
+      var relativePath = basePath + '\\' + path.relative(basePath, filename);
+      // console.log(relativePath, covered + '%');
+
+      coverageReport[relativePath] = {
+          name: relativePath,
+          coverage: covered
+      };
+  });
+  // console.log(coverageReport);
+
+  var reportFilename = coverFolder + '\\code_coverage_report.json';
+  fs.writeFileSync(reportFilename, JSON.stringify(coverageReport));
+  log.info('wrote complexity json to', reportFilename);
+}
+
 module.exports = {
 	init: init,
 	run: function() {
 		var failed = sure.run();
 		writeCoverageReport();
+		writeCoverageSummary(config.cover, '.');
 		return failed;
 	}
 };
