@@ -84,15 +84,12 @@ function writeCoverageSummary(coverFolder, basePath) {
       var covered = coveredPercent(fileInfo.l);
       console.assert(covered >= 0.0 && covered <= 100.0, "invalid coverage % " + covered + " for file " + filename);
 
-      var relativePath = basePath + '\\' + path.relative(basePath, filename);
-      // console.log(relativePath, covered + '%');
-
-      coverageReport[relativePath] = {
-          name: relativePath,
+      // console.log(filename, covered + '%');
+      coverageReport[filename] = {
+          name: filename,
           coverage: covered
       };
   });
-  // console.log(coverageReport);
 
   var reportFilename = coverFolder + '\\code_coverage_report.json';
   fs.writeFileSync(reportFilename, JSON.stringify(coverageReport));
