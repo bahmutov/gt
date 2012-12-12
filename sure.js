@@ -29,7 +29,7 @@ function initConfig(options) {
 	options = options || {};
 	config.files = options._ || options.files || config.files;
 	config.xml = options.xml || config.xml;
-	config.reporter = options.r || config.reporter;
+	config.reporter = options.r || options.reporter || options.report || config.reporter;
 }
 
 function init(options) {
