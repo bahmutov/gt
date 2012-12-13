@@ -4,9 +4,16 @@ var ModuleTests = require("./ModuleTests").ModuleTests;
 var TestCollection = {
 	modules: [],
 	currentModule: undefined,
+	testOnlyModules: {},
 
-	collectTests: function (moduleNames) {
+	collectTests: function (moduleNames, testModules) {
 		console.assert(Array.isArray(moduleNames), "expected list of test modules");
+
+		testModules = testModules || [];
+		console.assert(Array.isArray(testModules), "expected list of modules to process, not", JSON.stringify(testModules));
+		testModules.forEach(function(item) {
+			this.testOnlyModules[item] = item;
+		}, this);
 
 		var k;
 		for (k = 0; k < moduleNames.length; k += 1) {
@@ -28,7 +35,10 @@ var TestCollection = {
 			this.module("unnamed");
 		}
 
-		console.assert(this.currentModule, "current module is not defined");
+		if (!this.currentModule) {
+			return;
+		}
+		console.assert(this.currentModule, "current module is not defined, cannot add test", name);
 		this.currentModule.add(name, code);
 	},
 
@@ -36,9 +46,20 @@ var TestCollection = {
 		console.assert(name && (typeof name === "string"), "module name should be a string");
 		console.assert(Array.isArray(this.modules), "modules is not an array");
 
-		log.log("module '" + name + "'");
-		this.currentModule = new ModuleTests(name);
-		this.modules.push(this.currentModule);
+		var addTest = true;
+		if (Object.keys(this.testOnlyModules).length > 0) {
+			if (this.testOnlyModules[name]) {
+				addTest = true;
+			} else {
+				addTest = false;
+			}
+		}
+
+		if (addTest) {
+			log.log("module '" + name + "'");
+			this.currentModule = new ModuleTests(name);
+			this.modules.push(this.currentModule);
+		}
 	},
 
 	getAllTests: function () {

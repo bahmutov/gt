@@ -17,7 +17,8 @@ try {
 				help: 0,
 				cover: "cover",
 				xml: null,
-				colors: true
+				colors: true,
+				module: []
 			}).alias('l', 'log').alias('r', 'report').alias('h', 'help').alias('c', 'cover')
 			.string("cover").string("xml")
 			.boolean("colors")
@@ -26,6 +27,7 @@ try {
 			.describe("cover", "output folder with coverage")
 			.describe("xml", "output JUnit xml filename")
 			.describe('colors', 'use terminal colors for output, might not work with continuous build servers')
+			.describe('module', 'test module to run, can be used multiple times')
 			.argv;
 
 	if (!module.parent) {
@@ -36,6 +38,10 @@ try {
 		}
 	}
 }());
+
+if (typeof args.module === 'string') {
+	args.module = [args.module];
+}
 
 var logger = require('optional-color-logger');
 logger.init(args);

@@ -1,7 +1,8 @@
 var config = {
 	files: [], // test files to process
 	xml: null, // output xml report filename, compatible with JUnit
-	reporter: 0 // reporter format
+	reporter: 0, // reporter format
+	modules: []
 };
 
 if (typeof log === 'undefined') {
@@ -30,6 +31,7 @@ function initConfig(options) {
 	config.files = options._ || options.files || config.files;
 	config.xml = options.xml || config.xml;
 	config.reporter = options.r || options.reporter || options.report || config.reporter;
+	config.modules = options.module || config.modules;
 }
 
 function init(options) {
@@ -65,7 +67,7 @@ function init(options) {
 
 function collectTests() {
 	console.assert(Array.isArray(config.files), "config files is not an arrya");
-	TestCollection.collectTests(config.files);
+	TestCollection.collectTests(config.files, config.modules);
 	console.log();
 }
 
