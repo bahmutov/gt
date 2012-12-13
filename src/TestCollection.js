@@ -5,6 +5,7 @@ var TestCollection = {
 	modules: [],
 	currentModule: undefined,
 	testOnlyModules: {},
+	skipTestModules: {},
 
 	collectTests: function (moduleNames, testModules) {
 		console.assert(Array.isArray(moduleNames), "expected list of test modules");
@@ -12,7 +13,13 @@ var TestCollection = {
 		testModules = testModules || [];
 		console.assert(Array.isArray(testModules), "expected list of modules to process, not", JSON.stringify(testModules));
 		testModules.forEach(function(item) {
-			this.testOnlyModules[item] = item;
+			if (/^!/.test(item)) {
+				item = item.substr(1);
+				log.debug('need to skip module', item);
+				this.skipTestModules[item] = item;
+			} else {
+				this.testOnlyModules[item] = item;
+			}
 		}, this);
 
 		var k;
@@ -56,9 +63,11 @@ var TestCollection = {
 		}
 
 		if (addTest) {
-			log.log("module '" + name + "'");
-			this.currentModule = new ModuleTests(name);
-			this.modules.push(this.currentModule);
+			if (!this.skipTestModules[name]) {
+				log.log("module '" + name + "'");
+				this.currentModule = new ModuleTests(name);
+				this.modules.push(this.currentModule);
+			}
 		}
 	},
 
