@@ -22,7 +22,7 @@ var ModuleTests = function (name) {
 		var k;
 		for (k = 0; k < this._tests.length; k += 1) {
 			var test = this._tests[k];
-			if (test.hasFailed()) {
+			if (test.hasReallyFailed()) {
 				return true;
 			}
 		}
@@ -36,7 +36,7 @@ var ModuleTests = function (name) {
 		var k;
 		for (k = 0; k < this._tests.length; k += 1) {
 			var test = this._tests[k];
-			if (test.hasFailed()) {
+			if (test.hasReallyFailed()) {
 				failedTests.push(test);
 			}
 		}
@@ -47,7 +47,7 @@ var ModuleTests = function (name) {
 		var good = 0;
 		var k;
 		for (k = 0; k < this._tests.length; k += 1) {
-			if (!this._tests[k].hasFailed()) {
+			if (!this._tests[k].hasReallyFailed()) {
 				good += 1;
 			}
 		}

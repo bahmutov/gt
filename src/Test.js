@@ -26,6 +26,8 @@ var Test = function (name, code, moduleName) {
 	};
 	
 	this.hasFailed = function () {
+		
+
 		if (this.broken > 0) {
 			log.debug(this.name, "has", this.broken, "broken assertions, failed");
 			return true;
@@ -40,6 +42,21 @@ var Test = function (name, code, moduleName) {
 		}
 
 		return false;
+	};
+
+	this.hasReallyFailed = function () {
+		if (!this.hasFailed()) {
+			return false;
+		}
+
+		var stat = this.status();
+		console.assert(stat, 'could not get test status for', this.name);
+		if (this.name.indexOf(stat) === 0) {
+			log.debug('status', stat, 'is start of test name', this.name, 'consider passed');
+			return false;
+		}
+
+		return true;
 	};
 
 	this.status = function () {
