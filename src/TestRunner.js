@@ -5,8 +5,7 @@ var TestRunner = {
 		var k;
 		for (k = 0; k < this._tests.length; k += 1) {
 			var test = this._tests[k];
-
-			console.assert(test, "could not get test", k);
+			console.assert(test, "could not get test");
 			test.check();
 			this._currentTest = test;
 

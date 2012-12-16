@@ -10,11 +10,9 @@ console.assert("string" === typeof Test.PASS, "Test.PASS is undefined");
 function _reportTests(tests, skipPassed) {
 	console.assert(Array.isArray(tests), "tests is not an array");
 
-	var k;
-	for (k = 0; k < tests.length; k += 1) {
-		var test = tests[k];
+	tests.forEach(function (test) {
 		if (!test.hasFailed() && skipPassed) {
-			continue;
+			return;
 		}
 		var message = test.formMessage();
 		var status = test.status();
@@ -32,7 +30,7 @@ function _reportTests(tests, skipPassed) {
 		} else {
 			console.log(message);
 		}
-	}
+	});
 }
 
 function _report(modules, skipPassed) {
@@ -41,10 +39,8 @@ function _report(modules, skipPassed) {
 	var lineLength = 100;
 	console.log(centerMessage(lineLength, "Individual Test Results"));
 
-	var k;
-	for (k = 0; k < modules.length; k += 1) {
-		var module = modules[k];
-		console.assert("string" === typeof module.name, "could not find name for module", k);
+	modules.forEach(function (module) {
+		console.assert("string" === typeof module.name, "could not find name for module");
 		_reportTests(module.getTests(), skipPassed);
 
 		var good = module.getPassedTests();
@@ -62,7 +58,7 @@ function _report(modules, skipPassed) {
 		} else {
 			console.log(message);
 		}
-	}
+	});
 
 	console.log(centerMessage(lineLength));
 }

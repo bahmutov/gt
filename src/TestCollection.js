@@ -22,9 +22,7 @@ var TestCollection = {
 			}
 		}, this);
 
-		var k;
-		for (k = 0; k < moduleNames.length; k += 1) {
-			var testModuleName = moduleNames[k];
+		moduleNames.forEach(function (testModuleName) {
 			console.assert(typeof testModuleName === "string", "expected a module name", testModuleName);
 			log.debug("loading module with unit tests", testModuleName);
 			try {
@@ -33,8 +31,8 @@ var TestCollection = {
 				console.error(errors);
 				process.exit(1);
 			}
-		}
-		log.debug("loaded", this.getNumberOfTests(), "tests from '" + testModuleName + "'");
+		});
+		log.debug("loaded", this.getNumberOfTests(), "tests from");
 	},
 
 	add: function (name, code) {
@@ -75,21 +73,20 @@ var TestCollection = {
 		console.assert(Array.isArray(this.modules), "modules is not an array");
 
 		var all = [];
-		var k;
-		for (k = 0; k < this.modules.length; k += 1) {
-			var tests = this.modules[k].getTests();
-			console.assert(Array.isArray(tests), "could not get tests from module", k, this.modules[k].name);
+		this.modules.forEach(function (testModule) {
+			var tests = testModule.getTests();
+			console.assert(Array.isArray(tests), "could not get tests from module", testModule.name);
 			all = all.concat(tests);
-		}
+		});
 		return all;
 	},
 
 	getNumberOfTests: function () {
 		console.assert(Array.isArray(this.modules), "modules is not an array");
-		var total = 0, k;
-		for (k = 0; k < this.modules.length; k += 1) {
-			total += this.modules[k].getNumberOfTests();
-		}
+		var total = 0;
+		this.modules.forEach(function (testModule) {
+			total += testModule.getNumberOfTests();
+		});
 		return total;
 	},
 
@@ -97,13 +94,11 @@ var TestCollection = {
 		console.assert(Array.isArray(this.modules), "modules are not defined");
 		var failedTests = [];
 
-		var k;
-		for (k = 0; k < this.modules.length; k += 1) {
-			var module = this.modules[k];
-			var moduleFailed = module.getFailedTests();
-			console.assert(Array.isArray(moduleFailed), "could not get failed tests from module", module.name);
+		this.modules.forEach(function (testModule) {
+			var moduleFailed = testModule.getFailedTests();
+			console.assert(Array.isArray(moduleFailed), "could not get failed tests from module", testModule.name);
 			failedTests = failedTests.concat(moduleFailed);
-		}
+		});
 		return failedTests;
 	},
 

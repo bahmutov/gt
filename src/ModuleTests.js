@@ -19,38 +19,32 @@ var ModuleTests = function (name) {
 	};
 
 	this.hasFailed = function () {
-		var k;
-		for (k = 0; k < this._tests.length; k += 1) {
-			var test = this._tests[k];
-			if (test.hasReallyFailed()) {
-				return true;
-			}
-		}
-		return false;
+		var failed = this._tests.some(function(test) {
+			return test.hasReallyFailed();
+		})
+
+		return failed;
 	};
 
 	this.getFailedTests = function () {
 		console.assert(Array.isArray(this._tests), "tests are not defined");
-		var failedTests = [];
 
-		var k;
-		for (k = 0; k < this._tests.length; k += 1) {
-			var test = this._tests[k];
-			if (test.hasReallyFailed()) {
-				failedTests.push(test);
-			}
-		}
+		var failedTests = this._tests.filter(function(test) {
+			return test.hasReallyFailed();
+		});
+
 		return failedTests;
 	};
 
+	// returns number of good (passed) tests
 	this.getPassedTests = function () {
 		var good = 0;
-		var k;
-		for (k = 0; k < this._tests.length; k += 1) {
-			if (!this._tests[k].hasReallyFailed()) {
+
+		this._tests.forEach(function (test) {
+			if (!test.hasReallyFailed()) {
 				good += 1;
 			}
-		}
+		});
 		return good;
 	};
 
