@@ -26,6 +26,8 @@ gt.test('arrays', function () {
 	gt.aequal([1, 2, 3], [1, 2, 3], 'arrays should be equal');
 });
 
+gt.module('few basic tests');
+
 gt.test("FAIL: several failed oks", function() {
 	gt.ok(false, "ok 1 failed");
 	gt.ok(false, "ok 2 failed");
@@ -119,3 +121,5 @@ gt.test("FAIL: fail +", function () {
 	// now fail!
 	gt.equal(add(0, 0), 3, "0 + 0 = 3 should fail.");
 });
+
+gt.module('module with no tests');
