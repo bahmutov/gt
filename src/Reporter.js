@@ -35,7 +35,10 @@ function _reportTests(tests, skipPassed) {
 
 function _report(modules, skipPassed) {
 	console.assert(Array.isArray(modules), "modules is not an array");
-
+	if (!modules.length) {
+		return;
+	}
+	
 	var lineLength = 100;
 	console.log(centerMessage(lineLength, "Individual Test Results"));
 
