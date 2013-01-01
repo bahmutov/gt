@@ -1,4 +1,5 @@
-// #! /usr/bin/env node
+#!/usr/bin/env node
+
 try {
 	var log = require("custom-logger");
 } catch (err) {
