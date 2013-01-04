@@ -49,6 +49,7 @@ function init(options) {
 		module: TestCollection.module.bind(TestCollection),
 		test: TestCollection.add.bind(TestCollection),
 
+		// a few extra utility assertion methods, implemented using simpler ones
 		deepEqual: TestRunner.equal.bind(TestRunner),
 		equal: TestRunner.equal.bind(TestRunner),
 		aequal: function(array1, array2, message) {
@@ -56,6 +57,18 @@ function init(options) {
 		},
 		notDeepEqual: function () {
 			return !this.deepEqual(arguments);
+		},
+		func: function (f, message) {
+			this.equal(typeof f, 'function', message);
+		},
+		number: function (n, message) {
+			this.equal(typeof n, 'number', message);
+		},
+		string: function (s, message) {
+			this.equal(typeof s, 'string', message);
+		},
+		array: function (a, message) {
+			this.ok(Array.isArray(a), message);
 		},
 
 		ok: TestRunner.ok.bind(TestRunner),

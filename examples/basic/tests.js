@@ -13,6 +13,43 @@ var add = code.add,
 	getLines = code.getLines,
 	centerMessage = code.centerMessage;
 
+gt.module('new assertions');
+
+gt.test('gt.func test', function () {
+	gt.func(function () {}, 'empty function');
+});
+
+gt.test('arrays', function () {
+	gt.aequal([1, 2, 3], [1, 2, 3], 'arrays should be equal');
+});
+
+gt.test('array check', function () {
+	gt.array([], 'empty array is ok');
+	gt.array([1, 3, 3], 'non empty array is ok');
+});
+
+gt.test('FAIL: object is not an array', function () {
+	gt.array({}, 'object is not an array');
+});
+
+gt.test('true number', function () {
+	gt.number(4, '4 is a number');
+});
+
+gt.test('FAIL: string is NOT a number', function () {
+	gt.number('4', '"4" is not a number');
+});
+
+gt.test('true string', function () {
+	gt.string('foo', 'foo is a string');
+});
+
+gt.test('FAIL: number is not a string', function () {
+	gt.number(99, '99 is not a string');
+});
+
+gt.module('few basic tests');
+
 gt.test("comparing with undefined", function () {
 	gt.expect(1);
 	if ("undefined" === typeof ffff) {
@@ -21,12 +58,6 @@ gt.test("comparing with undefined", function () {
 		gt.ok(false, "ffff is defined!");
 	}
 });
-
-gt.test('arrays', function () {
-	gt.aequal([1, 2, 3], [1, 2, 3], 'arrays should be equal');
-});
-
-gt.module('few basic tests');
 
 gt.test("FAIL: several failed oks", function() {
 	gt.ok(false, "ok 1 failed");
