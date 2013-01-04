@@ -3,6 +3,7 @@ var getLines = require('./utils').getLines;
 var centerMessage = require('./utils').centerMessage;
 var sprintf = require('sprintf').sprintf;
 var clc = require('cli-color');
+var sprintf = require('sprintf').sprintf;
 
 var Test = require("./Test").Test;
 console.assert("string" === typeof Test.PASS, "Test.PASS is undefined");
@@ -42,21 +43,33 @@ function _report(modules, skipPassed) {
 	var lineLength = 100;
 	console.log(centerMessage(lineLength, "Individual Test Results"));
 
+	var useColors = true;
+	if (typeof args !== 'undefined') {
+		useColors = args.colors;
+	}
+
 	modules.forEach(function (module) {
 		console.assert("string" === typeof module.name, "could not find name for module");
+
+		var failed = module.hasFailed();
+		if (useColors) {
+			var color = (failed ? clc.redBright : clc.greenBright);
+			console.log(color(module.name));
+		} else {
+			console.log(module.name);
+		}
+
 		_reportTests(module.getTests(), skipPassed);
 
 		var good = module.getPassedTests();
 		var total = module.getNumberOfTests();
 		var percentage = module.passedPercentage();
-		var message = module.name  + " : " + Math.round(percentage) + "% (" + good + "/" + total + ")";
 
-		var useColors = true;
-		if (typeof args !== 'undefined') {
-			useColors = args.colors;
-		}
+		var message = sprintf("  %-60s   %3d%% (%d / %d)", '', Math.round(percentage), good, total);
+		// var message = "\t\t" + Math.round(percentage) + "% (" + good + "/" + total + ")";
+
 		if (useColors) {
-			var color = (module.hasFailed() ? clc.redBright : clc.greenBright);
+			var color = (failed ? clc.redBright : clc.greenBright);
 			console.log(color(message));
 		} else {
 			console.log(message);

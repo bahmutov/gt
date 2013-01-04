@@ -49,9 +49,15 @@ function init(options) {
 		module: TestCollection.module.bind(TestCollection),
 		test: TestCollection.add.bind(TestCollection),
 
-		// a few extra utility assertion methods, implemented using simpler ones
+		// a few basic assertions
 		deepEqual: TestRunner.equal.bind(TestRunner),
 		equal: TestRunner.equal.bind(TestRunner),
+		ok: TestRunner.ok.bind(TestRunner),
+		expect: TestRunner.expect.bind(TestRunner),
+		raises: TestRunner.raises.bind(TestRunner),
+		raisesAssertion: TestRunner.raisesAssertion.bind(TestRunner),
+
+		// a few extra utility assertion methods, implemented using simpler ones
 		aequal: function(array1, array2, message) {
 			this.equal(array1.toString(), array2.toString(), message);
 		},
@@ -69,12 +75,7 @@ function init(options) {
 		},
 		array: function (a, message) {
 			this.ok(Array.isArray(a), message);
-		},
-
-		ok: TestRunner.ok.bind(TestRunner),
-		expect: TestRunner.expect.bind(TestRunner),
-		raises: TestRunner.raises.bind(TestRunner),
-		raisesAssertion: TestRunner.raisesAssertion.bind(TestRunner)
+		}
 	};
 }
 

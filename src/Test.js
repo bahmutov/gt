@@ -26,8 +26,6 @@ var Test = function (name, code, moduleName) {
 	};
 	
 	this.hasFailed = function () {
-		
-
 		if (this.broken > 0) {
 			log.debug(this.name, "has", this.broken, "broken assertions, failed");
 			return true;
@@ -78,7 +76,7 @@ var Test = function (name, code, moduleName) {
 		var good = this.assertions - this.broken;
 		var percent = (this.assertions === 0 ? 100 : good / this.assertions * 100);
 
-		var message = sprintf("  %-60s : %3d%% (%d / %d)", this.name, percent, good, this.assertions);
+		var message = sprintf("  %-60s   %3d%% (%d / %d)", this.name, percent, good, this.assertions);
 		var status = this.status();
 		console.assert("string" === typeof status, "could not get status for", message);
 		return sprintf("%-80s : %s", message, this.status());
