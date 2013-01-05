@@ -36,7 +36,11 @@ function init(options) {
 		}
 	}
 
-	installCoverage(config.files);
+	if (config.cover) {
+		installCoverage(config.files);
+	} else {
+		log.debug('skipping coverage hooks');
+	}
 	sure.init(options);
 }
 
@@ -91,9 +95,11 @@ function writeCoverageSummary(coverFolder, basePath) {
       };
   });
 
-  var reportFilename = coverFolder + '\\code_coverage_report.json';
-  fs.writeFileSync(reportFilename, JSON.stringify(coverageReport));
-  log.info('wrote complexity json to', reportFilename);
+  if (coverFolder) {
+  	var reportFilename = coverFolder + '\\code_coverage_report.json';
+  	fs.writeFileSync(reportFilename, JSON.stringify(coverageReport));
+  	log.info('wrote complexity json to', reportFilename);
+	}
 }
 
 module.exports = {
@@ -101,7 +107,9 @@ module.exports = {
 	run: function() {
 		var failed = sure.run();
 		writeCoverageReport();
-		writeCoverageSummary(config.cover, '.');
+		if (config.cover) {
+			writeCoverageSummary(config.cover, '.');
+		}
 		return failed;
 	}
 };
