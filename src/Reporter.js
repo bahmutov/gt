@@ -11,6 +11,11 @@ console.assert("string" === typeof Test.PASS, "Test.PASS is undefined");
 function _reportTests(tests, skipPassed) {
 	console.assert(Array.isArray(tests), "tests is not an array");
 
+	var useColors = true;
+	if (typeof args !== 'undefined') {
+		useColors = args.colors;
+	}
+
 	tests.forEach(function (test) {
 		if (!test.hasFailed() && skipPassed) {
 			return;
@@ -19,17 +24,15 @@ function _reportTests(tests, skipPassed) {
 		var status = test.status();
 		console.assert("string" === typeof status, "could not get status", message);
 
-		var useColors = true;
-		if (typeof args !== 'undefined') {
-			useColors = args.colors;
-		}
-
 		if (useColors) {
 			var color = _statusColor(status);
 			console.assert("function" === typeof color, "could not get color for test status", test.status());
 			console.log(color(message));
 		} else {
 			console.log(message);
+		}
+		if (test.hasFailed() && test.stdout) {
+			console.log(test.stdout);
 		}
 	});
 }

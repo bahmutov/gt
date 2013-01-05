@@ -30,7 +30,7 @@ function init(options) {
 		for (var k = 0; k < testModules.length; k += 1) {
 			var testModuleName = testModules[k];
 			testModuleName = path.resolve(testModuleName);
-			log.log("will add code coverage for", testModuleName);
+			log.debug("will add code coverage for", testModuleName);
 			testModules[k] = testModuleName;
 			coverage.addInstrumentCandidate(testModuleName);
 		}

@@ -62,7 +62,7 @@ var TestCollection = {
 
 		if (addTest) {
 			if (!this.skipTestModules[name]) {
-				log.log("module '" + name + "'");
+				log.debug("module '" + name + "'");
 				this.currentModule = new ModuleTests(name);
 				this.modules.push(this.currentModule);
 			}

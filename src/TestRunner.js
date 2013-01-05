@@ -11,7 +11,19 @@ var TestRunner = {
 
 			log.debug("starting test '" + test.name + "'");
 			try {
+				// hide console.log messages in the buffer
+				var _log = console.log;
+				var buffered = [];
+				console.log = function() {
+					var msg = [].slice.call(arguments).join('');
+					buffered.push(msg);
+				}
+
 				test.code();
+
+				// restore console.log and keep messages in the test
+				test.stdout = buffered.join('\n');
+				console.log = _log;
 			} catch (errors) {
 				console.error("crash in test '" + test.name + "'\n", errors);
 				test.hasCrashed = true;

@@ -9,6 +9,7 @@ var Test = function (name, code, moduleName) {
 	this.hasCrashed = false;
 	this.module = moduleName;
 	this.messages = [];
+	this.stdout = null;
 
 	this.check = function () {
 		console.assert(typeof this.name === "string", "test name should be a string");
