@@ -40,6 +40,7 @@ function _reportTests(tests, skipPassed) {
 function _report(modules, skipPassed) {
 	console.assert(Array.isArray(modules), "modules is not an array");
 	if (!modules.length) {
+		log.debug('nothing to report, no test modules');
 		return;
 	}
 	

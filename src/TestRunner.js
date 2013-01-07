@@ -20,13 +20,14 @@ var TestRunner = {
 				}
 
 				test.code();
-
-				// restore console.log and keep messages in the test
-				test.stdout = buffered.join('\n');
-				console.log = _log;
 			} catch (errors) {
 				console.error("crash in test '" + test.name + "'\n", errors);
 				test.hasCrashed = true;
+			}
+			finally {
+				// restore console.log and keep messages in the test
+				test.stdout = buffered.join('\n');
+				console.log = _log;
 			}
 			log.debug("finished test '" + test.name + "'", this._currentTest.assertions + " assertions,", this._currentTest.broken, "broken");
 			this._afterTest();
