@@ -7,6 +7,13 @@ var TestCollection = {
 	testOnlyModules: {},
 	skipTestModules: {},
 
+	init: function () {
+		this.modules = [];
+		this.currentModule = undefined;
+		this.testOnlyModules = {};
+		this.skipTestModules = {};
+	},
+
 	collectTests: function (moduleNames, testModules) {
 		console.assert(Array.isArray(moduleNames), "expected list of test modules");
 

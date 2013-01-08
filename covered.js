@@ -12,6 +12,7 @@ function initConfig(options) {
 	options = options || {};
 	config.files = options._ || options.files || config.files;
 	config.cover = options.cover || config.cover;
+	config.report = options.report || 1;
 }
 
 function init(options) {

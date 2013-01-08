@@ -44,6 +44,10 @@ function init(options) {
 	log.debug("binding methods to preserve original object information in global invocations");
 	console.assert(typeof Function.prototype.bind === "function", "bind is unavailable!");
 
+	// clear any preexisting results (tests might be run multiple times)
+	TestCollection.init();
+	TestRunner.init();
+
 	// do not pollute global namespace, put all our stuff under single object
 	global.gt = {
 		module: TestCollection.module.bind(TestCollection),

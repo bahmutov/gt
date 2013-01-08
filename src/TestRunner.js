@@ -1,4 +1,9 @@
 var TestRunner = {
+	init: function () {
+		this._currentTest = null;
+		this._tests = null;
+	},
+
 	runTests: function () {
 		console.assert(this._tests, "runner has no test collection");
 
