@@ -100,7 +100,7 @@ function runTests() {
 
 function writeReport() {
 	log.debug("reporting test results, skipping passed tests?", config.reporter);
-	Reporter.log(TestCollection.modules, config.reporter);
+	Reporter.log(TestCollection.modules, config);
 	if (config.xml) {
 		JUnitReporter.log(TestCollection.modules, config.xml);
 	}

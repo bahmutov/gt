@@ -42,7 +42,6 @@ function _report(modules, config) {
 		log.debug('nothing to report, no test modules');
 		return;
 	}
-	config = config || {};
 	var skipPassed = config.reporter;
 	var useColors = !!config.colors;
 	
