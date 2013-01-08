@@ -33,6 +33,8 @@ var TestCollection = {
 			console.assert(typeof testModuleName === "string", "expected a module name", testModuleName);
 			log.debug("loading module with unit tests", testModuleName);
 			try {
+				// clear cache just in case to make sure the module is loaded
+				delete require.cache[testModuleName];
 				require(testModuleName);
 			} catch (errors) {
 				console.error(errors);
