@@ -8,13 +8,12 @@ var sprintf = require('sprintf').sprintf;
 var Test = require("./Test").Test;
 console.assert("string" === typeof Test.PASS, "Test.PASS is undefined");
 
-function _reportTests(tests, skipPassed) {
+function _reportTests(tests, config) {
 	console.assert(Array.isArray(tests), "tests is not an array");
 
-	var useColors = true;
-	if (typeof args !== 'undefined') {
-		useColors = args.colors;
-	}
+	config = config || {};
+	var skipPassed = config.reporter;
+	var useColors = !!config.colors;
 
 	tests.forEach(function (test) {
 		if (!test.hasFailed() && skipPassed) {
@@ -37,20 +36,18 @@ function _reportTests(tests, skipPassed) {
 	});
 }
 
-function _report(modules, skipPassed) {
+function _report(modules, config) {
 	console.assert(Array.isArray(modules), "modules is not an array");
 	if (!modules.length) {
 		log.debug('nothing to report, no test modules');
 		return;
 	}
+	config = config || {};
+	var skipPassed = config.reporter;
+	var useColors = !!config.colors;
 	
 	var lineLength = 100;
 	console.log(centerMessage(lineLength, "Individual Test Results"));
-
-	var useColors = true;
-	if (typeof args !== 'undefined') {
-		useColors = args.colors;
-	}
 
 	modules.forEach(function (module) {
 		console.assert("string" === typeof module.name, "could not find name for module");
@@ -63,7 +60,7 @@ function _report(modules, skipPassed) {
 			console.log(module.name);
 		}
 
-		_reportTests(module.getTests(), skipPassed);
+		_reportTests(module.getTests(), config);
 
 		var good = module.getPassedTests();
 		var total = module.getNumberOfTests();
