@@ -4,6 +4,26 @@ var TestRunner = {
 		this._tests = null;
 	},
 
+	bufferMessage: function () {
+		var msg = [].slice.call(arguments).join('');
+		this.buffered.push(msg);
+	},
+
+	hideConsole: function () {
+		this._log = console.log;
+		this._warn = console.warn;
+		this._error = console.error;
+		this.buffered = [];
+		console.log = console.warn = console.error = this.bufferMessage.bind(this);
+	},
+
+	restoreConsole: function () {
+		console.log = this._log;
+		console.warn = this._warn;
+		console.error = this._error;
+		return this.buffered.join('\n');
+	},
+
 	runTests: function () {
 		console.assert(this._tests, "runner has no test collection");
 
@@ -16,23 +36,14 @@ var TestRunner = {
 
 			log.debug("starting test '" + test.name + "'");
 			try {
-				// hide console.log messages in the buffer
-				var _log = console.log;
-				var buffered = [];
-				console.log = function() {
-					var msg = [].slice.call(arguments).join('');
-					buffered.push(msg);
-				}
-
+				this.hideConsole();
 				test.code();
 			} catch (errors) {
 				console.error("crash in test '" + test.name + "'\n", errors);
 				test.hasCrashed = true;
 			}
 			finally {
-				// restore console.log and keep messages in the test
-				test.stdout = buffered.join('\n');
-				console.log = _log;
+				test.stdout = this.restoreConsole();
 			}
 			log.debug("finished test '" + test.name + "'", this._currentTest.assertions + " assertions,", this._currentTest.broken, "broken");
 			this._afterTest();
