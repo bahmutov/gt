@@ -6,7 +6,8 @@ var fs = require('fs');
 var config = {
 	files: [], // files to compute coverage for
 	cover: null, // output cover folder name
-	log: 1 // log level
+	log: 1, // log level
+	colors: true
 };
 
 function initConfig(options) {
@@ -15,6 +16,7 @@ function initConfig(options) {
 	config.cover = options.cover || config.cover;
 	config.report = options.report || 1;
 	config.log = options.log || 1;
+	config.colors = options.colors || options.color;
 }
 
 function init(options) {

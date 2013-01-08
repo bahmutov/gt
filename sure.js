@@ -2,7 +2,8 @@ var config = {
 	files: [], // test files to process
 	xml: null, // output xml report filename, compatible with JUnit
 	reporter: 0, // reporter format
-	modules: []
+	modules: [],
+	colors: true
 };
 
 if (typeof log === 'undefined') {
@@ -32,6 +33,7 @@ function initConfig(options) {
 	config.xml = options.xml || config.xml;
 	config.reporter = options.r || options.reporter || options.report || config.reporter;
 	config.modules = options.module || config.modules;
+	config.colors = options.colors || options.color;
 }
 
 function init(options) {
@@ -115,11 +117,7 @@ function reportFinalCount() {
 
 	var goodTests = TestCollection.getNumberOfTests() - failedTests.length;
 	var message = Math.round(percent) + "% (" + goodTests + " / " + TestCollection.getNumberOfTests() + ") tests passed";
-	var useColors = true;
-	if (typeof args !== 'undefined') {
-		useColors = args.colors;
-	}
-	if (useColors) {
+	if (config.colors) {
 		console.log(color(message));
 	} else {
 		console.log(message);
