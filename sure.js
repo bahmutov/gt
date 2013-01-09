@@ -88,8 +88,9 @@ function init(options) {
 
 function collectTests() {
 	console.assert(Array.isArray(config.files), "config files is not an arrya");
-	TestCollection.collectTests(config.files, config.modules);
+	var allTestModules = TestCollection.collectTests(config.files, config.modules);
 	console.log();
+	return allTestModules;
 }
 
 function runTests() {
@@ -129,9 +130,10 @@ function reportFinalCount() {
 module.exports = {
 	init: init,
 	run: function () {
-		collectTests();
+		var allTestModules = collectTests();
+		console.assert(Array.isArray(allTestModules), 'all test modules should be an array');
 		runTests();
 		writeReport();
-		return reportFinalCount();	
+		return [reportFinalCount(), allTestModules];
 	}
 };

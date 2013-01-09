@@ -2,13 +2,15 @@ var sure = require('./sure');
 var coverage = require("./lib/coverage");
 var path = require('path');
 var fs = require('fs');
+var watch = require('nodewatch');
 
 var config = {
 	files: [], // files to compute coverage for
 	cover: null, // output cover folder name
 	log: 1, // log level
 	colors: true,
-	output: false // hide console.log messages by default
+	output: false, // hide console.log messages by default
+	watch: false // watch files, rerun if changed
 };
 
 function initConfig(options) {
@@ -19,6 +21,7 @@ function initConfig(options) {
 	config.log = options.log || 1;
 	config.colors = options.colors || options.color;
 	config.output = options.output || config.output;
+	config.watch = options.watch || config.watch;
 }
 
 function init(options) {
@@ -109,13 +112,37 @@ function writeCoverageSummary(coverFolder, basePath) {
 	}
 }
 
+function runTests() {
+	var failedAndTests = sure.run();
+	writeCoverageReport();
+	if (config.cover) {
+		writeCoverageSummary(config.cover, '.');
+	}
+	return failedAndTests;
+}
+
 module.exports = {
 	init: init,
 	run: function() {
-		var failed = sure.run();
-		writeCoverageReport();
-		if (config.cover) {
-			writeCoverageSummary(config.cover, '.');
+		var failedAndTests = runTests();
+		console.assert(Array.isArray(failedAndTests), 'expected results array');
+		var failed = failedAndTests[0];
+		console.assert(failed >= 0, 'number of failed tests should be >= 0');
+		var filenames = failedAndTests[1];
+		console.assert(Array.isArray(filenames), 'expect filenames to be an array');
+
+		if (config.watch && filenames.length) {
+			console.log('watching', filenames.length, 'files...');
+			filenames.forEach(function (filename) {
+				watch.add(filename);
+			});
+
+			var that = this;
+			watch.onChange(function (file, prev, curr, action){
+				that.init(config);
+				log.warn('file', file, action);
+				runTests();
+			});
 		}
 		return failed;
 	}

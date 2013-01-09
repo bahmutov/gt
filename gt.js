@@ -20,7 +20,8 @@ var arguments = (function() {
 			xml: null,
 			colors: true,
 			module: [],
-			output: false
+			output: false,
+			watch: false
 		}).alias('l', 'log').alias('r', 'report').alias('h', 'help').alias('c', 'cover')
 		.string("cover").string("xml")
 		.boolean("colors")
@@ -31,6 +32,8 @@ var arguments = (function() {
 		.describe('colors', 'use terminal colors for output, might not work with continuous build servers')
 		.describe('module', 'test module to run, can be used multiple times')
 		.boolean('output').describe('output', 'do not hide standard and warning console output messages')
+		.alias('w', 'watch').boolean('watch')
+		.describe('watch', 'watch files for changes, rerun the unit tests')
 		.argv;
 
 	if (!module.parent) {
@@ -55,4 +58,6 @@ console.assert(typeof sure === "object", 'loaded sure module');
 
 sure.init(arguments);
 var failed = sure.run();
-process.exit(failed);
+if (!arguments.watch) {
+	process.exit(failed);
+}

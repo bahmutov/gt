@@ -11,4 +11,8 @@ gt.test('arity + expect number', function () {
 	function foo() {};
 	gt.expect(1);
 	gt.arity(foo, 0, 'foo without arguments');
-})
+}); 
+
+gt.test('arity 1', function () {
+	gt.arity(function (foo) {}, 1, 'needs 1 argument');
+});

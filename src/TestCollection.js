@@ -42,6 +42,8 @@ var TestCollection = {
 			}
 		});
 		log.debug("loaded", this.getNumberOfTests(), "tests from");
+
+		return moduleNames;
 	},
 
 	add: function (name, code) {
