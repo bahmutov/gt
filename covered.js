@@ -15,7 +15,7 @@ var config = {
 
 function initConfig(options) {
 	options = options || {};
-	config.files = options._ || options.files || config.files;
+	config.files = options.files || options.module || config.files;
 	config.cover = options.cover || config.cover;
 	config.report = options.report || 1;
 	config.log = options.log || 1;

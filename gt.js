@@ -7,6 +7,7 @@ try {
 	console.error('could not load custom logger, have you forgot to run npm install?');
 	process.exit(-1);
 }
+var path = require('path');
 
 // grab command line arguments
 var arguments = (function() {
@@ -19,7 +20,7 @@ var arguments = (function() {
 			cover: "cover",
 			xml: null,
 			colors: true,
-			module: [],
+			module: [], // all files with test and code
 			output: false,
 			watch: false
 		}).alias('l', 'log').alias('r', 'report').alias('h', 'help').alias('c', 'cover')
@@ -53,11 +54,30 @@ if (typeof arguments.module === 'string') {
 var logger = require('optional-color-logger');
 logger.init(arguments);
 
-var sure = require('./covered');
-console.assert(typeof sure === "object", 'loaded sure module');
+function discoverSourceFiles(files) {
+	console.assert(Array.isArray(files), 'expect list of filenames');	
+	var glob = require("glob");
 
-sure.init(arguments);
-var failed = sure.run();
+	var filenames = [];
+	files.forEach(function (shortName) {
+		var files = glob.sync(shortName);
+		filenames = filenames.concat(files);
+	});
+
+	filenames = filenames.map(function (shortName) {
+		return path.resolve(shortName);
+	});
+	return filenames;
+}
+
+arguments.module = arguments.module.concat(arguments._);
+arguments.module = discoverSourceFiles(arguments.module);
+
+var covered = require('./covered');
+console.assert(typeof covered === "object", 'could not load test framework');
+
+covered.init(arguments);
+var failed = covered.run();
 if (!arguments.watch) {
 	process.exit(failed);
 }

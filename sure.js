@@ -1,8 +1,8 @@
 var config = {
-	files: [], // test files to process
+	files: [], // test and code files to process
 	xml: null, // output xml report filename, compatible with JUnit
 	reporter: 0, // reporter format
-	modules: [],
+	// modules: [],
 	colors: true,
 	output: false
 };
@@ -30,10 +30,9 @@ var TestRunner = require("./src/TestRunner").TestRunner;
 
 function initConfig(options) {
 	options = options || {};
-	config.files = options._ || options.files || config.files;
+	config.files = options.files || options.module || config.files;
 	config.xml = options.xml || config.xml;
 	config.reporter = options.r || options.reporter || options.report || config.reporter;
-	config.modules = options.module || config.modules;
 	config.colors = options.colors || options.color;
 	config.output = options.output || config.output;
 }
@@ -87,7 +86,7 @@ function init(options) {
 }
 
 function collectTests() {
-	console.assert(Array.isArray(config.files), "config files is not an arrya");
+	console.assert(Array.isArray(config.files), "config files is not an array");
 	var allTestModules = TestCollection.collectTests(config.files, config.modules);
 	console.log();
 	return allTestModules;
