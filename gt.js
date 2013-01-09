@@ -19,7 +19,8 @@ var arguments = (function() {
 			cover: "cover",
 			xml: null,
 			colors: true,
-			module: []
+			module: [],
+			output: false
 		}).alias('l', 'log').alias('r', 'report').alias('h', 'help').alias('c', 'cover')
 		.string("cover").string("xml")
 		.boolean("colors")
@@ -29,6 +30,7 @@ var arguments = (function() {
 		.describe("xml", "output JUnit xml filename")
 		.describe('colors', 'use terminal colors for output, might not work with continuous build servers')
 		.describe('module', 'test module to run, can be used multiple times')
+		.boolean('output').describe('output', 'do not hide standard and warning console output messages')
 		.argv;
 
 	if (!module.parent) {

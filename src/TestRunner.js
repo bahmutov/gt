@@ -1,7 +1,9 @@
 var TestRunner = {
-	init: function () {
+	init: function (config) {
+		console.assert(config, 'missing config');
 		this._currentTest = null;
 		this._tests = null;
+		this.config = config;
 	},
 
 	bufferMessage: function () {
@@ -34,16 +36,21 @@ var TestRunner = {
 			test.check();
 			this._currentTest = test;
 
-			log.debug("starting test '" + test.name + "'");
 			try {
-				this.hideConsole();
+				if (!this.config.output) {
+					this.hideConsole();
+				} else {
+					log.info("starting test '" + test.name + "'");
+				}
 				test.code();
 			} catch (errors) {
 				console.error("crash in test '" + test.name + "'\n", errors);
 				test.hasCrashed = true;
 			}
 			finally {
-				test.stdout = this.restoreConsole();
+				if (!this.config.output) {
+					test.stdout = this.restoreConsole();
+				}
 			}
 			log.debug("finished test '" + test.name + "'", this._currentTest.assertions + " assertions,", this._currentTest.broken, "broken");
 			this._afterTest();

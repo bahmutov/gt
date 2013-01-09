@@ -7,7 +7,8 @@ var config = {
 	files: [], // files to compute coverage for
 	cover: null, // output cover folder name
 	log: 1, // log level
-	colors: true
+	colors: true,
+	output: false // hide console.log messages by default
 };
 
 function initConfig(options) {
@@ -17,6 +18,7 @@ function initConfig(options) {
 	config.report = options.report || 1;
 	config.log = options.log || 1;
 	config.colors = options.colors || options.color;
+	config.output = options.output || config.output;
 }
 
 function init(options) {

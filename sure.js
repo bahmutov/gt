@@ -3,7 +3,8 @@ var config = {
 	xml: null, // output xml report filename, compatible with JUnit
 	reporter: 0, // reporter format
 	modules: [],
-	colors: true
+	colors: true,
+	output: false
 };
 
 if (typeof log === 'undefined') {
@@ -34,6 +35,7 @@ function initConfig(options) {
 	config.reporter = options.r || options.reporter || options.report || config.reporter;
 	config.modules = options.module || config.modules;
 	config.colors = options.colors || options.color;
+	config.output = options.output || config.output;
 }
 
 function init(options) {
@@ -48,7 +50,7 @@ function init(options) {
 
 	// clear any preexisting results (tests might be run multiple times)
 	TestCollection.init();
-	TestRunner.init();
+	TestRunner.init(config);
 
 	// do not pollute global namespace, put all our stuff under single object
 	global.gt = {
