@@ -80,6 +80,19 @@ var TestRunner = {
 		this._currentTest.expected = numberOfAssertions;
 	},
 
+	func: function (f, message) {
+		this.equal(typeof f, 'function', message);
+	},
+
+	arity: function (f, n, message) {
+		console.assert(this._currentTest, "current test is undefined");
+		this.func(f, message);
+		if (this._currentTest.expected) {
+			this._currentTest.expected++;
+		}
+		this.equal(f.length, n, message);
+	},
+
 	raises: function (code, expectedExceptionType, message) {
 		console.assert(this._currentTest !== undefined, "current test is undefined");
 		console.assert(expectedExceptionType !== undefined, "undefined expected exception type, message:", message);

@@ -64,6 +64,8 @@ function init(options) {
 		expect: TestRunner.expect.bind(TestRunner),
 		raises: TestRunner.raises.bind(TestRunner),
 		raisesAssertion: TestRunner.raisesAssertion.bind(TestRunner),
+		arity: TestRunner.arity.bind(TestRunner),
+		func: TestRunner.func.bind(TestRunner),
 
 		// a few extra utility assertion methods, implemented using simpler ones
 		aequal: function(array1, array2, message) {
@@ -71,9 +73,6 @@ function init(options) {
 		},
 		notDeepEqual: function () {
 			return !this.deepEqual(arguments);
-		},
-		func: function (f, message) {
-			this.equal(typeof f, 'function', message);
 		},
 		number: function (n, message) {
 			this.equal(typeof n, 'number', message);
