@@ -95,14 +95,24 @@ var TestRunner = {
 
 	raises: function (code, expectedExceptionType, message) {
 		console.assert(this._currentTest !== undefined, "current test is undefined");
-		console.assert(expectedExceptionType !== undefined, "undefined expected exception type, message:", message);
+		var typeName = null;
+		if (!message && typeof expectedExceptionType === 'string') {
+			message = expectedExceptionType;
+			expectedExceptionType = null;
+		} else {
+			console.assert(expectedExceptionType !== undefined, "undefined expected exception type, message:", message);
+			typeName = expectedExceptionType.name;
+		}
 		console.assert(typeof message === "string", "message should be a string");
 		this._beforeAssertion();
 
-		var typeName = expectedExceptionType.name;
 		try {
 			code();
 		} catch (error) {
+			if (!typeName) {
+				// caught some exception, nothing specific was expected
+				return;
+			}
 			if (expectedExceptionType === typeof error) {
 				return;
 			}
@@ -116,7 +126,11 @@ var TestRunner = {
 			this._brokenAssertion("expected exception of type '" + typeName + "', caught '" + caughtType + "' '" + message + "'");
 			return;
 		}
-		this._brokenAssertion("exception of type '" + typeName + "' not thrown, '" + message + "'");
+		if (typeName) {
+			this._brokenAssertion("exception of type '" + typeName + "' not thrown, '" + message + "'");
+		} else {
+			this._brokenAssertion("exception NOT thrown, '" + message + "'");
+		}
 	},
 
 	raisesAssertion: function (code, message) {

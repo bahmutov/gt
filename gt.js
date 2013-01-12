@@ -10,7 +10,7 @@ try {
 var path = require('path');
 
 // grab command line arguments
-var arguments = (function() {
+var options = (function() {
 	var optimist = require("optimist");
 	var args = optimist.usage("JS unit testing and coverage in a single shot.\nUsage: $0")
 		.default({
@@ -22,7 +22,8 @@ var arguments = (function() {
 			colors: true,
 			module: [], // all files with test and code
 			output: false,
-			watch: false
+			watch: false,
+			jsunity: false
 		}).alias('l', 'log').alias('r', 'report').alias('h', 'help').alias('c', 'cover')
 		.string("cover").string("xml")
 		.boolean("colors")
@@ -35,6 +36,7 @@ var arguments = (function() {
 		.boolean('output').describe('output', 'do not hide standard and warning console output messages')
 		.alias('w', 'watch').boolean('watch')
 		.describe('watch', 'watch files for changes, rerun the unit tests')
+		.boolean('jsunity').describe('jsunity', 'unit tests follow jsunity rules')
 		.argv;
 
 	if (!module.parent) {
@@ -47,12 +49,12 @@ var arguments = (function() {
 	return args;
 }());
 
-if (typeof arguments.module === 'string') {
-	arguments.module = [arguments.module];
+if (typeof options.module === 'string') {
+	options.module = [options.module];
 }
 
 var logger = require('optional-color-logger');
-logger.init(arguments);
+logger.init(options);
 
 function discoverSourceFiles(files) {
 	console.assert(Array.isArray(files), 'expect list of filenames');	
@@ -70,14 +72,22 @@ function discoverSourceFiles(files) {
 	return filenames;
 }
 
-arguments.module = arguments.module.concat(arguments._);
-arguments.module = discoverSourceFiles(arguments.module);
+options.module = options.module.concat(options._);
+options.module = discoverSourceFiles(options.module);
 
-var covered = require('./covered');
-console.assert(typeof covered === "object", 'could not load test framework');
+var failed = 0;
+if (options.jsunity) {
+	options.watch = false;
+	var jsunityAdapter = require('./src/jsunityAdapter');
+	failed = jsunityAdapter.run(options.module);
+} else {
+	var covered = require('./covered');
+	console.assert(typeof covered === "object", 'could not load test framework');
 
-covered.init(arguments);
-var failed = covered.run();
-if (!arguments.watch) {
+	covered.init(options);
+	failed = covered.run();
+}
+
+if (!options.watch) {
 	process.exit(failed);
 }
