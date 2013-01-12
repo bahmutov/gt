@@ -23,7 +23,8 @@ var options = (function() {
 			module: [], // all files with test and code
 			output: false,
 			watch: false,
-			jsunity: false
+			jsunity: false,
+			doh: false
 		}).alias('l', 'log').alias('r', 'report').alias('h', 'help').alias('c', 'cover')
 		.string("cover").string("xml")
 		.boolean("colors")
@@ -37,6 +38,7 @@ var options = (function() {
 		.alias('w', 'watch').boolean('watch')
 		.describe('watch', 'watch files for changes, rerun the unit tests')
 		.boolean('jsunity').describe('jsunity', 'unit tests follow jsunity rules')
+		.boolean('doh').describe('doh', 'unit tests follow Dojo DOH syntax (including define)')
 		.argv;
 
 	if (!module.parent) {
@@ -80,6 +82,10 @@ if (options.jsunity) {
 	options.watch = false;
 	var jsunityAdapter = require('./src/jsunityAdapter');
 	failed = jsunityAdapter.run(options.module);
+} else if (options.doh) {
+	options.watch = false;
+	var dohAdapter = require('./src/dohAdapter');
+	failed = dohAdapter.run(options.module);
 } else {
 	var covered = require('./covered');
 	console.assert(typeof covered === "object", 'could not load test framework');

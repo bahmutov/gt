@@ -1,6 +1,6 @@
 {
   "name": "gt",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "description": "Simple javascript unit testing framework, similar to QUnit, but with JS code coverage via istanbul",
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
   "repository": {
@@ -21,7 +21,8 @@
     "custom-logger": "*",
 	  "istanbul": "*",
     "nodewatch": "latest",
-    "glob": "latest"
+    "glob": "latest",
+    "amdefine": "latest"
   },
   "devDependencies" :{
     "js-complexity-viz": "latest"
