@@ -9,37 +9,40 @@ var TestRunner = {
 		this.config = config;
 	},
 
+	runTest: function (test) {
+		console.assert(test, 'expected a test argument');
+
+		test.check();
+		TestRunInfo._currentTest = test;
+
+		try {
+			if (!this.config.output) {
+				consoleHider.hideConsole();
+			} else {
+				log.info("starting test '" + test.name + "'");
+			}
+			test.code();
+		} catch (errors) {
+			console.error("crash in test '" + test.name + "'\n", errors);
+			test.hasCrashed = true;
+		}
+		finally {
+			if (!this.config.output) {
+				test.stdout = consoleHider.restoreConsole();
+			}
+		}
+		log.debug("finished test '" + test.name + "'", 
+			TestRunInfo._currentTest.assertions + " assertions,", 
+			TestRunInfo._currentTest.broken, "broken");
+		TestRunInfo._afterTest();
+	},
+
 	runTests: function () {
 		console.assert(this._tests, "runner has no test collection");
 
-		var k;
-		for (k = 0; k < this._tests.length; k += 1) {
-			var test = this._tests[k];
-			console.assert(test, "could not get test");
-			test.check();
-			TestRunInfo._currentTest = test;
+		var that = this;
 
-			try {
-				if (!this.config.output) {
-					consoleHider.hideConsole();
-				} else {
-					log.info("starting test '" + test.name + "'");
-				}
-				test.code();
-			} catch (errors) {
-				console.error("crash in test '" + test.name + "'\n", errors);
-				test.hasCrashed = true;
-			}
-			finally {
-				if (!this.config.output) {
-					test.stdout = consoleHider.restoreConsole();
-				}
-			}
-			log.debug("finished test '" + test.name + "'", 
-				TestRunInfo._currentTest.assertions + " assertions,", 
-				TestRunInfo._currentTest.broken, "broken");
-			TestRunInfo._afterTest();
-		}
+		this._tests.forEach(this.runTest.bind(this));
 	},
 
 	// hooks to be used by the unit tests
