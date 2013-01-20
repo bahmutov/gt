@@ -61,7 +61,8 @@ var TestRunner = {
 
 	expect: function (numberOfAssertions) {
 		console.assert(TestRunInfo._currentTest !== undefined, "current test is undefined");
-		console.assert(numberOfAssertions >= 0, "invalid number of expected assertion", numberOfAssertions, "test", this._currentTest.name);
+		console.assert(numberOfAssertions >= 0, "invalid number of expected assertion", numberOfAssertions, 
+			"test", TestRunInfo._currentTest.name);
 		TestRunInfo._currentTest.expected = numberOfAssertions;
 	},
 
@@ -70,7 +71,7 @@ var TestRunner = {
 	},
 
 	arity: function (f, n, message) {
-		console.assert(this._currentTest, "current test is undefined");
+		console.assert(TestRunInfo._currentTest, "current test is undefined");
 		this.func(f, message);
 		if (TestRunInfo._currentTest.expected) {
 			TestRunInfo._currentTest.expected++;
