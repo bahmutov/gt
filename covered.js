@@ -10,7 +10,8 @@ var config = {
 	log: 1, // log level
 	colors: true,
 	output: false, // hide console.log messages by default
-	watch: false // watch files, rerun if changed
+	watch: false, // watch files, rerun if changed
+	untested: false // call "untested" with coverage results
 };
 
 function initConfig(options) {
@@ -22,6 +23,7 @@ function initConfig(options) {
 	config.colors = options.colors || options.color;
 	config.output = options.output || config.output;
 	config.watch = options.watch || config.watch;
+	config.untested = options.untested || config.untested;
 }
 
 function init(options) {
@@ -106,9 +108,17 @@ function writeCoverageSummary(coverFolder, basePath) {
   });
 
   if (coverFolder) {
-  	var reportFilename = coverFolder + '\\code_coverage_report.json';
-  	fs.writeFileSync(reportFilename, JSON.stringify(coverageReport));
+  	var reportFilename = path.join(coverFolder, 'code_coverage_report.json');
+  	fs.writeFileSync(reportFilename, JSON.stringify(coverageReport, null, 2));
   	log.info('wrote complexity json to', reportFilename);
+
+  	if (config.untested) {
+  		var untested = require('untested');
+  		// untested.update('test.js', reportFilename, coverageReport);
+  		untested.info();
+  		untested.reset();
+  		untested.info();
+  	}
 	}
 }
 

@@ -22,7 +22,8 @@
 	  "istanbul": "*",
     "nodewatch": "latest",
     "glob": "latest",
-    "amdefine": "latest"
+    "amdefine": "latest",
+    "untested": "latest"
   },
   "devDependencies" :{
     "js-complexity-viz": "latest"
