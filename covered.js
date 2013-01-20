@@ -140,7 +140,7 @@ module.exports = {
 			var that = this;
 			watch.onChange(function (file, prev, curr, action){
 				that.init(config);
-				log.warn('file', file, action);
+				log.info('file', file, action);
 				runTests();
 			});
 		}
