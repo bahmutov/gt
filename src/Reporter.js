@@ -36,6 +36,17 @@ function _reportTests(tests, config) {
 	});
 }
 
+function _writeMessage(msg, failed, useColors) {
+	console.assert(msg, 'nothing to write');
+
+	if (useColors) {
+		var color = (failed ? clc.redBright : clc.greenBright);
+		console.log(color(msg));
+	} else {
+		console.log(msg);
+	}
+}
+
 function _report(modules, config) {
 	console.assert(Array.isArray(modules), "modules is not an array");
 	if (!modules.length) {
@@ -52,49 +63,31 @@ function _report(modules, config) {
 		console.assert("string" === typeof module.name, "could not find name for module");
 
 		var failed = module.hasFailed();
-		if (useColors) {
-			var color = (failed ? clc.redBright : clc.greenBright);
-			console.log(color(module.name));
-		} else {
-			console.log(module.name);
-		}
+		_writeMessage(module.name, failed, useColors);
 
 		_reportTests(module.getTests(), config);
 
 		var good = module.getPassedTests();
 		var total = module.getNumberOfTests();
 		var percentage = module.passedPercentage();
-
 		var message = sprintf("  %-60s   %3d%% (%d / %d)", '', Math.round(percentage), good, total);
-		// var message = "\t\t" + Math.round(percentage) + "% (" + good + "/" + total + ")";
-
-		if (useColors) {
-			var color = (failed ? clc.redBright : clc.greenBright);
-			console.log(color(message));
-		} else {
-			console.log(message);
-		}
+		_writeMessage(message, failed, useColors);
 	});
 
 	console.log(centerMessage(lineLength));
 }
 
+var statusColors = {};
+statusColors[Test.PASS] = clc.greenBright;
+statusColors[Test.FAIL] = clc.redBright.bold;
+statusColors[Test.CRASH] = clc.magentaBright;
+statusColors[Test.INCOMPLETE] = clc.yellowBright;
+
 function _statusColor(status) {
 	console.assert("string" === typeof status, "status is not a string", status);
-	console.assert("string" === typeof Test.PASS, "Test.PASS is undefined");
-
-	switch (status) {
-	case Test.PASS:
-		return clc.greenBright;
-	case Test.FAIL:
-		return clc.redBright.bold;
-	case Test.CRASH:
-		return clc.magentaBright;
-	case Test.INCOMPLETE:
-		return clc.yellowBright;
-	default:
-		return clc.orangeBright;
-	}
+	var color = statusColors[status];
+	console.assert(color, 'could not find color for status', status);
+	return color;
 }
 
 exports.Reporter = {

@@ -39,9 +39,6 @@ var TestRunner = {
 
 	runTests: function () {
 		console.assert(this._tests, "runner has no test collection");
-
-		var that = this;
-
 		this._tests.forEach(this.runTest.bind(this));
 	},
 
@@ -97,17 +94,10 @@ var TestRunner = {
 		try {
 			code();
 		} catch (error) {
-			if (!typeName) {
-				// caught some exception, nothing specific was expected
-				return;
-			}
-			if (expectedExceptionType === typeof error) {
-				return;
-			}
-			if (error.name === expectedExceptionType) {
-				return;
-			}
-			if (error.name === typeName) {
+			if (!typeName || 
+				expectedExceptionType === typeof error ||
+				error.name === expectedExceptionType ||
+				error.name === typeName) {
 				return;
 			}
 			var caughtType = error.name || typeof error;
