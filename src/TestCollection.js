@@ -1,17 +1,20 @@
 var Test = require("./Test").Test;
 var ModuleTests = require("./ModuleTests").ModuleTests;
+var path = require('path');
 
 var TestCollection = {
 	modules: [],
 	currentModule: undefined,
 	testOnlyModules: {},
 	skipTestModules: {},
+	currentFileName: undefined,
 
 	init: function () {
 		this.modules = [];
 		this.currentModule = undefined;
 		this.testOnlyModules = {};
 		this.skipTestModules = {};
+		this.currentFileName = undefined;
 	},
 
 	collectTests: function (moduleNames, testModules) {
@@ -29,18 +32,19 @@ var TestCollection = {
 			}
 		}, this);
 
-		moduleNames.forEach(function (testModuleName) {
-			console.assert(typeof testModuleName === "string", "expected a module name", testModuleName);
-			log.debug("loading module with unit tests", testModuleName);
+		moduleNames.forEach(function (moduleName) {
+			console.assert(typeof moduleName === "string", "expected a module name", moduleName);
+			log.debug("loading module with unit tests", moduleName);
 			try {
+				this.currentFileName = path.resolve(moduleName);
 				// clear cache just in case to make sure the module is loaded
-				delete require.cache[testModuleName];
-				require(testModuleName);
+				delete require.cache[moduleName];
+				require(moduleName);
 			} catch (errors) {
 				console.error(errors);
 				process.exit(1);
 			}
-		});
+		}, this);
 		log.debug("loaded", this.getNumberOfTests(), "tests from");
 
 		return moduleNames;
@@ -50,12 +54,13 @@ var TestCollection = {
 		if ("undefined" === typeof this.currentModule) {
 			this.module("unnamed");
 		}
+		console.assert(this.currentFileName, 'current filename not set');
 
 		if (!this.currentModule) {
 			return;
 		}
 		console.assert(this.currentModule, "current module is not defined, cannot add test", name);
-		this.currentModule.add(name, code);
+		this.currentModule.add(name, code, this.currentFileName);
 	},
 
 	module: function (name) {

@@ -4,9 +4,12 @@ var ModuleTests = function (name) {
 	this._tests = [];
 	this.name = ("string" === typeof name ? name : "default");
 
-	this.add = function (name, code) {
+	this.add = function (name, code, filename) {
 		console.assert(this._tests, "this._tests is defined");
-		var test = new Test(name, code, this.name);
+		console.assert(typeof code === 'function', 'expected a test function');
+		console.assert(typeof filename === 'string', 'expected a filename string');
+
+		var test = new Test(name, code, this.name, filename);
 		this._tests.push(test);
 	};
 

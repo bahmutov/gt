@@ -1,6 +1,6 @@
 var sprintf = require('sprintf').sprintf;
 
-var Test = function (name, code, moduleName) {
+var Test = function (name, code, moduleName, filename) {
 	this.name = name;
 	this.code = code;
 	this.assertions = 0;
@@ -10,12 +10,14 @@ var Test = function (name, code, moduleName) {
 	this.module = moduleName;
 	this.messages = [];
 	this.stdout = null;
+	this.filename = filename;
 
 	this.check = function () {
 		console.assert(typeof this.name === "string", "test name should be a string");
 		console.assert(this.assertions === 0, "test", this.name, "should start with 0 assertions");
 		console.assert(this.broken === 0, "test", this.name, "should start with 0 broken assertions");
 		console.assert(typeof this.code === "function", this.name, "should have code");
+		console.assert(typeof this.filename === 'string', this.name, 'should have original source filename');
 	};
 
 	this.errorMessage = function(msg) {
