@@ -1,6 +1,7 @@
 var Test = require("./Test").Test;
 var ModuleTests = require("./ModuleTests").ModuleTests;
 var path = require('path');
+var _ = require('lodash');
 
 var TestCollection = {
 	modules: [],
@@ -48,6 +49,17 @@ var TestCollection = {
 		log.debug("loaded", this.getNumberOfTests(), "tests from");
 
 		return moduleNames;
+	},
+
+	getTestFilenames: function () {
+		console.assert(this.modules, 'undefined test modules');
+		var testFilenames = this.modules.map(function (testModule) {
+			return testModule.getTestFilenames();
+		});
+
+		testFilenames = _(testFilenames).flatten().uniq().value();
+		// console.log('test filenames\n', testFilenames);
+		return testFilenames;
 	},
 
 	add: function (name, code) {

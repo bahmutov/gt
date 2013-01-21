@@ -114,10 +114,13 @@ function writeCoverageSummary(coverFolder, basePath) {
 
   	if (config.untested) {
   		var untested = require('untested');
-  		// untested.update('test.js', reportFilename, coverageReport);
-  		untested.info();
-  		untested.reset();
-  		untested.info();
+  		var testFilenames = sure.getTestFilenames();
+  		console.assert(Array.isArray(testFilenames), 'expected list of test filenames');
+
+  		untested.update({
+  			test: testFilenames, 
+  			coverage: coverageReport
+  		});
   	}
 	}
 }

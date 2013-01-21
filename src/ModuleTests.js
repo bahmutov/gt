@@ -1,4 +1,5 @@
 var Test = require("./Test").Test;
+var _ = require('lodash');
 
 var ModuleTests = function (name) {
 	this._tests = [];
@@ -19,6 +20,14 @@ var ModuleTests = function (name) {
 
 	this.getTests = function () {
 		return this._tests;
+	};
+
+	this.getTestFilenames = function () {
+		var filenames = this._tests.map(function (test) {
+			return test.filename;
+		});
+		filenames = _.uniq(filenames);
+		return filenames;
 	};
 
 	this.hasFailed = function () {

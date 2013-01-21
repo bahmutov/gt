@@ -4,6 +4,7 @@ var centerMessage = require('./utils').centerMessage;
 var sprintf = require('sprintf').sprintf;
 var clc = require('cli-color');
 var sprintf = require('sprintf').sprintf;
+var _ = require('lodash');
 
 var Test = require("./Test").Test;
 console.assert("string" === typeof Test.PASS, "Test.PASS is undefined");

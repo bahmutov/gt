@@ -2,7 +2,6 @@ var config = {
 	files: [], // test and code files to process
 	xml: null, // output xml report filename, compatible with JUnit
 	reporter: 0, // reporter format
-	// modules: [],
 	colors: true,
 	output: false
 };
@@ -134,5 +133,6 @@ module.exports = {
 		runTests();
 		writeReport();
 		return [reportFinalCount(), allTestModules];
-	}
+	},
+	getTestFilenames: TestCollection.getTestFilenames.bind(TestCollection)
 };
