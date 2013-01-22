@@ -3,6 +3,7 @@ var coverage = require("./lib/coverage");
 var path = require('path');
 var fs = require('fs');
 var watch = require('nodewatch');
+var untested = require('untested');
 
 var config = {
 	files: [], // files to compute coverage for
@@ -63,28 +64,6 @@ function writeCoverageReport() {
 	}
 }
 
-function coveredPercent(fileLineInfo) {
-  var lines = Object.keys(fileLineInfo);
-
-  var covered = 0;
-  var total = 0;
-
-  lines.forEach(function(line) {
-      var timesCovered = fileLineInfo[line];
-      console.assert(timesCovered >= 0, "invalid number of times covered", timesCovered);
-      covered += (timesCovered > 0 ? 1 : 0);
-      total += 1;
-  });
-
-  console.assert(!isNaN(covered), 'number of covered lines', covered, 'is not a number');
-  console.assert(!isNaN(total), 'total lines', total, 'is not a number');
-  if (total < 1) {
-      return 100.0;
-  } else {
-      return Math.round(covered / total * 100);
-  }
-}
-
 function writeCoverageSummary(coverFolder, basePath) {
   console.assert(coverage, 'null coverage object');
   console.assert(typeof coverage.getFinalCoverage === 'function', 'getFinalCoverage does not exist');
@@ -93,19 +72,8 @@ function writeCoverageSummary(coverFolder, basePath) {
   basePath = basePath || '.';
   console.assert(basePath, 'null base path');
 
-  var coverageReport = {};
-
-  Object.keys(info).forEach(function(filename) {
-      var fileInfo = info[filename];
-      var covered = coveredPercent(fileInfo.l);
-      console.assert(covered >= 0.0 && covered <= 100.0, "invalid coverage % " + covered + " for file " + filename);
-
-      // console.log(filename, covered + '%');
-      coverageReport[filename] = {
-          name: filename,
-          coverage: covered
-      };
-  });
+	var coverageReport = untested.getCoverageSummary(info);
+	console.assert(coverageReport, 'could not get coverage summary from\n', JSON.stringify(info, null, 2));
 
   if (coverFolder) {
   	var reportFilename = path.join(coverFolder, 'code_coverage_report.json');
@@ -113,7 +81,6 @@ function writeCoverageSummary(coverFolder, basePath) {
   	log.info('wrote complexity json to', reportFilename);
 
   	if (config.untested) {
-  		var untested = require('untested');
   		var testFilenames = sure.getTestFilenames();
   		console.assert(Array.isArray(testFilenames), 'expected list of test filenames');
 
