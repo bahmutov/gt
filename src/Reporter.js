@@ -32,7 +32,8 @@ function _reportTests(tests, config) {
 			console.log(message);
 		}
 		if (test.hasFailed() && test.stdout) {
-			console.log(test.stdout);
+			console.log('  from: ' + test.filename);
+			console.log(test.stdout, '\n');
 		}
 	});
 }
