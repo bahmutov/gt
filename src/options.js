@@ -9,12 +9,12 @@ function getArguments() {
 		cover: "cover",
 		xml: null,
 		colors: true,
-			module: [], // all files with test and code
-			output: false,
-			watch: false,
-			jsunity: false,
-			doh: false,
-			untested: false
+		module: [], // all files with test and code
+		output: false,
+		watch: false,
+		jsunity: false,
+		doh: false,
+		untested: false
 		})
 	.alias('l', 'log')
 	.alias('r', 'report')

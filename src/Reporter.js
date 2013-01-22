@@ -58,8 +58,16 @@ function _report(modules, config) {
 	var skipPassed = config.reporter;
 	var useColors = !!config.colors;
 	
+	var title = "Individual Test Results";
+	var moduleFiles = modules.map(function (m) {
+		return m.getFilename();
+	});
+	moduleFiles = _(moduleFiles).uniq().filter().value();
+	if (moduleFiles.length === 1) {
+		title = moduleFiles[0];
+	}
 	var lineLength = 100;
-	console.log(centerMessage(lineLength, "Individual Test Results"));
+	console.log(centerMessage(lineLength, title));
 
 	modules.forEach(function (module) {
 		console.assert("string" === typeof module.name, "could not find name for module");

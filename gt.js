@@ -34,7 +34,9 @@ function discoverSourceFiles(files) {
 	return filenames;
 }
 
-options.module = options.module.concat(options._);
+if (!module.parent) {
+	options.module = options.module.concat(options._);
+}
 options.module = discoverSourceFiles(options.module);
 
 var failed = 0;

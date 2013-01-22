@@ -22,6 +22,11 @@ var ModuleTests = function (name) {
 		return this._tests;
 	};
 
+	this.getFilename = function () {
+		var filenames = this.getTestFilenames();
+		return filenames[0];
+	};
+
 	this.getTestFilenames = function () {
 		var filenames = this._tests.map(function (test) {
 			return test.filename;
