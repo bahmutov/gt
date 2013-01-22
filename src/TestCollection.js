@@ -51,6 +51,11 @@ var TestCollection = {
 		return moduleNames;
 	},
 
+	setTestFilename: function (filename) {
+		console.assert(filename, 'trying to set empty filename');
+		this.currentFileName = filename;
+	},
+
 	getTestFilenames: function () {
 		console.assert(this.modules, 'undefined test modules');
 		var testFilenames = this.modules.map(function (testModule) {

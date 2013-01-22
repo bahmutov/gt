@@ -134,5 +134,6 @@ module.exports = {
 		writeReport();
 		return [reportFinalCount(), allTestModules];
 	},
-	getTestFilenames: TestCollection.getTestFilenames.bind(TestCollection)
+	getTestFilenames: TestCollection.getTestFilenames.bind(TestCollection),
+	setTestFilename: TestCollection.setTestFilename.bind(TestCollection)
 };

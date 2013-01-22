@@ -1,6 +1,10 @@
+if (process.argv.length > 2) {
+    console.error('Usage: node testDojo.js without arguments');
+    process.exit(1);
+}
 var gt = require('../../sure.js');
-
 gt.init();
+console.log('gt.init finished');
 
 /*
     We need to instrument the loaded js source code ourselves.
@@ -42,6 +46,7 @@ dojoConfig = {
             }
             console.log('transforming module', filename, 'for dojo');
             var instrumented = cover.instrumentCode(moduleText, filename);
+            gt.setTestFilename(filename);
             return instrumented;
         }
         return moduleText;
