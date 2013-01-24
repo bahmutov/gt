@@ -24,6 +24,7 @@ var TestRunner = {
 			test.code();
 		} catch (errors) {
 			console.error("crash in test '" + test.name + "'\n", errors);
+			console.trace(errors);
 			test.hasCrashed = true;
 		}
 		finally {
