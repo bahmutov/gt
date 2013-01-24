@@ -14,7 +14,7 @@ function getArguments() {
 		watch: false,
 		jsunity: false,
 		doh: false,
-		untested: false
+		untested: true
 		})
 	.alias('l', 'log')
 	.alias('r', 'report')
