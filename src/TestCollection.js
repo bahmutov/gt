@@ -42,7 +42,8 @@ var TestCollection = {
 				delete require.cache[moduleName];
 				require(moduleName);
 			} catch (errors) {
-				console.error(errors);
+				console.error(errors + ' while loading ' + moduleName);
+				console.trace(errors);
 				process.exit(1);
 			}
 		}, this);

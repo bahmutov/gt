@@ -3,7 +3,8 @@ var config = {
 	xml: null, // output xml report filename, compatible with JUnit
 	reporter: 0, // reporter format
 	colors: true,
-	output: false
+	output: false,
+	target: 'gt' // register global framework under this name
 };
 
 if (typeof log === 'undefined') {
@@ -34,6 +35,7 @@ function initConfig(options) {
 	config.reporter = options.r || options.reporter || options.report || config.reporter;
 	config.colors = options.colors || options.color;
 	config.output = options.output || config.output;
+	config.target = options.target || config.target;
 }
 
 function init(options) {
@@ -51,7 +53,7 @@ function init(options) {
 	TestRunner.init(config);
 
 	// do not pollute global namespace, put all our stuff under single object
-	global.gt = {
+	global[config.target] = {
 		module: TestCollection.module.bind(TestCollection),
 		test: TestCollection.add.bind(TestCollection),
 

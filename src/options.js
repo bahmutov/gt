@@ -14,7 +14,8 @@ function getArguments() {
 		watch: false,
 		jsunity: false,
 		doh: false,
-		untested: true
+		untested: true,
+		target: 'gt'
 		})
 	.alias('l', 'log')
 	.alias('r', 'report')
@@ -35,6 +36,8 @@ function getArguments() {
 	.boolean('doh').describe('doh', 'unit tests follow Dojo DOH syntax (including define)')
 	.boolean('untested').alias('u', 'untested')
 	.describe('untested', 'add coverage for test to "untested" if it is installed')
+	.alias('target', 't').string('target')
+	.describe('target', 'global object name to use for the framework, for example QUnit')
 	.argv;
 
 	if (args.h || args.help || !args._.length) {

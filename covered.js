@@ -12,7 +12,8 @@ var config = {
 	colors: true,
 	output: false, // hide console.log messages by default
 	watch: false, // watch files, rerun if changed
-	untested: false // call "untested" with coverage results
+	untested: false, // call "untested" with coverage results
+	target: 'gt' // global object name for framework, for example gt or QUnit
 };
 
 function initConfig(options) {
@@ -25,6 +26,7 @@ function initConfig(options) {
 	config.output = options.output || config.output;
 	config.watch = options.watch || config.watch;
 	config.untested = options.untested || config.untested;
+	config.target = options.target || config.target;
 }
 
 function init(options) {
