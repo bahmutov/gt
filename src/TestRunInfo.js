@@ -13,7 +13,10 @@ var TestRunInfo = {
 	_brokenAssertion: function (message) {
 		console.assert(this._currentTest !== undefined, "current test is undefined");
 		this._currentTest.broken += 1;
-		var msg = "ERROR in '" + this._currentTest.name + "', " + message;
+		var msg = "ERROR in '" + this._currentTest.name;
+		if (message) {
+			msg += "', " + message;
+		}
 		console.error(msg);
 		this._currentTest.errorMessage(msg);
 	}

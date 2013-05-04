@@ -5,13 +5,13 @@ TestSuite.test_exists = function() {
 
 TestSuite.test_returnValue = function() {
 	var result = foo.get();
-  jsUnity.assertions.assertEqual(result, 'foo');
+	jsUnity.assertions.assertEqual(result, 'foo');
 };
 
 TestSuite.test_nonExisting = function () {
 	jsUnity.assertions.assertException(function() {
-  	foo.set();
-  });
+		foo.set();
+	});
 };
 
 function notCalled() {

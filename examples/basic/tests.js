@@ -5,6 +5,8 @@ console.assert(typeof gt.equal === "function", "equal is undefined");
 console.assert(typeof gt.ok === "function", "ok is undefined");
 console.assert(typeof gt.expect === "function", "expect is undefined");
 
+var path = require('path');
+
 // load code to be tested
 var code = require("./code");
 console.assert(typeof code.add === "function", "add is not defined");
@@ -14,6 +16,10 @@ var add = code.add,
 	centerMessage = code.centerMessage;
 
 gt.module('new assertions');
+
+gt.test(function namedTestFunction () {
+	gt.expect(0);
+});
 
 gt.test('gt.func test', function () {
 	gt.func(function () {}, 'empty function');
@@ -44,8 +50,12 @@ gt.test('true string', function () {
 	gt.string('foo', 'foo is a string');
 });
 
-gt.test('FAIL: number is not a string', function () {
-	gt.number(99, '99 is not a string');
+gt.test('FAIL: string is not a number', function () {
+	gt.string(99, '99 is not a string');
+});
+
+gt.test('FAIL: string is not a number', function () {
+	gt.number('99', '"99" is not a number');
 });
 
 gt.module('few basic tests');
@@ -63,14 +73,6 @@ gt.test("FAIL: several failed oks", function() {
 	gt.ok(false, "ok 1 failed");
 	gt.ok(false, "ok 2 failed");
 	gt.ok(false, "ok 3 failed");
-});
-
-gt.test("test without assertions", function () {
-	gt.expect(0);
-});
-
-gt.test("CRASH: wrong number of expected assertions", function () {
-	gt.expect(-2);
 });
 
 gt.test("CRASH: crash after assertions", function () {
@@ -91,17 +93,6 @@ gt.test("CRASH: just crash", function () {
 
 gt.test("CRASH: crash inside ok condition", function () {
 	gt.ok(typeof obj.foo === "something", "condition on non existent object");
-});
-
-gt.test("INCOMPLETE: incomplete", function () {
-	gt.expect(4);
-	gt.ok(true, "single existing assertion out of 4");
-});
-
-gt.test("INCOMPLETE: incomplete with failed tests", function () {
-	gt.expect(4);
-	gt.ok(true, "good assertion out of 4");
-	gt.ok(false, "bad assertion out of 4");
 });
 
 gt.test("code functions exist", function () {

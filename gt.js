@@ -9,53 +9,41 @@ try {
 }
 
 var options = require('./src/options').run();
-var path = require('path');
-
 if (typeof options.module === 'string') {
 	options.module = [options.module];
 }
 
+var covered = require('./src/covered');
+console.assert(typeof covered === "object", 'could not load test framework');
+
+var sure = require('./src/sure');
 var logger = require('optional-color-logger');
-logger.init(options);
 
-function discoverSourceFiles(files) {
-	console.assert(Array.isArray(files), 'expect list of filenames');	
-	var glob = require("glob");
-
-	var filenames = [];
-	files.forEach(function (shortName) {
-		var files = glob.sync(shortName);
-		filenames = filenames.concat(files);
-	});
-
-	filenames = filenames.map(function (shortName) {
-		return path.resolve(shortName);
-	});
-	return filenames;
-}
+var discoverSourceFiles = require('./src/utils/discoverFiles').discoverSourceFiles;
 
 if (!module.parent) {
+	logger.init(options);
 	options.module = options.module.concat(options._);
-}
-options.module = discoverSourceFiles(options.module);
+	options.module = discoverSourceFiles(options.module);
 
-var failed = 0;
-if (options.jsunity) {
-	options.watch = false;
-	var jsunityAdapter = require('./src/jsunityAdapter');
-	failed = jsunityAdapter.run(options.module);
-} else if (options.doh) {
-	options.watch = false;
-	var dohAdapter = require('./src/dohAdapter');
-	failed = dohAdapter.run(options.module);
-} else {
-	var covered = require('./covered');
-	console.assert(typeof covered === "object", 'could not load test framework');
-
-	covered.init(options);
-	failed = covered.run();
+	var failed = 0;
+	if (options.jsunity) {
+		options.watch = false;
+		var jsunityAdapter = require('./src/jsunityAdapter');
+		failed = jsunityAdapter.run(options.module);
+	} else if (options.doh) {
+		options.watch = false;
+		var dohAdapter = require('./src/dohAdapter');
+		failed = dohAdapter.run(options.module);
+	} else {
+		covered.init(options);
+		covered.run(function (failed) {
+			if (!options.watch) {
+				process.exit(failed);
+			}
+		});
+	}
 }
 
-if (!options.watch) {
-	process.exit(failed);
-}
+exports.TestingWithCoverage = covered;
+exports.TestingFramework = sure;

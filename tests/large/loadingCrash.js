@@ -1,0 +1,1 @@
+throw new Error('this module crashes on loading');

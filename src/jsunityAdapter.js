@@ -3,7 +3,7 @@ var fs = require('fs');
 var vm = require('vm');
 
 // gt unit testing framework with jsunity support adapter
-var sure = require('../covered.js');
+var sure = require('./covered.js');
 sure.init({
 	cover: 'cover',
 	colors: true

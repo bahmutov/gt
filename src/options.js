@@ -15,7 +15,9 @@ function getArguments() {
 		jsunity: false,
 		doh: false,
 		untested: true,
-		target: 'gt'
+		target: 'gt',
+		version: false,
+		quickFail: false
 		})
 	.alias('l', 'log')
 	.alias('r', 'report')
@@ -38,7 +40,17 @@ function getArguments() {
 	.describe('untested', 'add coverage for test to "untested" if it is installed')
 	.alias('target', 't').string('target')
 	.describe('target', 'global object name to use for the framework, for example QUnit')
+	.alias('v', 'version')
+	.boolean('version').describe('version', 'show version and exit')
+	.boolean('quickFail').alias('q', 'quickFail')
+	.describe('quickFail', 'exit on first failed test')
 	.argv;
+
+	if (args.version) {
+		var package = require('../package.json');
+		console.log(package.name, 'by', package.author, 'version', package.version);
+		process.exit(0);
+	}
 
 	if (args.h || args.help || !args._.length) {
 		optimist.showHelp();

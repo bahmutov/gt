@@ -41,3 +41,15 @@ gt.test("correct raises Error", function () {
 		throw new Error("something");
 	}, Error, "function raises an Error");
 });
+
+gt.test('expect ReferenceError', function () {
+	gt.raisesReference(function () {
+		console.assert(something, 'this always raises reference error');
+	}, 'should raise reference error');
+});
+
+gt.test(function assertionErrorTest() {
+	gt.raisesAssertion(function () {
+		console.assert(false, 'assertion on purpose');
+	}, 'raises assertion');
+});

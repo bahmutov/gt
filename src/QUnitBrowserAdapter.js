@@ -1,5 +1,6 @@
 // Adapts GT framework names to QUnit test runner
-if (typeof QUnit === 'object') {
+if (typeof QUnit === 'object' && 
+	typeof QUnit.extend === 'function') {
 	QUnit.extend( QUnit, {
 		aequal: function(array1, array2, message) {
 			var a1 = array1.toString();

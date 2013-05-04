@@ -41,6 +41,12 @@ Sample unit test output [image](gt/blob/master/examples/example.png "Console scr
 
 Sample JS coverage output [image](gt/blob/master/examples/coverage.png "Coverage page screenshot")
 
+## CoffeeScript support
+
+You can write your unit tests using [coffeescript](http://coffeescript.org/), which allows very concise code. 
+So far, the code coverage does not include the unit test files themselves, they will be omitted from the coverage report.
+See *examples/coffee* folder.
+
 ## Running in browser
 
 See example **examples/browser**
