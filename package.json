@@ -31,7 +31,7 @@
     "istanbul": "~0.1.35",
     "nodewatch": "~0.3.1",
     "glob": "~3.2.1",
-    "amdefine": "latest",
+    "amdefine": "0.0.5",
     "untested": "0.1.2",
     "lodash": "~1.2.1",
     "check-types": "~0.6.3",
