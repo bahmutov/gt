@@ -25,8 +25,18 @@ function getArguments() {
 		alias: 'v',
 		description: 'show version and exit'
 	})
+	.options('cover', {
+		string: true,
+		default: 'cover',
+		alias: 'c',
+		description: 'output folder with coverage info'
+	})
+	.options('xml', {
+		string: true,
+		default: null,
+		description: 'output JUnit xml filename'
+	})
 	.default({
-		cover: 'cover',
 		xml: null,
 		colors: true,
 		module: [], // all files with test and code
@@ -37,11 +47,7 @@ function getArguments() {
 		untested: true,
 		target: 'gt'
 	})
-	.alias('c', 'cover')
-	.string('cover').string('xml')
 	.boolean('colors')
-	.describe('cover', 'output folder with coverage')
-	.describe('xml', 'output JUnit xml filename')
 	.describe('colors', 'use terminal colors for output,\n' +
 		' might not work with continuous build servers')
 	.describe('module', 'test module to run, can be used multiple times')
