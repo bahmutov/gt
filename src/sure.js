@@ -1,5 +1,5 @@
 var _ = require('lodash');
-var coffeescript = require('coffee-script');
+// var coffeescript = require('coffee-script');
 var defaults = require('./utils/utils').defaults;
 var check = require('check-types');
 
@@ -14,10 +14,10 @@ var config = {
 };
 
 require('./shiv.js');
-var Reporter = require("./Reporter").Reporter;
-var JUnitReporter = require("./JUnitReporter").Reporter;
-var TestCollection = require("./UnitTest/TestCollection").TestCollection;
-var TestRunner = require("./TestRunner").TestRunner;
+var Reporter = require('./Reporter').Reporter;
+var JUnitReporter = require('./JUnitReporter').Reporter;
+var TestCollection = require('./UnitTest/TestCollection').TestCollection;
+var TestRunner = require('./TestRunner').TestRunner;
 
 function initConfig(options) {
 	options = defaults(options, {});
@@ -113,13 +113,13 @@ function verifyIntegrity() {
 
 function init(options) {
 	initConfig(options);
-	check.verifyObject(config, "undefined config");
+	check.verifyObject(config, 'undefined config');
 
-	check.verifyObject(TestCollection, "TestCollection is undefined");
-	check.verifyObject(TestRunner, "cannot find TestRunner");
+	check.verifyObject(TestCollection, 'TestCollection is undefined');
+	check.verifyObject(TestRunner, 'cannot find TestRunner');
 
-	log.debug("binding methods to preserve original object information in global invocations");
-	check.verifyFunction(Function.prototype.bind, "bind is unavailable!");
+	log.debug('binding methods to preserve original object information in global invocations');
+	check.verifyFunction(Function.prototype.bind, 'bind is unavailable!');
 
 	// clear any preexisting results (tests might be run multiple times)
 	TestCollection.init();
@@ -134,7 +134,7 @@ function init(options) {
 }
 
 function collectTests() {
-	check.verifyArray(config.files, "config files is not an array");
+	check.verifyArray(config.files, 'config files is not an array');
 	var allTestModules = TestCollection.collectTests(config.files, config.modules);
 	return allTestModules;
 }
@@ -150,7 +150,7 @@ function runTests(callback) {
 }
 
 function writeReport() {
-	log.debug("reporting test results, skipping passed tests?", config.reporter);
+	log.debug('reporting test results, skipping passed tests?', config.reporter);
 	Reporter.log(TestCollection.modules, config);
 	if (config.xml) {
 		JUnitReporter.log(TestCollection.modules, config.xml);
@@ -159,15 +159,17 @@ function writeReport() {
 
 function reportFinalCount() {
 	var failedTests = TestCollection.getFailedTests();
-	check.verifyArray(failedTests, "could not get failed tests", failedTests);
+	check.verifyArray(failedTests, 'could not get failed tests', failedTests);
 
 	var clc = require('cli-color');
 	var color = (failedTests.length > 0 ? clc.redBright : clc.greenBright);
 	var percent = TestCollection.passedPercentage();
-	console.assert(percent >= 0.0 && percent <= 100.0, "invalid tests passed percentage", percent);
+	console.assert(percent >= 0.0 && percent <= 100.0, 'invalid tests passed percentage', percent);
 
 	var goodTests = TestCollection.getNumberOfTests() - failedTests.length;
-	var message = Math.round(percent) + "% (" + goodTests + " / " + TestCollection.getNumberOfTests() + ") tests passed";
+	var numberOfTests = TestCollection.getNumberOfTests();
+	percent = Math.round(percent);
+	var message = percent + '% (' + goodTests + ' / ' + numberOfTests + ') tests passed';
 	if (config.colors) {
 		console.log(color(message));
 	} else {

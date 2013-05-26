@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 try {
-	var log = require("custom-logger");
+	require('custom-logger');
 } catch (err) {
 	console.error(err);
 	console.error('could not load custom logger, have you forgot to run npm install?');
@@ -14,7 +14,7 @@ if (typeof options.module === 'string') {
 }
 
 var covered = require('./src/covered');
-console.assert(typeof covered === "object", 'could not load test framework');
+console.assert(typeof covered === 'object', 'could not load test framework');
 
 var sure = require('./src/sure');
 var logger = require('optional-color-logger');

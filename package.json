@@ -39,7 +39,9 @@
     "allong.es": "~0.13.0"
   },
   "devDependencies": {
-    "js-complexity-viz": "latest"
+    "js-complexity-viz": "latest",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.5.4"
   },
   "engines": {
     "node": ">= 0.8.0"
