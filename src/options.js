@@ -57,18 +57,28 @@ function getArguments() {
 		default: false,
 		description: 'watch files for changes, rerun the unit tests'
 	})
-	.default({
-		jsunity: false,
-		doh: false,
-		untested: true,
-		target: 'gt'
+	.options('jsunity', {
+		boolean: true,
+		default: false,
+		description: 'unit tests follow jsunity rules'
 	})
-	.boolean('jsunity').describe('jsunity', 'unit tests follow jsunity rules')
-	.boolean('doh').describe('doh', 'unit tests follow Dojo DOH syntax (including define)')
-	.boolean('untested').alias('u', 'untested')
-	.describe('untested', 'add coverage for test to "untested" if it is installed')
-	.alias('target', 't').string('target')
-	.describe('target', 'global object name to use for the framework, for example QUnit')
+	.options('doh', {
+		boolean: true,
+		default: false,
+		description: 'unit tests follow Dojo DOH syntax (including define)'
+	})
+	.options('untested', {
+		boolean: true,
+		alias: 'u',
+		default: true,
+		description: 'add coverage for test to "untested" if it is installed'
+	})
+	.options('target', {
+		string: true,
+		default: 'gt',
+		alias: 't',
+		description: 'global object name to use for the framework, for example QUnit'
+	})
 	.argv;
 
 	if (args.version) {
