@@ -36,24 +36,33 @@ function getArguments() {
 		default: null,
 		description: 'output JUnit xml filename'
 	})
+	.options('colors', {
+		boolean: true,
+		default: true,
+		description: 'use terminal colors for output,\n' +
+		' might not work with continuous build servers'
+	})
+	.options('module', {
+		default: [],
+		description: 'test module to run, can be used multiple times'
+	})
+	.options('output', {
+		boolean: true,
+		default: false,
+		description: 'show standard and warning console output messages'
+	})
+	.options('watch', {
+		alias: 'w',
+		boolean: true,
+		default: false,
+		description: 'watch files for changes, rerun the unit tests'
+	})
 	.default({
-		xml: null,
-		colors: true,
-		module: [], // all files with test and code
-		output: false,
-		watch: false,
 		jsunity: false,
 		doh: false,
 		untested: true,
 		target: 'gt'
 	})
-	.boolean('colors')
-	.describe('colors', 'use terminal colors for output,\n' +
-		' might not work with continuous build servers')
-	.describe('module', 'test module to run, can be used multiple times')
-	.boolean('output').describe('output', 'do not hide standard and warning console output messages')
-	.alias('w', 'watch').boolean('watch')
-	.describe('watch', 'watch files for changes, rerun the unit tests')
 	.boolean('jsunity').describe('jsunity', 'unit tests follow jsunity rules')
 	.boolean('doh').describe('doh', 'unit tests follow Dojo DOH syntax (including define)')
 	.boolean('untested').alias('u', 'untested')
