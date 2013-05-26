@@ -26,7 +26,6 @@ function getArguments() {
 		description: 'show version and exit'
 	})
 	.default({
-		help: false,
 		cover: 'cover',
 		xml: null,
 		colors: true,
@@ -38,7 +37,6 @@ function getArguments() {
 		untested: true,
 		target: 'gt'
 	})
-	.alias('h', 'help')
 	.alias('c', 'cover')
 	.string('cover').string('xml')
 	.boolean('colors')
