@@ -18,6 +18,14 @@ function timeCode(code, n) {
 }
 
 var SecondaryAssertions = {
+	/**
+ 	Asserts the two functions return same result for every
+ 	input in the list.
+
+ 	@method sameResults
+	@memberOf gt
+	@category Secondary assertions
+	*/
 	sameResults: function (f1, f2, inputs, message) {
 		check.verifyFunction(f1, 'missing first function');
 		check.verifyFunction(f2, 'missing second function');
@@ -30,7 +38,7 @@ var SecondaryAssertions = {
 			gt.equal(f1.call(null, args), f2.call(null, args),
 				message + ' with inputs ' + args.join(' '));
 		});
-	}, 
+	},
 
 	deferCall: function(fn) {
 		check.verifyFunction(fn, 'expected a function');
@@ -40,6 +48,13 @@ var SecondaryAssertions = {
 		};
 	},
 
+	/**
+ 	Asserts the given function runs faster than specified limit.
+
+ 	@method faster
+	@memberOf gt
+	@category Performance assertions
+	*/
 	faster: function (name, code, n, limitMs) {
 		check.verifyString(name, 'name should be a string');
 		check.verifyFunction(code, 'missing function code');
@@ -51,10 +66,17 @@ var SecondaryAssertions = {
 		check.verifyPositiveNumber(limitMs, 'missing limit ms', limitMs);
 
 		var time = timeCode(code, n);
-		gt.ok(time < limitMs, name + ' ' + n + ' time(s) took ' 
+		gt.ok(time < limitMs, name + ' ' + n + ' time(s) took '
 			+ time + 'ms exceeded ' + limitMs + 'ms limit');
 	},
 
+	/**
+ 	Asserts the first function runs faster than the second.
+
+ 	@method fasterThan
+	@memberOf gt
+	@category Performance assertions
+	*/
 	fasterThan: function (name, f1, f2, n) {
 		check.verifyString(name, 'name should be a string');
 		check.verifyFunction(f1, 'missing first function');
@@ -68,37 +90,87 @@ var SecondaryAssertions = {
 			time1 + 'ms vs ' + time2 + 'ms on ' + n + ' runs');
 	},
 
+	/**
+	Asserts that given value is defined
+
+	@method defined
+	@memberOf gt
+	@category Secondary assertions
+	*/
 	defined: function (value) {
 		var message = joinArguments(arguments, 1);
 		this.ok(typeof value !== 'undefined', message);
 	},
 
+	/**
+	Asserts that given value is undefined
+
+	@method undefined
+	@memberOf gt
+	@category Secondary assertions
+	*/
 	undefined: function (value) {
 		var message = joinArguments(arguments, 1);
 		this.equal(typeof value, 'undefined', message);
 	},
 
+	/**
+	Asserts that given value is null
+
+	@method null
+	@memberOf gt
+	@category Secondary assertions
+	*/
 	null: function (value) {
 		var message = joinArguments(arguments, 1);
 		this.equal(value, null, message);
 	},
 
+	/**
+	Asserts the given value is a function
+
+	@method func
+	@memberOf gt
+	@category Secondary assertions
+	*/
 	func: function (f) {
 		var message = joinArguments(arguments, 1);
-		console.log(message);
+		// console.log(message);
 		this.equal(typeof f, 'function', message);
 	},
 
+	/**
+	Asserts given value is an object
+
+	@method object
+	@memberOf gt
+	@category Secondary assertions
+	*/
 	object: function (o) {
 		var message = joinArguments(arguments, 1);
 		this.equal(typeof o, 'object', message);
 	},
 
+	/**
+	Asserts given value is an array
+
+	@method array
+	@memberOf gt
+	@category Secondary assertions
+	*/
 	array: function (array) {
 		var message = joinArguments(arguments, 1) || 'checking if ' + array + ' is an array';
 		this.ok(Array.isArray(array), message);
 	},
 
+	/**
+	Asserts given value is a function that takes in specified
+	number of arguments
+
+	@method arity
+	@memberOf gt
+	@category Secondary assertions
+	*/
 	arity: function (f, n, message) {
 		check.verifyObject(TestRunInfo, 'missing test run info');
 		check.verifyObject(TestRunInfo._currentTest, "current test is undefined");
@@ -109,6 +181,13 @@ var SecondaryAssertions = {
 		this.equal(f.length, n, message);
 	},
 
+	/**
+	Asserts exit code from an external process.
+
+	@method exec
+	@memberOf gt
+	@category Secondary assertions
+	*/
 	exec: function (command, args, expectedExitCode, message) {
 		check.verifyObject(TestRunInfo._currentTest, "current test is undefined");
 		check.verifyString(command, 'command should be a string');
@@ -126,10 +205,24 @@ var SecondaryAssertions = {
 		});
 	},
 
+	/**
+	Asserts given code raises AssertionError
+
+	@method raisesAssertion
+	@memberOf gt
+	@category Secondary assertions
+	*/
 	raisesAssertion: function (code, message) {
 		this.raises(code, 'AssertionError', message);
 	},
 
+	/**
+	Asserts given code raises ReferenceError
+
+	@method raisesReference
+	@memberOf gt
+	@category Secondary assertions
+	*/
 	raisesReference: function (code, message) {
 		this.raises(code, 'ReferenceError', message);
 	}

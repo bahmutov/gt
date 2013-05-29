@@ -8,11 +8,25 @@ var PrimaryAssertions = {
 		return ['equal', 'ok', 'expect', 'raises', 'start'];
  	},
 
+	/**
+	Starts testing framework (after async delay for example)
+
+	@method start
+	@memberOf gt
+	@category Test
+	*/
  	start: function () {
  		check.verifyObject(TestRunInfo._currentTest, "current test is undefined");
  		TestRunInfo._currentTest.continueWithTest();
  	},
 
+ 	/**
+ 	Asserts strict equality
+
+ 	@method equal
+	@memberOf gt
+	@category Basic assertions
+	*/
 	equal: function (a, b) {
 		TestRunInfo._beforeAssertion();
 
@@ -23,6 +37,13 @@ var PrimaryAssertions = {
 		}
 	},
 
+	/**
+ 	Asserts if condition evaluates to true
+
+ 	@method ok
+	@memberOf gt
+	@category Basic assertions
+	*/
 	ok: function (condition) {
 		TestRunInfo._beforeAssertion();
 
@@ -33,6 +54,13 @@ var PrimaryAssertions = {
 		}
 	},
 
+	/**
+	Asserts that given function raises an assertion when executed.
+
+	@method raises
+	@memberOf gt
+	@category Basic assertions
+	*/
 	raises: function (code, expectedExceptionType, message) {
 		check.verifyObject(TestRunInfo._currentTest, "current test is undefined");
 		var typeName = null;
@@ -71,8 +99,10 @@ var PrimaryAssertions = {
 Expect given number of assertions
 
 @method expect
+@memberOf gt
+@category Test
 */
-PrimaryAssertions.expect = function(numberOfAssertions) {
+PrimaryAssertions.expect = function (numberOfAssertions) {
 	check.verifyObject(TestRunInfo._currentTest, "current test is undefined");
 	console.assert(numberOfAssertions >= 0, "invalid number of expected assertion", numberOfAssertions,
 		"test", TestRunInfo._currentTest.name);
