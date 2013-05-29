@@ -1,4 +1,3 @@
-/** @module assertions/primary */
 var TestRunInfo = require('../TestRunInfo').TestRunInfo;
 var check = require('check-types');
 var joinArguments = require('../utils/joinArguments');

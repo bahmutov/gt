@@ -1,4 +1,3 @@
-/** @module assertions/secondary */
 var TestRunInfo = require('../TestRunInfo').TestRunInfo;
 var joinArguments = require('../utils/joinArguments');
 var check = require('check-types');
@@ -95,7 +94,7 @@ var SecondaryAssertions = {
 
 	@method defined
 	@memberOf gt
-	@category Secondary assertions
+	@category Type assertions
 	*/
 	defined: function (value) {
 		var message = joinArguments(arguments, 1);
@@ -107,7 +106,7 @@ var SecondaryAssertions = {
 
 	@method undefined
 	@memberOf gt
-	@category Secondary assertions
+	@category Type assertions
 	*/
 	undefined: function (value) {
 		var message = joinArguments(arguments, 1);
@@ -119,7 +118,7 @@ var SecondaryAssertions = {
 
 	@method null
 	@memberOf gt
-	@category Secondary assertions
+	@category Type assertions
 	*/
 	null: function (value) {
 		var message = joinArguments(arguments, 1);
@@ -131,7 +130,7 @@ var SecondaryAssertions = {
 
 	@method func
 	@memberOf gt
-	@category Secondary assertions
+	@category Type assertions
 	*/
 	func: function (f) {
 		var message = joinArguments(arguments, 1);
@@ -144,7 +143,7 @@ var SecondaryAssertions = {
 
 	@method object
 	@memberOf gt
-	@category Secondary assertions
+	@category Type assertions
 	*/
 	object: function (o) {
 		var message = joinArguments(arguments, 1);
@@ -156,7 +155,7 @@ var SecondaryAssertions = {
 
 	@method array
 	@memberOf gt
-	@category Secondary assertions
+	@category Type assertions
 	*/
 	array: function (array) {
 		var message = joinArguments(arguments, 1) || 'checking if ' + array + ' is an array';
