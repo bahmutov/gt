@@ -1,3 +1,4 @@
+/*global gt:true, jsUnity:true*/
 var path = require('path');
 var fs = require('fs');
 var vm = require('vm');
@@ -16,14 +17,14 @@ function run(allFiles) {
 	global.jsUnity = gt;
 	jsUnity.assertions = {
 		assertEqual: gt.equal.bind(gt),
-		assertException: function(code) {
+		assertException: function (code) {
 			gt.raises(code, 'raises assertion');
 		}
 	};
 
 	function isTestFile(filename) {
 		var code = fs.readFileSync(filename, 'utf-8');
-		return /TestSuite\./.test(code);
+		return (/TestSuite\./).test(code);
 	}
 
 	function testFiles(files) {

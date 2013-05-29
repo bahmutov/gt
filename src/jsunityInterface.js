@@ -1,9 +1,10 @@
+/*global gt:true, jsUnity:true*/
 console.assert(gt, 'gt framework not registered');
 
 global.jsUnity = gt;
 jsUnity.assertions = {
 	assertEqual: gt.equal.bind(gt),
-	assertException: function(code) {
+	assertException: function (code) {
 		gt.raises(code, 'raises assertion');
 	}
 };

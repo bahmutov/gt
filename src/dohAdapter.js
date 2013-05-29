@@ -1,12 +1,12 @@
 /*
     gt unit testing framework with Dojo doh support adapter
     requires DOJO toolkit.
-     
+
     We need to instrument the loaded js source code ourselves.
     1. Load module API to Istanbul code coverage tool
     2. Update dojo source
         - add the following to dojo/dojo.js around line 1337 inside function evalModuleText
-    
+
     evalModuleText = function(text, module){
         // add the next check and call
         if (userConfig.moduleTransform) {
@@ -15,6 +15,7 @@
         ...
 */
 
+/*global gt:true, require:true, dojoConfig:true*/
 var cover = require('../lib/coverage.js');
 function loadDojo() {
     var path = require('path');
@@ -23,7 +24,7 @@ function loadDojo() {
     dojoConfig = {
         async: false,
         cacheBust: true,
-        baseUrl: ".",
+        baseUrl: '.',
         packages: [
         {
             name: 'dojo',
@@ -48,10 +49,10 @@ function loadDojo() {
         }
     };
 
-    console.assert(!global.require, "there is global require before dojo loading");
+    console.assert(!global.require, 'there is global require before dojo loading');
     // in order to work, need to use dojo source files, not compiled release!
     require(path.join(dojoPath, 'dojo.js'));
-    console.assert(global.require, "dojo installed global require function");
+    console.assert(global.require, 'dojo installed global require function');
     console.assert(global.define, 'define is not defined');
 }
 
@@ -64,7 +65,7 @@ function run(allFiles) {
         colors: true
     });
     console.assert(gt, 'could not find gt framework global object');
-    
+
     require('./dohInterface');
 
     global.require(allFiles, function () {
