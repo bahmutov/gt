@@ -1,12 +1,26 @@
 // a few extra utility assertion methods, implemented using simpler ones
 var SecondaryAssertions = require('./SecondaryAssertions');
 var check = require('check-types');
+var joinArguments = require('../utils/joinArguments');
 
 check.verifyObject(SecondaryAssertions, 'missing secondary assertions');
 
 var Assertions = {
 	fn: function() {
 		this.func(arguments);
+	},
+
+	empty: function (value) {
+		var message = joinArguments(arguments, 1);
+		if (check.isString(value)) {
+			this.equal(value, '', message);
+		} else if (check.isArray(value)) {
+			this.equal(value.length, 0, message);
+		} else if (check.isObject(value)) {
+			this.equal(JSON.stringify(value), '{}', message);
+		} else {
+			this.ok(false, 'Don\' know how to compare object ' + JSON.stringify(value));
+		}
 	},
 
 	/**

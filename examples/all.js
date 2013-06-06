@@ -10,7 +10,8 @@ var tests = [
 './expect/test',
 './extend/test',
 './basic/definedUndefined',
-'./basic/null'
+'./basic/null',
+'./basic/empty'
 ];
 
 var coffeeTests = [

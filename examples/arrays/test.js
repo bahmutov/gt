@@ -5,3 +5,11 @@ gt.test(function simpleArray() {
 	gt.array([], 'empty array is an array');
 	gt.array([]);
 });
+
+gt.test('empty array', function () {
+    gt.empty([], 'array is empty');
+});
+
+gt.test('FAIL empty array', function () {
+    gt.empty(['d'], 'array is NOT empty');
+});
