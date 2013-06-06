@@ -52,31 +52,6 @@ function bindTestingFramework() {
 	assertionMethods.forEach(function (method) {
 		testingFramework[method] = TestRunner[method].bind(TestRunner);
 	});
-
-	/*
-	// a few extra utility assertion methods, implemented using simpler ones
-	testingFramework.fn = TestRunner.func.bind(TestRunner);
-	testingFramework.deepEqual = TestRunner.equal.bind(TestRunner);
-
-	testingFramework.aequal = function(array1, array2, message) {
-		this.equal(array1.toString(), array2.toString(), message);
-	};
-	testingFramework.notDeepEqual = function () {
-		return !this.deepEqual(arguments);
-	};
-	testingFramework.number = function (n, message) {
-		this.equal(typeof n, 'number', message);
-	};
-	testingFramework.string = function (s, message) {
-		this.equal(typeof s, 'string', message);
-	};
-	testingFramework.array = function (a, message) {
-		this.ok(Array.isArray(a), message);
-	};
-	testingFramework.zero = function (n, message) {
-		this.ok(typeof n === 'number' && !n, message);
-	};
-	*/
 }
 
 // add gt.is.<something> syntax
