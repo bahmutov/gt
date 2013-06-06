@@ -1,5 +1,5 @@
 var _ = require('lodash');
-// var coffeescript = require('coffee-script');
+var coffeescript = require('coffee-script');
 var defaults = require('./utils/utils').defaults;
 var check = require('check-types');
 
