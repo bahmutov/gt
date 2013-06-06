@@ -1,5 +1,6 @@
 var _ = require('lodash');
-var coffeescript = require('coffee-script');
+// support loading .coffee source files
+require('coffee-script');
 var defaults = require('./utils/utils').defaults;
 var check = require('check-types');
 

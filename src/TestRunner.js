@@ -12,7 +12,7 @@ var TestRunner = {
 	init: function (config) {
 		config = config || {};
 		config.output = config.output || false;
-		
+
 		TestRunInfo._currentTest = null;
 		this.modules = null;
 		this.config = config;
@@ -37,13 +37,13 @@ var TestRunner = {
 			if (hider) {
 				test.stdout = hider.restoreConsole();
 			}
-			log.debug("finished test '" + test.name + "'", 
-				TestRunInfo._currentTest.assertions + " assertions,", 
-				TestRunInfo._currentTest.broken, "broken");
+			log.debug('finished test "' + test.name + '"',
+				TestRunInfo._currentTest.assertions + ' assertions,',
+				TestRunInfo._currentTest.broken, 'broken');
 			TestRunInfo._afterTest();
 			callback();
 		}
-		
+
 		try {
 			test.start(onTestFinished);
 
@@ -56,7 +56,7 @@ var TestRunner = {
 			// console.log('running code for', test.name);
 			test.code();
 		} catch (errors) {
-			console.error("crash in test '" + test.name + "'\n", errors);
+			console.error('crash in test "' + test.name + '"\n', errors);
 			console.trace(errors);
 			test.hasCrashed = true;
 			test.finished = new Date();
@@ -70,7 +70,7 @@ var TestRunner = {
 	},
 
 	runTests: function (verifyIntegrity, onAllTestsFinished) {
-		check.verifyArray(this.modules, "runner has no test collection");
+		check.verifyArray(this.modules, 'runner has no test collection');
 		check.verifyFunction(onAllTestsFinished, 'missing all tests completed function');
 
 		async.eachSeries(this.modules,
@@ -93,7 +93,7 @@ var TestRunner = {
 		check.verifyFunction(callback, 'missing callback function');
 
 		preTest();
-		this.executeTest(test, function() {
+		this.executeTest(test, function () {
 			verifyIntegrity();
 			postTest();
 			callback();
@@ -110,8 +110,8 @@ var TestRunner = {
 		var postEachTest = testModule.lifecycle.teardown;
 		check.verifyFunction(postEachTest, 'module teardown should be a function');
 
-		async.eachSeries(testModule._tests, 
-			this.runSingleTest.bind(this, preEachTest, verifyIntegrity, postEachTest), 
+		async.eachSeries(testModule._tests,
+			this.runSingleTest.bind(this, preEachTest, verifyIntegrity, postEachTest),
 			allModuleTestsCompleted);
 	}
 };

@@ -26,16 +26,16 @@ function loadDojo() {
         cacheBust: true,
         baseUrl: '.',
         packages: [
-        {
-            name: 'dojo',
-            location: dojoPath
-        },
-        {
-            name: '.',
-            location: '.'
-        }
+            {
+                name: 'dojo',
+                location: dojoPath
+            },
+            {
+                name: '.',
+                location: '.'
+            }
         ],
-        moduleTransform: function(moduleText, moduleDefinition) {
+        moduleTransform: function (moduleText, moduleDefinition) {
             if (!/^dojo/.test(moduleDefinition.mid)) {
                 var filename = moduleDefinition.mid;
                 if (!/\.js$/.test(filename)) {
@@ -71,6 +71,7 @@ function run(allFiles) {
     global.require(allFiles, function () {
         console.log('loaded files', allFiles);
         var failed = sure.run()[0];
+        console.log(failed + ' tests failed');
         cover.writeReports('cover');
     });
 }

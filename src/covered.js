@@ -1,6 +1,6 @@
 var sure = require('./sure');
 var watchFiles = require('./utils/WatchFiles').watchFiles;
-var coverage = require("../lib/coverage");
+var coverage = require('../lib/coverage');
 var path = require('path');
 var fs = require('fs');
 var untested = require('untested');
@@ -42,9 +42,9 @@ function excludeFromCoverage(filename) {
 	check.verifyString(filename, 'expected filename');
 
 	var excluded = [
-	/node_modules/i,
-	/dohInterface.js/i,
-	/jsunityInterface.js/i
+		/node_modules/i,
+		/dohInterface.js/i,
+		/jsunityInterface.js/i
 	];
 
 	return _(excluded).invoke('test', filename).some();
