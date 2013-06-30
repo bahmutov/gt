@@ -51,7 +51,7 @@ function excludeFromCoverage(filename) {
 }
 
 function installCoverage(testModules) {
-	check.verifyArray(testModules, "test modules is not an array");
+	check.verifyArray(testModules, 'test modules is not an array');
 	if (testModules.length < 1) {
 		log.info('empty list of test modules');
 		return;

@@ -28,7 +28,7 @@ var TestRunner = {
 			log.info('skipping test "' + test.name + '"');
 			callback();
 			return;
-		};
+		}
 
 		TestRunInfo._currentTest = test;
 		var hider = null;
@@ -121,8 +121,5 @@ _.extend(TestRunner, BasicAssertions, SecondaryAssertions, TertiaryAssertions);
 TestRunner.getBindMethods = function () {
 	return this.basic().concat(this.secondary()).concat(TertiaryAssertions.assertions());
 };
-
-console.log('TertiaryAssertions', TertiaryAssertions);
-console.log('TestRunner')
 
 exports.TestRunner = TestRunner;
