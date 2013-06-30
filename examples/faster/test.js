@@ -20,8 +20,8 @@ gt.test('fibonacci 10', function () {
 });
 
 gt.test('fibonacci 10 using deferCall', function () {
-	gt.faster('fibonacci of 10', 
-		gt.deferCall(fibonacci, 10), 
+	gt.faster('fibonacci of 10',
+		gt.deferCall(fibonacci, 10),
 		10, 40);
 });
 
@@ -35,7 +35,7 @@ gt.test('FAIL: fibonacci 20', function () {
 gt.test('fibonacci 5 1000 times', function () {
 	gt.faster('fibonacci of 5 1000 times', function() {
 		var result = fibonacci(5);
-	}, 1000, 70);
+	}, 1000, 170);
 });
 
 gt.module('fibonacci memoized');
@@ -45,33 +45,33 @@ gt.test('memoized version correctness', function () {
 });
 
 gt.test('compare two implementations', function () {
-	gt.fasterThan('memoized version is faster', 
+	gt.fasterThan('memoized version is faster',
 		function () {
 			fibonacciMemo(20);
-		}, 
+		},
 		function () {
 			fibonacci(20)
 		});
 });
 
 gt.test('FAIL: compare two implementations', function () {
-	gt.fasterThan('memoized version is slower?', 
+	gt.fasterThan('memoized version is slower?',
 		function () {
 			fibonacci(20)
-		}, 
+		},
 		function () {
 			fibonacciMemo(20);
 		}, 5);
 });
 
 gt.test('function defer call shortcut', function () {
-	gt.fasterThan('memoized version is faster', 
+	gt.fasterThan('memoized version is faster',
 		gt.deferCall(fibonacciMemo, 20),
 		gt.deferCall(fibonacci, 20));
 });
 
 gt.test('fibonacci memoized 20', function () {
-	gt.faster('fibonacci of 20', 
+	gt.faster('fibonacci of 20',
 		gt.deferCall(fibonacciMemo, 20), 5);
 });
 
