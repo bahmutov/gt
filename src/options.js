@@ -89,7 +89,7 @@ function getArguments() {
 
 	if (args.h || args.help || !args._.length) {
 		optimist.showHelp();
-		console.log(args);
+		// console.log(args);
 		process.exit(0);
 	}
 	return args;
