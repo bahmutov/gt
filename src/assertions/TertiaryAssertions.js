@@ -2,14 +2,11 @@
 var SecondaryAssertions = require('./SecondaryAssertions');
 var check = require('check-types');
 var joinArguments = require('../utils/joinArguments');
+var _ = require('lodash');
 
 check.verifyObject(SecondaryAssertions, 'missing secondary assertions');
 
 var Assertions = {
-	fn: function() {
-		this.func(arguments);
-	},
-
 	empty: function (value) {
 		var message = joinArguments(arguments, 1);
 		if (check.isString(value)) {

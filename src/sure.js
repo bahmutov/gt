@@ -61,7 +61,6 @@ function exposeAlternativeAssertions() {
 		ok: testingFramework.ok,
 		equal: testingFramework.equal,
 		func: testingFramework.func,
-		fn: testingFramework.func,
 		object: testingFramework.object,
 		defined: testingFramework.defined,
 		undefined: testingFramework.undefined,
