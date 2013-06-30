@@ -44,7 +44,7 @@ function getArguments() {
 	})
 	.options('module', {
 		default: [],
-		description: 'test module to run, can be used multiple times'
+		description: 'deprecated: test module to run, can be used multiple times'
 	})
 	.options('output', {
 		boolean: true,
@@ -78,6 +78,11 @@ function getArguments() {
 		default: 'gt',
 		alias: 't',
 		description: 'global object name to use for the framework, for example QUnit'
+	})
+	.options('test', {
+		string: true,
+		default: null,
+		description: 'only run tests with name matching regular expression'
 	})
 	.argv;
 
