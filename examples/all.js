@@ -1,6 +1,7 @@
 var tests = [
 './basic/tests',
 './basic/exceptionTests',
+'./throws/test',
 './amd/fooTests',
 './altAsserrionSyntax/tests',
 './arrays/test',

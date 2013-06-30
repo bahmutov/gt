@@ -122,4 +122,7 @@ TestRunner.getBindMethods = function () {
 	return this.basic().concat(this.secondary()).concat(TertiaryAssertions.assertions());
 };
 
+console.log('TertiaryAssertions', TertiaryAssertions);
+console.log('TestRunner')
+
 exports.TestRunner = TestRunner;

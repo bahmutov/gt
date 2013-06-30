@@ -7,6 +7,10 @@ var _ = require('lodash');
 check.verifyObject(SecondaryAssertions, 'missing secondary assertions');
 
 var Assertions = {
+	throws: function () {
+		this.raises.apply(this, _.toArray(arguments));
+	},
+
 	empty: function (value) {
 		var message = joinArguments(arguments, 1);
 		if (check.isString(value)) {
