@@ -6,6 +6,7 @@ var check = require('check-types');
 
 var config = {
 	files: [], // test and code files to process
+	filter: null, // regular expression to match against test names
 	xml: null, // output xml report filename, compatible with JUnit
 	reporter: 0, // reporter format
 	colors: true,
@@ -23,6 +24,9 @@ var TestRunner = require('./TestRunner').TestRunner;
 function initConfig(options) {
 	options = defaults(options, {});
 	config.files = defaults(options.files, options.module, config.files);
+	if (options.test) {
+		config.filter = new RegExp(options.test, 'ig');
+	}
 	config.xml = defaults(options.xml, config.xml);
 	config.reporter = defaults(options.r, options.reporter, options.report, config.reporter);
 	config.colors = defaults(options.colors, options.color);
