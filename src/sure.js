@@ -114,7 +114,8 @@ function init(options) {
 
 function collectTests() {
 	check.verifyArray(config.files, 'config files is not an array');
-	var allTestModules = TestCollection.collectTests(config.files, config.modules);
+	var allTestModules = TestCollection.collectTests(config.files,
+		config.modules, config.filter);
 	return allTestModules;
 }
 

@@ -86,12 +86,17 @@ var TestCollection = {
 		}
 	},
 
-	collectTests: function (moduleNames, testModules) {
+	collectTests: function (moduleNames, testModules, testNameFilter) {
 		check.verifyArray(moduleNames, "expected list of test modules");
 		this.determineSkipped(testModules);
 
 		moduleNames.forEach(this.loadModule, this);
 		log.debug("loaded", this.getNumberOfTests(), "tests from");
+
+		if (testNameFilter) {
+			this.filterTests(testNameFilter);
+		}
+
 		return moduleNames;
 	},
 
@@ -115,7 +120,7 @@ var TestCollection = {
 				return [this.currentFileName];
 			}
 		}
-		
+
 		var testFilenames = _(testFilenames)
 		.invoke('getTestFilenames')
 		.flatten()
@@ -144,6 +149,16 @@ var TestCollection = {
 		check.verifyString(name, "module name should be a string");
 		check.verifyObject(this.skipTestModules, 'skip test modules should be an object');
 		return !!this.skipTestModules[name];
+	},
+
+	filterTests: function (nameExpression) {
+		if (!nameExpression) {
+			return;
+		}
+		this.modules.forEach(function (m) {
+			m.filterTests(nameExpression);
+		});
+		// todo: remove modules without tests
 	},
 
 	getAllTests: function () {

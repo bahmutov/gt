@@ -85,4 +85,10 @@ ModuleTests.prototype.duration = function() {
 	}, 0);
 };
 
+ModuleTests.prototype.filterTests = function (expression) {
+	this._tests = this._tests.filter(function (test) {
+		return expression.test(this._tests.name);
+	});
+};
+
 exports.ModuleTests = ModuleTests;
