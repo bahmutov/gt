@@ -101,7 +101,8 @@ function writeCoverageSummary(coverFolder, basePath) {
 
 	if (coverFolder) {
 		var reportFilename = path.join(coverFolder, 'code_coverage_report.json');
-		fs.writeFileSync(reportFilename, JSON.stringify(coverageReport, null, 2));
+		var data = JSON.stringify(coverageReport, null, 2);
+		fs.writeFileSync(reportFilename, data + '\n');
 		log.info('wrote coverage json to', reportFilename);
 
 		optional(updateUntestedDb)(config.untested, coverageReport);
