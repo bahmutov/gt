@@ -12,7 +12,7 @@ module.exports.discoverSourceFiles = function(files) {
 		return all.concat(files);
 	}, []);
 
-    console.log(filenames);
+    log.debug(filenames);
 	filenames = filenames.map(unary(path.resolve));
 	return filenames;
 };

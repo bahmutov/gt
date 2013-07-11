@@ -22,7 +22,7 @@
     "qunit"
   ],
   "dependencies": {
-    "optional-color-logger": "0.0.5",
+    "optional-color-logger": "0.0.6",
     "coffee-script": "~1.6.2",
     "cli-color": "~0.2.2",
     "sprintf": "~0.1.1",
