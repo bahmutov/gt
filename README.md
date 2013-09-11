@@ -2,6 +2,8 @@
 
 Simple JS unit testing framework similar to QUnit.
 
+[![NPM info](https://nodei.co/npm/gt.png?downloads=true)](https://nodei.co/npm/gt.png?downloads=true)
+
 [![endorse](https://api.coderwall.com/bahmutov/endorsecount.png)](https://coderwall.com/bahmutov)
 
 ## Goals
