@@ -2,6 +2,8 @@
 
 Simple JS unit testing framework similar to QUnit.
 
+[![endorse](https://api.coderwall.com/bahmutov/endorsecount.png)](https://coderwall.com/bahmutov)
+
 ## Goals
 1. Make sure QUnit tests work with [istanbul](https://github.com/gotwarlost/istanbul "Istanbul at GitHub") JS coverage tool
 2. Experiment with JS unit testing by writing a framework from scratch.
@@ -43,7 +45,7 @@ Sample JS coverage output [image](gt/blob/master/examples/coverage.png "Coverage
 
 ## CoffeeScript support
 
-You can write your unit tests using [coffeescript](http://coffeescript.org/), which allows very concise code. 
+You can write your unit tests using [coffeescript](http://coffeescript.org/), which allows very concise code.
 So far, the code coverage does not include the unit test files themselves, they will be omitted from the coverage report.
 See *examples/coffee* folder.
 
