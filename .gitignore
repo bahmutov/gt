@@ -4,3 +4,6 @@
 /examples/faster/cover
 /examples/funcAndArity/cover
 /examples/throws/cover
+cover
+report.json
+report.txt

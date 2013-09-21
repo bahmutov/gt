@@ -2,6 +2,37 @@ var TestRunInfo = require('../TestRunInfo').TestRunInfo;
 var check = require('check-types');
 var joinArguments = require('../utils/joinArguments');
 
+function tooLong(str) {
+	check.verifyString(str, 'expected string to compare length');
+	var LIMIT = 10;
+	return str.length > LIMIT;
+}
+
+function formatEqualMessage(actual, expected, info) {
+	var first = JSON.stringify(actual, null, 2);
+	var second = JSON.stringify(expected, null, 2);
+	var message = '';
+
+	if (tooLong(first)) {
+		message += '\n' + first + '\n';
+	} else {
+		message = first;
+	}
+
+	message += " !== ";
+
+	if (tooLong(second)) {
+		message += '\n' + second + '\n';
+	} else {
+		message += second;
+	}
+
+	if (info) {
+		message += ' ' + info;
+	}
+	return message;
+}
+
 var PrimaryAssertions = {
 	basic: function () {
 		return ['equal', 'ok', 'expect', 'raises', 'start'];
@@ -30,8 +61,11 @@ var PrimaryAssertions = {
 		TestRunInfo._beforeAssertion();
 
 		if (a !== b) {
+			var message = formatEqualMessage(a, b, joinArguments(arguments, 2));
+			/*
 			var message = a + " !== " + b;
 			message += ' ' + joinArguments(arguments, 2);
+			*/
 			TestRunInfo._brokenAssertion(message);
 		}
 	},

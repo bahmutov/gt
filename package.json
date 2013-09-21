@@ -1,6 +1,6 @@
 {
   "name": "gt",
-  "version": "0.8.9",
+  "version": "0.8.10",
   "description": "Simple javascript unit testing framework, similar to QUnit, but with JS code coverage via istanbul",
   "author": {
     "name": "Gleb Bahmutov",
@@ -51,7 +51,7 @@
     "test": "node gt.js examples\\all.js tests\\all.js --colors true",
     "e2e": "node gt.js tests\\all.js --colors true",
     "cover": "istanbul cover gt tests",
-    "complexity": "js-complexity-viz gt.js src\\assertions\\*.js src\\utils\\*.js src\\*.js src\\UnitTest\\*.js --colors false",
+    "complexity": "node ./node_modules/jsc gt.js src\\assertions\\*.js src\\utils\\*.js src\\*.js src\\UnitTest\\*.js --colors false",
     "doc": "xplain --title gt -v 0.8.* -i src\\assertions\\*.js"
   },
   "license": "MIT",
