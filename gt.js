@@ -22,6 +22,12 @@ var logger = require('optional-color-logger');
 var discoverSourceFiles = require('./src/utils/discoverFiles').discoverSourceFiles;
 
 if (!module.parent) {
+	var updateNotifier = require('update-notifier');
+	var notifier = updateNotifier();
+	if (notifier.update) {
+		notifier.notify();
+	}
+
 	logger.init(options);
 	options.module = options.module.concat(options._);
 	options.module = discoverSourceFiles(options.module);

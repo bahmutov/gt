@@ -36,13 +36,15 @@
     "lodash": "~2.1.0",
     "check-types": "~0.6.4",
     "async": "~0.2.9",
-    "allong.es": "~0.14.0"
+    "allong.es": "~0.14.0",
+    "update-notifier": "~0.1.5"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-bump": "0.0.11",
-    "jsc": "~0.3.7"
+    "jsc": "~0.3.7",
+    "grunt-deps-ok": "~0.1.2"
   },
   "engines": {
     "node": ">= 0.8.0"

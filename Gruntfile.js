@@ -13,7 +13,8 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-deps-ok');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.registerTask('default', ['jshint']);
+    grunt.registerTask('default', ['deps-ok', 'jshint']);
     grunt.loadNpmTasks('grunt-bump');
 };
