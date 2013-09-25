@@ -17,7 +17,7 @@ var covered = require('./src/covered');
 console.assert(typeof covered === 'object', 'could not load test framework');
 
 var sure = require('./src/sure');
-var logger = require('optional-color-logger');
+var logger = require('optional-color-logger'); 
 
 var discoverSourceFiles = require('./src/utils/discoverFiles').discoverSourceFiles;
 
