@@ -53,8 +53,7 @@ var TestRunner = {
 			} else {
 				log.info('starting test "' + test.name + '"');
 			}
-			// console.log('running code for', test.name);
-			test.code();
+			test.code(global.gt);
 		} catch (errors) {
 			console.error('crash in test "' + test.name + '"\n', errors);
 			console.trace(errors);

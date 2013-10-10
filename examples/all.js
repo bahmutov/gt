@@ -1,4 +1,6 @@
 var tests = [
+'./assert/test-assert-object',
+'./assert/test-assert-require',
 './basic/tests',
 './basic/exceptionTests',
 './throws/test',
