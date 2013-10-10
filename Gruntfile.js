@@ -10,11 +10,14 @@ module.exports = function (grunt) {
             'default': {
                 src: [ '*.js', 'src/*.js' ]
             }
+        },
+        'nice-package': {
+            all: {}
         }
     });
 
-    grunt.loadNpmTasks('grunt-deps-ok');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.registerTask('default', ['deps-ok', 'jshint']);
-    grunt.loadNpmTasks('grunt-bump');
+    var plugins = module.require('matchdep').filterDev('grunt-*');
+    plugins.forEach(grunt.loadNpmTasks);
+
+    grunt.registerTask('default', ['deps-ok', 'nice-package', 'jshint']);
 };

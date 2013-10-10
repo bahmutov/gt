@@ -44,7 +44,9 @@
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-bump": "0.0.11",
     "jsc": "~0.3.7",
-    "grunt-deps-ok": "~0.1.2"
+    "grunt-deps-ok": "~0.1.2",
+    "grunt-nice-package": "~0.1.3",
+    "matchdep": "~0.3.0"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -57,7 +59,7 @@
     "doc": "xplain --title gt -v 0.8.* -i src\\assertions\\*.js"
   },
   "license": "MIT",
-  "preferGlobal": "true",
+  "preferGlobal": true,
   "main": "./gt.js",
   "bin": {
     "gt": "./gt.js"
