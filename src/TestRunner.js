@@ -20,8 +20,8 @@ var TestRunner = {
 
 	// todo: add started / finished info
 	executeTest: function (test, callback) {
-		check.verifyObject(test, 'expected a test object');
-		check.verifyFunction(callback, 'expected callback object');
+		check.verify.object(test, 'expected a test object');
+		check.verify.fn(callback, 'expected callback object');
 
 		test.check();
 		if (test.skip) {
@@ -69,8 +69,8 @@ var TestRunner = {
 	},
 
 	runTests: function (verifyIntegrity, onAllTestsFinished) {
-		check.verifyArray(this.modules, 'runner has no test collection');
-		check.verifyFunction(onAllTestsFinished, 'missing all tests completed function');
+		check.verify.array(this.modules, 'runner has no test collection');
+		check.verify.fn(onAllTestsFinished, 'missing all tests completed function');
 
 		async.eachSeries(this.modules,
 			this.runModule.bind(this, verifyIntegrity),
@@ -84,12 +84,12 @@ var TestRunner = {
 	},
 
 	runSingleTest: function (preTest, verifyIntegrity, postTest, test, callback) {
-		check.verifyFunction(preTest, 'missing preTest');
-		check.verifyFunction(verifyIntegrity, 'missing verifyIntegrity');
-		check.verifyFunction(postTest, 'missing postTest');
+		check.verify.fn(preTest, 'missing preTest');
+		check.verify.fn(verifyIntegrity, 'missing verifyIntegrity');
+		check.verify.fn(postTest, 'missing postTest');
 
-		check.verifyObject(test, 'missing test');
-		check.verifyFunction(callback, 'missing callback function');
+		check.verify.object(test, 'missing test');
+		check.verify.fn(callback, 'missing callback function');
 
 		preTest();
 		this.executeTest(test, function () {
@@ -100,14 +100,14 @@ var TestRunner = {
 	},
 
 	runModule: function (verifyIntegrity, testModule, allModuleTestsCompleted) {
-		check.verifyFunction(verifyIntegrity, 'verify integrity should be a function');
-		check.verifyObject(testModule, 'missing test module');
-		check.verifyFunction(allModuleTestsCompleted, 'missing module completed function');
+		check.verify.fn(verifyIntegrity, 'verify integrity should be a function');
+		check.verify.object(testModule, 'missing test module');
+		check.verify.fn(allModuleTestsCompleted, 'missing module completed function');
 
 		var preEachTest = testModule.lifecycle.setup;
-		check.verifyFunction(preEachTest, 'module setup should be a function');
+		check.verify.fn(preEachTest, 'module setup should be a function');
 		var postEachTest = testModule.lifecycle.teardown;
-		check.verifyFunction(postEachTest, 'module teardown should be a function');
+		check.verify.fn(postEachTest, 'module teardown should be a function');
 
 		async.eachSeries(testModule._tests,
 			this.runSingleTest.bind(this, preEachTest, verifyIntegrity, postEachTest),

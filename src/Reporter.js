@@ -7,14 +7,14 @@ var _ = require('lodash');
 var check = require('check-types');
 
 var Test = require('./UnitTest/Test').Test;
-check.verifyString(Test.PASS, 'Test.PASS is undefined');
+check.verify.string(Test.PASS, 'Test.PASS is undefined');
 
 var lineLength = process.stdout.isTTY ?
 process.stdout.getWindowSize()[0] : 100;
-check.verifyPositiveNumber(lineLength, 'invalid terminal line length', lineLength);
+check.verify.positiveNumber(lineLength, 'invalid terminal line length', lineLength);
 
 function _reportTests(tests, config) {
-	check.verifyArray(tests, 'tests is not an array');
+	check.verify.array(tests, 'tests is not an array');
 
 	config = config || {};
 	var skipPassed = config.reporter;
@@ -29,11 +29,11 @@ function _reportTests(tests, config) {
 		}
 		var message = test.formMessage(lineLength);
 		var status = test.status();
-		check.verifyString(status, 'could not get status', message);
+		check.verify.string(status, 'could not get status', message);
 
 		if (useColors) {
 			var color = _statusColor(status);
-			check.verifyFunction(color, 'could not get color for test status', test.status());
+			check.verify.fn(color, 'could not get color for test status', test.status());
 			console.log(color(message));
 		} else {
 			console.log(message);
@@ -46,7 +46,7 @@ function _reportTests(tests, config) {
 }
 
 function _writeMessage(msg, failed, useColors) {
-	check.verifyString(msg, 'nothing to write');
+	check.verify.string(msg, 'nothing to write');
 
 	if (useColors) {
 		var color = (failed ? clc.redBright : clc.greenBright);
@@ -57,7 +57,7 @@ function _writeMessage(msg, failed, useColors) {
 }
 
 function _report(modules, config) {
-	check.verifyArray(modules, 'modules is not an array');
+	check.verify.array(modules, 'modules is not an array');
 	if (!modules.length) {
 		log.debug('nothing to report, no test modules');
 		return;
@@ -76,7 +76,7 @@ function _report(modules, config) {
 	var finalFormat = '    %-' + (lineLength - 32) + 's   %3d%% (%d / %d)';
 
 	modules.forEach(function (module) {
-		check.verifyString(module.name, 'could not find name for module');
+		check.verify.string(module.name, 'could not find name for module');
 
 		var failed = module.hasFailed();
 		if (!failed && config.quickFail) {
@@ -94,7 +94,7 @@ function _report(modules, config) {
 		var total = module.getNumberOfTests();
 		var percentage = module.passedPercentage();
 		var filename = module.getFilename() || 'unknown file';
-		check.verifyString(filename, 'module', module.name, 'does not have filename');
+		check.verify.string(filename, 'module', module.name, 'does not have filename');
 		var message = sprintf(finalFormat, filename, Math.round(percentage), good, total);
 		_writeMessage(message, failed, useColors);
 	});
@@ -110,7 +110,7 @@ statusColors[Test.INCOMPLETE] = clc.yellowBright;
 statusColors[Test.SKIP] = clc.blueBright;
 
 function _statusColor(status) {
-	check.verifyString(status, 'status is not a string', status);
+	check.verify.string(status, 'status is not a string', status);
 	var color = statusColors[status];
 	console.assert(color, 'could not find color for status', status);
 	return color;

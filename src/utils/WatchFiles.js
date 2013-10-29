@@ -3,7 +3,7 @@ var check = require('check-types');
 var unary = require('allong.es').unary;
 
 module.exports.watchFiles = function(filenames, callBack) {
-	check.verifyArray(filenames, 'expected list of files');
+	check.verify.array(filenames, 'expected list of files');
 	if (!filenames.length) {
 		return;
 	}

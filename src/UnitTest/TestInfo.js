@@ -11,11 +11,11 @@ var TestInfo = function () {
 };
 
 TestInfo.prototype.check = function () {
-	check.verifyString(this.name, "test name should be a string");
+	check.verify.string(this.name, "test name should be a string");
 	console.assert(!this.assertions, "test", this.name, "should start with 0 assertions");
 	console.assert(!this.broken, "test", this.name, "should start with 0 broken assertions");
-	check.verifyFunction(this.code, this.name, "should have code");
-	check.verifyString(this.filename, this.name, 'should have original source filename');
+	check.verify.fn(this.code, this.name, "should have code");
+	check.verify.string(this.filename, this.name, 'should have original source filename');
 	return true;
 };
 

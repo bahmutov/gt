@@ -4,7 +4,7 @@ var check = require('check-types');
 var joinArguments = require('../utils/joinArguments');
 var _ = require('lodash');
 
-check.verifyObject(SecondaryAssertions, 'missing secondary assertions');
+check.verify.object(SecondaryAssertions, 'missing secondary assertions');
 
 var Assertions = {
 	throws: function () {
@@ -13,11 +13,11 @@ var Assertions = {
 
 	empty: function (value) {
 		var message = joinArguments(arguments, 1);
-		if (check.isString(value)) {
+		if (check.string(value)) {
 			this.equal(value, '', message);
-		} else if (check.isArray(value)) {
+		} else if (check.array(value)) {
 			this.equal(value.length, 0, message);
-		} else if (check.isObject(value)) {
+		} else if (check.object(value)) {
 			this.equal(JSON.stringify(value), '{}', message);
 		} else {
 			this.ok(false, 'Don\' know how to compare object ' + JSON.stringify(value));

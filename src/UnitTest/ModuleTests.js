@@ -2,18 +2,18 @@ var Test = require("./Test").Test;
 var _ = require('lodash');
 var check = require('check-types');
 var pluck = require('../utils/pluckFunction');
-check.verifyFunction(pluck, 'could not load pluck function');
+check.verify.fn(pluck, 'could not load pluck function');
 
 var noop = function () {};
 
 var ModuleTests = function (name, lifecycle) {
 	this._tests = [];
 	if (name) {
-		check.verifyString(name, 'module name should be a string, not', name);
+		check.verify.string(name, 'module name should be a string, not', name);
 	}
 	this.name = name || "default";
 	if (lifecycle) {
-		check.verifyObject(lifecycle, 'lifecycle should be an object');
+		check.verify.object(lifecycle, 'lifecycle should be an object');
 	}
 	this.lifecycle = lifecycle || {};
 	this.lifecycle.setup = this.lifecycle.setup || noop;
@@ -21,12 +21,12 @@ var ModuleTests = function (name, lifecycle) {
 };
 
 ModuleTests.prototype.add = function (options) {
-	check.verifyObject(options, 'missing test options');
-	check.verifyString(options.name, 'missing test name');
-	check.verifyFunction(options.code, 'expected a test function');
-	check.verifyString(options.filename, 'expected a filename string');
+	check.verify.object(options, 'missing test options');
+	check.verify.string(options.name, 'missing test name');
+	check.verify.fn(options.code, 'expected a test function');
+	check.verify.string(options.filename, 'expected a filename string');
 
-	check.verifyArray(this._tests, "this._tests is defined");
+	check.verify.array(this._tests, "this._tests is defined");
 	options.moduleName = this.name;
 	var test = new Test(options);
 	this._tests.push(test);
@@ -42,7 +42,7 @@ ModuleTests.prototype.getTests = function () {
 
 ModuleTests.prototype.getFilename = function () {
 	var filenames = this.getTestFilenames();
-	check.verifyArray(filenames, 'filenames should be an array');
+	check.verify.array(filenames, 'filenames should be an array');
 	return filenames[0];
 };
 
@@ -61,7 +61,7 @@ ModuleTests.prototype.notRun = function () {
 };
 
 ModuleTests.prototype.getFailedTests = function () {
-	check.verifyArray(this._tests, "tests are not defined");
+	check.verify.array(this._tests, "tests are not defined");
 	var failedTests = this._tests.filter(pluck('hasFailed'));
 	return failedTests;
 };

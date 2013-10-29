@@ -19,7 +19,7 @@ TestReport.formMessage = function (lineLength) {
 	this.name :
 	this.name.substr(0, maxNameLength - 3) + '...'
 	var status = this.status();
-	check.verifyString(status, "could not get status for", message);
+	check.verify.string(status, "could not get status for", message);
 	var message = sprintf(format, testNameFitted, percent, good, maxAssertions, this.status());
 	return message;
 };

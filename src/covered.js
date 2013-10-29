@@ -7,7 +7,7 @@ var untested = require('untested');
 var _ = require('lodash');
 var check = require('check-types');
 var unary = require('allong.es').es.unary;
-check.verifyFunction(unary, 'unary is not a function');
+check.verify.fn(unary, 'unary is not a function');
 
 var optional = require('./utils/utils').optional;
 var defaults = require('./utils/utils').defaults;
@@ -39,7 +39,7 @@ function initConfig(options) {
 }
 
 function excludeFromCoverage(filename) {
-	check.verifyString(filename, 'expected filename');
+	check.verify.string(filename, 'expected filename');
 
 	var excluded = [
 		/node_modules/i,
@@ -51,7 +51,7 @@ function excludeFromCoverage(filename) {
 }
 
 function installCoverage(testModules) {
-	check.verifyArray(testModules, 'test modules is not an array');
+	check.verify.array(testModules, 'test modules is not an array');
 	if (testModules.length < 1) {
 		log.info('empty list of test modules');
 		return;
@@ -80,7 +80,7 @@ function writeCoverageReport() {
 
 function updateUntestedDb(coverageReport) {
 	var testFilenames = sure.getTestFilenames();
-	check.verifyArray(testFilenames, 'expected list of test filenames');
+	check.verify.array(testFilenames, 'expected list of test filenames');
 
 	untested.update({
 		test: testFilenames,
@@ -90,14 +90,14 @@ function updateUntestedDb(coverageReport) {
 
 function writeCoverageSummary(coverFolder, basePath) {
 	console.assert(coverage, 'null coverage object');
-	check.verifyFunction(coverage.getFinalCoverage, 'getFinalCoverage does not exist');
+	check.verify.fn(coverage.getFinalCoverage, 'getFinalCoverage does not exist');
 	var info = coverage.getFinalCoverage();
-	check.verifyObject(info, 'could not get final coverage info');
+	check.verify.object(info, 'could not get final coverage info');
 	basePath = defaults(basePath, '.');
-	check.verifyString(basePath, 'null base path');
+	check.verify.string(basePath, 'null base path');
 
 	var coverageReport = untested.getCoverageSummary(info);
-	check.verifyObject(coverageReport, 'could not get coverage summary from\n', JSON.stringify(info, null, 2));
+	check.verify.object(coverageReport, 'could not get coverage summary from\n', JSON.stringify(info, null, 2));
 
 	if (coverFolder) {
 		var reportFilename = path.join(coverFolder, 'code_coverage_report.json');
@@ -113,7 +113,7 @@ function runTests(callback) {
 	sure.run(function (failed, filenames) {
 		writeCoverageReport();
 		optional(writeCoverageSummary)(config.cover, config.cover, '.');
-		if (check.isFunction(callback)) {
+		if (check.fn(callback)) {
 			callback(failed, filenames);
 		}
 	});
@@ -126,11 +126,11 @@ function onFileChanged(file, prev, curr, action) {
 }
 
 function run(callback) {
-	check.verifyFunction(callback, 'expected callback function');
+	check.verify.fn(callback, 'expected callback function');
 
 	runTests(function (failed, filenames) {
 		console.assert(failed >= 0, 'number of failed tests should be >= 0');
-		check.verifyArray(filenames, 'expect filenames to be an array');
+		check.verify.array(filenames, 'expect filenames to be an array');
 
 		optional(watchFiles)(config.watch, filenames, onFileChanged);
 		callback(failed);

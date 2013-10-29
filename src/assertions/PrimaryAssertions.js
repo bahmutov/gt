@@ -3,7 +3,7 @@ var check = require('check-types');
 var joinArguments = require('../utils/joinArguments');
 
 function tooLong(str) {
-	check.verifyString(str, 'expected string to compare length');
+	check.verify.string(str, 'expected string to compare length');
 	var LIMIT = 10;
 	return str.length > LIMIT;
 }
@@ -46,7 +46,7 @@ var PrimaryAssertions = {
 	@category Test
 	*/
  	start: function () {
- 		check.verifyObject(TestRunInfo._currentTest, "current test is undefined");
+ 		check.verify.object(TestRunInfo._currentTest, "current test is undefined");
  		TestRunInfo._currentTest.continueWithTest();
  	},
 
@@ -95,7 +95,7 @@ var PrimaryAssertions = {
 	@category Basic assertions
 	*/
 	raises: function (code, expectedExceptionType, message) {
-		check.verifyObject(TestRunInfo._currentTest, "current test is undefined");
+		check.verify.object(TestRunInfo._currentTest, "current test is undefined");
 		var typeName = null;
 		if (!message && typeof expectedExceptionType === 'string') {
 			message = expectedExceptionType;
@@ -104,7 +104,7 @@ var PrimaryAssertions = {
 			console.assert(expectedExceptionType !== undefined, "undefined expected exception type, message:", message);
 			typeName = expectedExceptionType.name;
 		}
-		check.verifyString(message, "message should be a string");
+		check.verify.string(message, "message should be a string");
 		TestRunInfo._beforeAssertion();
 
 		try {
@@ -136,7 +136,7 @@ Expect given number of assertions
 @category Test
 */
 PrimaryAssertions.expect = function (numberOfAssertions) {
-	check.verifyObject(TestRunInfo._currentTest, "current test is undefined");
+	check.verify.object(TestRunInfo._currentTest, "current test is undefined");
 	console.assert(numberOfAssertions >= 0, "invalid number of expected assertion", numberOfAssertions,
 		"test", TestRunInfo._currentTest.name);
 	TestRunInfo._currentTest.expected = numberOfAssertions;

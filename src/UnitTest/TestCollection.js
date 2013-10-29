@@ -28,7 +28,7 @@ var TestCollection = {
 
 	determineSkipped: function(testModules) {
 		testModules = defaults(testModules, []);
-		check.verifyArray(testModules, "expected list of modules to process, not", JSON.stringify(testModules));
+		check.verify.array(testModules, "expected list of modules to process, not", JSON.stringify(testModules));
 		testModules.forEach(function(item) {
 			if (/^!/.test(item)) {
 				item = item.substr(1);
@@ -41,7 +41,7 @@ var TestCollection = {
 	},
 
 	attemptAMD: function (moduleName, initialError) {
-		check.verifyString(moduleName, 'missing module name');
+		check.verify.string(moduleName, 'missing module name');
 
 		if (initialError.name === 'ReferenceError' && initialError.message === 'define is not defined') {
 			console.log('module', moduleName, 'uses AMD define');
@@ -55,7 +55,7 @@ var TestCollection = {
 	},
 
 	loadModule: function (moduleName) {
-		check.verifyString(moduleName, "expected a module name", moduleName);
+		check.verify.string(moduleName, "expected a module name", moduleName);
 		log.debug("loading module with unit tests", moduleName);
 
 		// jsUnity support, will collect unit tests
@@ -87,7 +87,7 @@ var TestCollection = {
 	},
 
 	collectTests: function (moduleNames, testModules, testNameFilter) {
-		check.verifyArray(moduleNames, "expected list of test modules");
+		check.verify.array(moduleNames, "expected list of test modules");
 		this.determineSkipped(testModules);
 
 		moduleNames.forEach(this.loadModule, this);
@@ -109,12 +109,12 @@ var TestCollection = {
 	},
 
 	setTestFilename: function (filename) {
-		check.verifyString(filename, 'trying to set empty filename');
+		check.verify.string(filename, 'trying to set empty filename');
 		this.currentFileName = filename;
 	},
 
 	getTestFilenames: function () {
-		check.verifyArray(this.modules, 'undefined test modules');
+		check.verify.array(this.modules, 'undefined test modules');
 		if (!this.modules.length) {
 			if (this.currentFileName) {
 				return [this.currentFileName];
@@ -134,11 +134,11 @@ var TestCollection = {
 		if ("undefined" === typeof this.currentModule) {
 			this.module("unnamed");
 		}
-		check.verifyString(this.currentFileName, 'current filename not set');
+		check.verify.string(this.currentFileName, 'current filename not set');
 	},
 
 	shouldTestModule: function (name) {
-		check.verifyString(name, "module name should be a string");
+		check.verify.string(name, "module name should be a string");
 		if (!Object.keys(this.testOnlyModules).length) {
 			return true;
 		}
@@ -146,8 +146,8 @@ var TestCollection = {
 	},
 
 	shouldSkipModule: function (name) {
-		check.verifyString(name, "module name should be a string");
-		check.verifyObject(this.skipTestModules, 'skip test modules should be an object');
+		check.verify.string(name, "module name should be a string");
+		check.verify.object(this.skipTestModules, 'skip test modules should be an object');
 		return !!this.skipTestModules[name];
 	},
 
@@ -162,7 +162,7 @@ var TestCollection = {
 	},
 
 	getAllTests: function () {
-		check.verifyArray(this.modules, "modules is not an array");
+		check.verify.array(this.modules, "modules is not an array");
 
 		return this.modules.reduce(function(all, m) {
 			var tests = m.getTests();
@@ -171,7 +171,7 @@ var TestCollection = {
 	},
 
 	getNumberOfTests: function () {
-		check.verifyArray(this.modules, "modules is not an array");
+		check.verify.array(this.modules, "modules is not an array");
 
 		return this.modules.reduce(function (total, m) {
 			return total + m.getNumberOfTests();
@@ -179,11 +179,11 @@ var TestCollection = {
 	},
 
 	getFailedTests: function () {
-		check.verifyArray(this.modules, "modules are not defined");
+		check.verify.array(this.modules, "modules are not defined");
 
 		return this.modules.reduce(function(failed, testModule) {
 			var moduleFailed = testModule.getFailedTests();
-			check.verifyArray(moduleFailed, "could not get failed tests from module", testModule.name);
+			check.verify.array(moduleFailed, "could not get failed tests from module", testModule.name);
 			return failed.concat(moduleFailed);
 		}, []);
 	},

@@ -28,7 +28,7 @@ Test.prototype.hasFailed = function () {
 
 Test.prototype.hasReallyFailed = function () {
 	var stat = this.status();
-	check.verifyString(stat, 'could not get status for', this.name);
+	check.verify.string(stat, 'could not get status for', this.name);
 	return stat !== Test.PASS && stat !== Test.SKIP;
 };
 
@@ -50,13 +50,13 @@ Test.prototype.expectsCertainStatus = function () {
 
 Test.prototype.achievedExpectedResult = function() {
 	var stat = this.status();
-	check.verifyString(stat, 'could not get test status for', this.name);
+	check.verify.string(stat, 'could not get test status for', this.name);
 	return this.name.indexOf(stat) === 0;
 };
 
 Test.prototype.status = function () {
-	check.verifyString(Test.PASS, "Test.PASS is undefined");
-	if (check.isNumber(this.expected) && (this.expected !== this.assertions)) {
+	check.verify.string(Test.PASS, "Test.PASS is undefined");
+	if (check.number(this.expected) && (this.expected !== this.assertions)) {
 		return Test.INCOMPLETE;
 	}
 

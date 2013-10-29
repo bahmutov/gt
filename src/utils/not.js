@@ -3,7 +3,7 @@ var check = require('check-types');
 module.exports = not;
 
 function not(fn) {
-	check.verifyFunction(fn, 'expected a function');
+	check.verify.fn(fn, 'expected a function');
 	return function() {
 		// console.log('inner arguments\n', JSON.stringify(arguments, null, 2));
 		var args = Array.prototype.slice.call(arguments, 0);

@@ -47,13 +47,13 @@ var testingFramework = {};
 
 function bindTestingFramework() {
 	var collectionMethods = TestCollection.getBindMethods();
-	check.verifyArray(collectionMethods, 'expected list of method names');
+	check.verify.array(collectionMethods, 'expected list of method names');
 	collectionMethods.forEach(function (method) {
 		testingFramework[method] = TestCollection[method].bind(TestCollection);
 	});
 
 	var assertionMethods = TestRunner.getBindMethods();
-	check.verifyArray(assertionMethods, 'expected list of method names');
+	check.verify.array(assertionMethods, 'expected list of method names');
 	assertionMethods.forEach(function (method) {
 		testingFramework[method] = TestRunner[method].bind(TestRunner);
 	});
@@ -77,7 +77,7 @@ function exposeAlternativeAssertions() {
 
 // do not pollute global namespace, put all our stuff under single object
 function registerTarget(targetName) {
-	check.verifyString(targetName, 'missing target name');
+	check.verify.string(targetName, 'missing target name');
 	global[targetName] = testingFramework;
 }
 
@@ -92,13 +92,13 @@ function verifyIntegrity() {
 
 function init(options) {
 	initConfig(options);
-	check.verifyObject(config, 'undefined config');
+	check.verify.object(config, 'undefined config');
 
-	check.verifyObject(TestCollection, 'TestCollection is undefined');
-	check.verifyObject(TestRunner, 'cannot find TestRunner');
+	check.verify.object(TestCollection, 'TestCollection is undefined');
+	check.verify.object(TestRunner, 'cannot find TestRunner');
 
 	log.debug('binding methods to preserve original object information in global invocations');
-	check.verifyFunction(Function.prototype.bind, 'bind is unavailable!');
+	check.verify.fn(Function.prototype.bind, 'bind is unavailable!');
 
 	// clear any preexisting results (tests might be run multiple times)
 	TestCollection.init();
@@ -106,22 +106,22 @@ function init(options) {
 	bindTestingFramework();
 	exposeAlternativeAssertions();
 
-	check.verifyArray(config.target, 'targets should be an array');
+	check.verify.array(config.target, 'targets should be an array');
 	config.target.forEach(registerTarget);
 	require('./dohInterface');
 	require('./jsunityInterface');
 }
 
 function collectTests() {
-	check.verifyArray(config.files, 'config files is not an array');
+	check.verify.array(config.files, 'config files is not an array');
 	var allTestModules = TestCollection.collectTests(config.files,
 		config.modules, config.filter);
 	return allTestModules;
 }
 
 function runTests(callback) {
-	check.verifyArray(TestCollection.modules, 'modules should be an array');
-	check.verifyFunction(callback, 'expected callback function');
+	check.verify.array(TestCollection.modules, 'modules should be an array');
+	check.verify.fn(callback, 'expected callback function');
 
 	TestRunner.modules = TestCollection.modules;
 	TestRunner.runTests(verifyIntegrity, function () {
@@ -139,7 +139,7 @@ function writeReport() {
 
 function reportFinalCount() {
 	var failedTests = TestCollection.getFailedTests();
-	check.verifyArray(failedTests, 'could not get failed tests', failedTests);
+	check.verify.array(failedTests, 'could not get failed tests', failedTests);
 
 	var clc = require('cli-color');
 	var color = (failedTests.length > 0 ? clc.redBright : clc.greenBright);
@@ -161,9 +161,9 @@ function reportFinalCount() {
 module.exports = {
 	init: init,
 	run: function (callback) {
-		check.verifyFunction(callback, 'missing all tests completed callback');
+		check.verify.fn(callback, 'missing all tests completed callback');
 		var allTestModules = collectTests();
-		check.verifyArray(allTestModules, 'all test modules should be an array');
+		check.verify.array(allTestModules, 'all test modules should be an array');
 
 		runTests(function () {
 			writeReport();

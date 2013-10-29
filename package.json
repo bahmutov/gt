@@ -34,7 +34,7 @@
     "amdefine": "~0.1.0",
     "untested": "~0.1.5",
     "lodash": "~2.2.1",
-    "check-types": "~0.6.4",
+    "check-types": "~1.1.0",
     "async": "~0.2.9",
     "allong.es": "~0.14.0",
     "update-notifier": "~0.1.7"
