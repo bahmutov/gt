@@ -1,4 +1,11 @@
 
+0.8.16 / 2013-10-31
+==================
+
+  * testing async module lifecycle
+  * added support for async module teardown functions returning promises
+  * added support for async module setup functions returning promises
+
 0.8.15 / 2013-10-29
 ==================
 
