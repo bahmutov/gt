@@ -7,7 +7,7 @@ var TertiaryAssertions = require('./assertions/TertiaryAssertions');
 var check = require('check-types');
 var _ = require('lodash');
 var async = require('async');
-var Q = require('Q');
+var Q = require('q');
 
 var TestRunner = {
 	init: function (config) {
