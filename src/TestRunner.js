@@ -97,8 +97,9 @@ var TestRunner = {
 		Q.when(preTest()).then(function () {
 			self.executeTest(test, function () {
 				verifyIntegrity();
-				postTest();
-				callback();
+				Q.when(postTest()).then(function () {
+					callback();
+				});
 			});
 		});
 	},

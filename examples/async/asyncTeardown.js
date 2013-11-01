@@ -19,11 +19,9 @@ gt.module('module setup and tear down return a promise', {
 
 gt.test('first test', function () {
   gt.equal(counter, 1, 'setup finished');
-  // enable once module setup async support is complete
-  // gt.ok(asyncSetupFinished, 'module setup was async');
 });
 
 gt.test('second test', function () {
   // enable once module teardown async support is complete
-  // gt.equal(counter, 3, 'setup / teardown / setup finished');
+  gt.equal(counter, 3, 'setup / teardown / setup finished');
 });
