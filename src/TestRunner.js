@@ -7,6 +7,7 @@ var TertiaryAssertions = require('./assertions/TertiaryAssertions');
 var check = require('check-types');
 var _ = require('lodash');
 var async = require('async');
+var Q = require('Q');
 
 var TestRunner = {
 	init: function (config) {
@@ -91,11 +92,14 @@ var TestRunner = {
 		check.verify.object(test, 'missing test');
 		check.verify.fn(callback, 'missing callback function');
 
-		preTest();
-		this.executeTest(test, function () {
-			verifyIntegrity();
-			postTest();
-			callback();
+		var self = this;
+
+		Q.when(preTest()).then(function () {
+			self.executeTest(test, function () {
+				verifyIntegrity();
+				postTest();
+				callback();
+			});
 		});
 	},
 
