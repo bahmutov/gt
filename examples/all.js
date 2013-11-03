@@ -53,6 +53,7 @@ var weirdTests = [
 
 var asyncTests = [
 './async/asyncSetup',
+'./async/asyncSetupOnce',
 './async/asyncTeardown',
 './async/asyncAll',
 './async/test',
