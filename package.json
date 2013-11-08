@@ -4,7 +4,8 @@
   "description": "Simple javascript unit testing framework, similar to QUnit, but with JS code coverage via istanbul",
   "author": {
     "name": "Gleb Bahmutov",
-    "email": "gleb.bahmutov@gmail.com"
+    "email": "gleb.bahmutov@gmail.com",
+    "website": "http://glebbahmutov.com"
   },
   "repository": {
     "type": "git",
@@ -48,7 +49,8 @@
     "jsc": "~0.3.11",
     "grunt-deps-ok": "~0.1.7",
     "grunt-nice-package": "~0.1.5",
-    "matchdep": "~0.3.0"
+    "matchdep": "~0.3.0",
+    "pre-git": "0.0.13"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -60,6 +62,8 @@
     "complexity": "node ./node_modules/jsc gt.js src/assertions/*.js src/utils/*.js src/*.js src/UnitTest/*.js --colors false",
     "doc": "xplain --title gt -v 0.8.* -i src/assertions/*.js"
   },
+  "pre-commit": "npm test",
+  "pre-push": "grunt",
   "license": "MIT",
   "preferGlobal": true,
   "main": "./gt.js",
