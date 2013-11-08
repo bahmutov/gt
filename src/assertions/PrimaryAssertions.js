@@ -35,7 +35,7 @@ function formatEqualMessage(actual, expected, info) {
 
 var PrimaryAssertions = {
 	basic: function () {
-		return ['equal', 'ok', 'expect', 'raises', 'stop', 'start'];
+		return ['equal', 'ok', 'expect', 'raises', 'stop', 'start', 'push'];
  	},
 
  	/**
@@ -98,6 +98,10 @@ var PrimaryAssertions = {
 			message += ' ' + joinArguments(arguments, 1);
 			TestRunInfo._brokenAssertion(message);
 		}
+	},
+
+	push: function (condition, expected, actual, message) {
+		this.ok(condition, 'expected "' + expected + '" got "' + actual + '" ' + message);
 	},
 
 	/**
