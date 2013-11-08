@@ -73,6 +73,8 @@ function exposeAlternativeAssertions() {
 		array: testingFramework.array,
 		zero: testingFramework.zero
 	};
+
+	testingFramework.assert = testingFramework;
 }
 
 // do not pollute global namespace, put all our stuff under single object
@@ -108,6 +110,14 @@ function init(options) {
 
 	check.verify.array(config.target, 'targets should be an array');
 	config.target.forEach(registerTarget);
+
+	check.verify.fn(_.extend, 'missing extend function');
+	testingFramework.extend = function (target, extras) {
+		check.verify.object(target, 'cannot find target to extend');
+		check.verify.object(extras, 'cannot find object to extend with');
+		target = _.extend(target, extras);
+	};
+
 	require('./dohInterface');
 	require('./jsunityInterface');
 }

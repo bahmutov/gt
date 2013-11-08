@@ -12,6 +12,7 @@ var tests = [
 './funcAndArity/test',
 './expect/test',
 './extend/test',
+'./extend/extend-through-api',
 './basic/definedUndefined',
 './basic/null',
 './basic/empty',
