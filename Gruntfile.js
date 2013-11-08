@@ -13,11 +13,12 @@ module.exports = function (grunt) {
         },
         'nice-package': {
             all: {}
-        }
+        },
+        complexity: grunt.file.readJSON('complexity.json')
     });
 
     var plugins = module.require('matchdep').filterDev('grunt-*');
     plugins.forEach(grunt.loadNpmTasks);
 
-    grunt.registerTask('default', ['deps-ok', 'nice-package', 'jshint']);
+    grunt.registerTask('default', ['deps-ok', 'nice-package', 'jshint', 'complexity']);
 };

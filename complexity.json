@@ -1,0 +1,17 @@
+{
+  "all": {
+    "src": ["*.js", "!gt.js",
+      "src/**/*.js",
+      "!src/options.js",
+      "examples/**/*.js",
+      "!examples/**/cover/**/*.js",
+      "!examples/browser/qunit/*.js"
+    ],
+    "options": {
+      "errorsOnly": false,
+      "cyclomatic": 7,
+      "halstead": 27,
+      "maintainability": 80
+    }
+  }
+}
