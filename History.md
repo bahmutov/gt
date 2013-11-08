@@ -1,4 +1,13 @@
 
+0.8.17 / 2013-11-07
+==================
+
+  * supporting QUnit.extend(QUnit.assert, ...) API for adding custom assertions
+  * added grunt-complexity
+  * added pre-git
+  * clipping long error stacks
+  * added async module setup wrapped in once tests
+
 0.8.16 / 2013-10-31
 ==================
 
