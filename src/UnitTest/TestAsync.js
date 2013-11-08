@@ -17,6 +17,12 @@ TestAsync.prototype.start = function (callback, timeout) {
 		timeout = timeout || this.timeout;
 		check.verify.positiveNumber(timeout, 'expect timeout number, not', timeout);
 		this.startTimeout(callback, timeout);
+	} else {
+		// allow sync tests to execute callback, for example after calling
+		// gt.test(
+		// 		gt.stop();
+		//		gt.start();
+		this.onFinished = callback;
 	}
 };
 
@@ -52,6 +58,11 @@ TestAsync.prototype.continueWithTest = function() {
 	// current test will continue, then we get control back
 	// and can run next async test (if any)
 	setTimeout(this.onFinished, 1);
+};
+
+TestAsync.prototype.pause = function () {
+	this.async = true;
+	this.timeoutId = setTimeout(this.checkTestIsStillRunning.bind(this), 5000);
 };
 
 TestAsync.prototype.duration = function() {

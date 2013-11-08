@@ -55,6 +55,7 @@ function bindTestingFramework() {
 	var assertionMethods = TestRunner.getBindMethods();
 	check.verify.array(assertionMethods, 'expected list of method names');
 	assertionMethods.forEach(function (method) {
+		check.verify.fn(TestRunner[method], 'could not function ' + method);
 		testingFramework[method] = TestRunner[method].bind(TestRunner);
 	});
 }

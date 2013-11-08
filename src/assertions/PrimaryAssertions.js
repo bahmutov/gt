@@ -35,7 +35,20 @@ function formatEqualMessage(actual, expected, info) {
 
 var PrimaryAssertions = {
 	basic: function () {
-		return ['equal', 'ok', 'expect', 'raises', 'start'];
+		return ['equal', 'ok', 'expect', 'raises', 'stop', 'start'];
+ 	},
+
+ 	/**
+	Stops testing framework (test wants to do async call for example).
+	Async tests do not have to call stop, it is done automatically
+
+	@method stop
+	@memberOf gt
+	@category Test
+	*/
+ 	stop: function () {
+ 		check.verify.object(TestRunInfo._currentTest, "current test is undefined");
+ 		TestRunInfo._currentTest.pause();
  	},
 
 	/**
