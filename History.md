@@ -1,4 +1,10 @@
 
+0.8.18 / 2013-11-07
+==================
+
+  * added QUnit.push support
+  * added QUnit.start support
+
 0.8.17 / 2013-11-07
 ==================
 
