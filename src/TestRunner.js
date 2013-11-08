@@ -8,6 +8,7 @@ var check = require('check-types');
 var _ = require('lodash');
 var async = require('async');
 var Q = require('q');
+var S = require('string');
 
 var TestRunner = {
 	init: function (config) {
@@ -45,6 +46,22 @@ var TestRunner = {
 			callback();
 		}
 
+		function printFirstStackLines(stack) {
+			if (!stack) {
+				return;
+			}
+
+			var lines = S(stack).lines();
+			var maxLines = 5;
+			if (lines.length < maxLines) {
+				console.log('stack:\n', lines.join('\n'));
+			} else {
+				var firstLines = lines.slice(0, maxLines).join('\n');
+				console.log('stack:\n', firstLines);
+				console.log(lines.length - maxLines + ' stack lines clipped');
+			}
+		}
+
 		try {
 			test.start(onTestFinished);
 
@@ -57,7 +74,9 @@ var TestRunner = {
 			test.code(global.gt);
 		} catch (errors) {
 			console.error('crash in test "' + test.name + '"\n', errors);
-			console.trace(errors);
+			// console.error(errors.stack);
+			printFirstStackLines(errors.stack);
+
 			test.hasCrashed = true;
 			test.finished = new Date();
 		} finally {

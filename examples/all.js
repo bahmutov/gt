@@ -15,7 +15,8 @@ var tests = [
 './basic/definedUndefined',
 './basic/null',
 './basic/empty',
-'./longStrings/test'
+'./longStrings/test',
+'./crashStackSize/test'
 ];
 
 var coffeeTests = [

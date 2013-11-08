@@ -38,7 +38,8 @@
     "async": "~0.2.9",
     "allong.es": "~0.14.0",
     "update-notifier": "~0.1.7",
-    "q": "~0.9.7"
+    "q": "~0.9.7",
+    "string": "~1.6.1"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
