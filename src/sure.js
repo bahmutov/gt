@@ -135,8 +135,9 @@ function runTests(callback) {
 	check.verify.fn(callback, 'expected callback function');
 
 	TestRunner.modules = TestCollection.modules;
-	TestRunner.runTests(verifyIntegrity, function () {
-		callback();
+	TestRunner.runTests(verifyIntegrity, function (err) {
+		console.log('test runner returned an error', err);
+		callback(err);
 	});
 }
 
@@ -176,9 +177,12 @@ module.exports = {
 		var allTestModules = collectTests();
 		check.verify.array(allTestModules, 'all test modules should be an array');
 
-		runTests(function () {
+		runTests(function (err) {
+			if (err) {
+				console.error('all tests finished with error', err);
+			}
 			writeReport();
-			callback(reportFinalCount(), allTestModules);
+			callback(err ? 1 : reportFinalCount(), allTestModules);
 		});
 	},
 	getTestFilenames: TestCollection.getTestFilenames.bind(TestCollection),

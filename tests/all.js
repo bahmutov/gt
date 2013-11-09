@@ -3,7 +3,8 @@ console.log('loading tests, takes a few seconds');
 var smallTests = [
 './small/pluckTest',
 '../src/utils/test/joinArgumentsTest',
-'./small/oneFailsTest'
+'./small/oneFailsTest',
+'./small/teardownExceptionTest'
 ];
 
 var mediumTests = [

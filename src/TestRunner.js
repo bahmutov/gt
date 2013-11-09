@@ -42,7 +42,16 @@ var TestRunner = {
 			log.debug('finished test "' + test.name + '"',
 				TestRunInfo._currentTest.assertions + ' assertions,',
 				TestRunInfo._currentTest.broken, 'broken');
-			TestRunInfo._afterTest();
+
+			try {
+				TestRunInfo._afterTest();
+			} catch (err) {
+				console.error('caught error after test "' + test.name + '"');
+				console.error(err);
+				callback(err);
+				return;
+			}
+
 			callback();
 		}
 
@@ -96,10 +105,10 @@ var TestRunner = {
 			this.runModule.bind(this, verifyIntegrity),
 			function (err) {
 				if (err) {
-					throw err;
+					console.error('caught error running modules', err);
 				}
 				// console.log('finished all tests from all modules');
-				onAllTestsFinished();
+				onAllTestsFinished(err);
 			});
 	},
 
@@ -116,10 +125,14 @@ var TestRunner = {
 		Q.when(preTest()).then(function () {
 			self.executeTest(test, function () {
 				verifyIntegrity();
+
 				Q.when(postTest()).then(function () {
 					callback();
 				});
 			});
+		}).catch(function (err) {
+			console.error('error stack\n' + err.stack);
+			callback(err);
 		});
 	},
 
@@ -130,12 +143,19 @@ var TestRunner = {
 
 		var preEachTest = testModule.lifecycle.setup;
 		check.verify.fn(preEachTest, 'module setup should be a function');
+
 		var postEachTest = testModule.lifecycle.teardown;
 		check.verify.fn(postEachTest, 'module teardown should be a function');
 
 		async.eachSeries(testModule._tests,
 			this.runSingleTest.bind(this, preEachTest, verifyIntegrity, postEachTest),
-			allModuleTestsCompleted);
+			function (err) {
+				if (err) {
+					console.error('caught error in module', testModule.name);
+					testModule.crashed = true;
+				}
+				allModuleTestsCompleted(err);
+			});
 	}
 };
 

@@ -18,6 +18,9 @@ var ModuleTests = function (name, lifecycle) {
 	this.lifecycle = lifecycle || {};
 	this.lifecycle.setup = this.lifecycle.setup || noop;
 	this.lifecycle.teardown = this.lifecycle.teardown || noop;
+
+	// crashed somewhere in the lifecycle functions
+	this.crashed = false;
 };
 
 ModuleTests.prototype.add = function (options) {
@@ -53,7 +56,7 @@ ModuleTests.prototype.getTestFilenames = function () {
 };
 
 ModuleTests.prototype.hasFailed = function () {
-	return this._tests.some(pluck('hasFailed'));
+	return !this.crashed && this._tests.some(pluck('hasFailed'));
 };
 
 ModuleTests.prototype.notRun = function () {
