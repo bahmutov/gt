@@ -167,19 +167,19 @@ var TestRunner = {
 		log.debug('starting module', testModule.name);
 		var testSteps = this.runSingleTest.bind(this, preEachTest, verifyIntegrity, postEachTest);
 
-		function setupOnce(fn, errorCallback) {
+		function runOnce(fn, errorCallback) {
 			if (!check.fn(fn)) {
 				return;
 			}
 			try {
 				return fn();
 			} catch (err) {
-				console.log('module setupOnce error\n', err);
+				console.log('module run once error\n', err);
 				errorCallback(err);
 			}
 		}
 
-		Q.when(setupOnce(testModule.lifecycle.setupOnce, allModuleTestsCompleted))
+		Q.when(runOnce(testModule.lifecycle.setupOnce, allModuleTestsCompleted))
 		.then(function () {
 			async.eachSeries(testModule._tests,
 				testSteps,
@@ -188,7 +188,8 @@ var TestRunner = {
 						console.error('caught error in module "' + testModule.name + '"');
 						testModule.crashed = true;
 					}
-					Q.when(testModule.lifecycle.teardownOnce).then(function () {
+					Q.when(runOnce(testModule.lifecycle.teardownOnce, allModuleTestsCompleted))
+					.then(function () {
 						allModuleTestsCompleted(err);
 					});
 				});
