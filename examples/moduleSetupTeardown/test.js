@@ -1,4 +1,4 @@
-(function (gt) {
+(function moduleLifecycleTests(gt) {
 	var foo = null;
 	var counter = 0;
 
@@ -55,6 +55,28 @@
 		gt.equal(counter, 5, 'valid counter');
 	});
 
+}(gt));
+
+(function setupOnceTests(gt) {
+	var counter = 0;
+
+	gt.module('setupOnce tests', {
+		setupOnce: function () {
+			counter = 100;
+		},
+		setup: function () {
+			console.assert(counter >= 100, 'counter >= 100');
+			counter += 1;
+		}
+	});
+
+	gt.test('first', function () {
+		gt.equal(counter, 101, 'counter has been initialized in setupOnce');
+	});
+
+	gt.test('second', function () {
+		gt.equal(counter, 102, 'counter has been initialized in setupOnce');
+	});
 }(gt));
 
 gt.module('supports setup and teardown properties');

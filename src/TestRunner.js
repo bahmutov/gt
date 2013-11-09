@@ -167,7 +167,20 @@ var TestRunner = {
 		log.debug('starting module', testModule.name);
 		var testSteps = this.runSingleTest.bind(this, preEachTest, verifyIntegrity, postEachTest);
 
-		Q.when(testModule.lifecycle.setupOnce).then(function () {
+		function setupOnce(fn, errorCallback) {
+			if (!check.fn(fn)) {
+				return;
+			}
+			try {
+				return fn();
+			} catch (err) {
+				console.log('module setupOnce error\n', err);
+				errorCallback(err);
+			}
+		}
+
+		Q.when(setupOnce(testModule.lifecycle.setupOnce, allModuleTestsCompleted))
+		.then(function () {
 			async.eachSeries(testModule._tests,
 				testSteps,
 				function (err) {
