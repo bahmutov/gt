@@ -63,8 +63,13 @@
     "complexity": "node ./node_modules/jsc gt.js src/assertions/*.js src/utils/*.js src/*.js src/UnitTest/*.js --colors false",
     "doc": "xplain --title gt -v 0.8.* -i src/assertions/*.js"
   },
-  "pre-commit": "npm test",
-  "pre-push": "grunt",
+  "pre-commit": ["grunt", "npm test"],
+  "pre-push": [
+    "rm -rf node_modules",
+    "npm install",
+    "grunt",
+    "npm test"
+  ],
   "license": "MIT",
   "preferGlobal": true,
   "main": "./gt.js",

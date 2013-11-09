@@ -194,7 +194,7 @@ var TestRunner = {
 				});
 		}).catch(function (err) {
 			console.error('module error stack\n' + err.stack);
-			callback(err);
+			allModuleTestsCompleted(err);
 		});
 	}
 };
