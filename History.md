@@ -1,4 +1,10 @@
 
+0.8.19 / 2013-11-09
+==================
+
+  * added module.setup exception handling
+  * added module.teardown exception handling
+
 0.8.18 / 2013-11-07
 ==================
 

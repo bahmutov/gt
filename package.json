@@ -1,6 +1,6 @@
 {
   "name": "gt",
-  "version": "0.8.18",
+  "version": "0.8.19",
   "description": "Simple javascript unit testing framework, similar to QUnit, but with JS code coverage via istanbul",
   "author": {
     "name": "Gleb Bahmutov",
