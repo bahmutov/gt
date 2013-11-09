@@ -150,21 +150,39 @@ var TestRunner = {
 		check.verify.object(testModule, 'missing test module');
 		check.verify.fn(allModuleTestsCompleted, 'missing module completed function');
 
+		if (testModule.lifecycle.setupOnce) {
+			check.verify.fn(testModule.lifecycle.setupOnce, 'setupOnce should be a function');
+		}
+
+		if (testModule.lifecycle.teardownOnce) {
+			check.verify.fn(testModule.lifecycle.teardownOnce, 'teardownOnce should be a function');
+		}
+
 		var preEachTest = testModule.lifecycle.setup;
 		check.verify.fn(preEachTest, 'module setup should be a function');
 
 		var postEachTest = testModule.lifecycle.teardown;
 		check.verify.fn(postEachTest, 'module teardown should be a function');
 
-		async.eachSeries(testModule._tests,
-			this.runSingleTest.bind(this, preEachTest, verifyIntegrity, postEachTest),
-			function (err) {
-				if (err) {
-					console.error('caught error in module "' + testModule.name + '"');
-					testModule.crashed = true;
-				}
-				allModuleTestsCompleted(err);
-			});
+		log.debug('starting module', testModule.name);
+		var testSteps = this.runSingleTest.bind(this, preEachTest, verifyIntegrity, postEachTest);
+
+		Q.when(testModule.lifecycle.setupOnce).then(function () {
+			async.eachSeries(testModule._tests,
+				testSteps,
+				function (err) {
+					if (err) {
+						console.error('caught error in module "' + testModule.name + '"');
+						testModule.crashed = true;
+					}
+					Q.when(testModule.lifecycle.teardownOnce).then(function () {
+						allModuleTestsCompleted(err);
+					});
+				});
+		}).catch(function (err) {
+			console.error('module error stack\n' + err.stack);
+			callback(err);
+		});
 	}
 };
 

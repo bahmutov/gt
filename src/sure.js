@@ -81,7 +81,9 @@ function exposeAlternativeAssertions() {
 function exposeSupportedFeatures() {
 	testingFramework.supports = {
 		setup: true,
-		teardown: true
+		teardown: true,
+		setupOnce: true,
+		teardownOnce: true
 	};
 }
 
