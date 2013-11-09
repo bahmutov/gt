@@ -1,4 +1,34 @@
 
+0.8.20 / 2013-11-09
+==================
+
+  * added setupOnce and teardownOnce support
+
+```javascript
+gt.module('example', {
+  setupOnce: function() {
+    // runs before all tests in the module
+  },
+  setup: function() {
+    // runs before each test
+  },
+  teardown: function() {
+    // runs after each test
+  },
+  teardownOnce: function() {
+    // runs after all tests in the module
+  }
+});
+```
+
+  * added setup and teardown supports flags
+
+```javascript
+gt.supports // an object
+gt.supports.setupOnce    // frameworks supports module.setupOnce
+gt.supports.teardownOnce // frameworks supports module.teardownOnce
+```
+
 0.8.19 / 2013-11-09
 ==================
 
