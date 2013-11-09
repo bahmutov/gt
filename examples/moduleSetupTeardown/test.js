@@ -79,6 +79,28 @@
 	});
 }(gt));
 
+(function teardownOnceTests(gt) {
+	var counter = 0;
+
+	gt.module('teardownOnce tests', {
+		setup: function () {
+			counter += 1;
+		},
+		teardownOnce: function () {
+			console.assert(counter == 2, 'two tests have finished');
+			counter = 0;
+		}
+	});
+
+	gt.test('first', function () {
+		gt.equal(counter, 1);
+	});
+
+	gt.test('second', function () {
+		gt.equal(counter, 2);
+	});
+}(gt));
+
 gt.module('supports setup and teardown properties');
 
 gt.test('supports object', function () {
