@@ -4,7 +4,8 @@ var smallTests = [
 './small/pluckTest',
 '../src/utils/test/joinArgumentsTest',
 './small/oneFailsTest',
-'./small/teardownExceptionTest'
+'./small/teardownExceptionTest',
+'./small/setupExceptionTest'
 ];
 
 var mediumTests = [

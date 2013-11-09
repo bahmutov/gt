@@ -83,6 +83,9 @@ ModuleTests.prototype.passedPercentage = function () {
 };
 
 ModuleTests.prototype.duration = function() {
+	if (this.crashed) {
+		return 0;
+	}
 	return this._tests.reduce(function (total, test) {
 		return total += test.duration();
 	}, 0);

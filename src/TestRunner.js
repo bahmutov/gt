@@ -120,9 +120,18 @@ var TestRunner = {
 		check.verify.object(test, 'missing test');
 		check.verify.fn(callback, 'missing callback function');
 
+		function executePreTest(fn, errorCallback) {
+			try {
+				return fn();
+			} catch (err) {
+				console.log('pretest error\n', err);
+				errorCallback(err);
+			}
+		}
+
 		var self = this;
 
-		Q.when(preTest()).then(function () {
+		Q.when(executePreTest(preTest, callback)).then(function () {
 			self.executeTest(test, function () {
 				verifyIntegrity();
 
@@ -151,7 +160,7 @@ var TestRunner = {
 			this.runSingleTest.bind(this, preEachTest, verifyIntegrity, postEachTest),
 			function (err) {
 				if (err) {
-					console.error('caught error in module', testModule.name);
+					console.error('caught error in module "' + testModule.name + '"');
 					testModule.crashed = true;
 				}
 				allModuleTestsCompleted(err);

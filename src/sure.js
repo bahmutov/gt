@@ -136,7 +136,9 @@ function runTests(callback) {
 
 	TestRunner.modules = TestCollection.modules;
 	TestRunner.runTests(verifyIntegrity, function (err) {
-		console.log('test runner returned an error', err);
+		if (err) {
+			console.log('test runner returned an error', err);
+		}
 		callback(err);
 	});
 }
