@@ -53,3 +53,11 @@ gt.test('counter has same value', function () {
 gt.test('counter once', function () {
 	gt.equal(counter, 5, 'valid counter');
 });
+
+gt.module('supports setup and teardown');
+
+gt.test('supports object', function () {
+	gt.object(gt.supports, 'supports is an object');
+	gt.ok(gt.supports.setup, 'module.setup is supported');
+	gt.ok(gt.supports.teardown, 'module.teardown is supported');
+});

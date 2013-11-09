@@ -78,6 +78,13 @@ function exposeAlternativeAssertions() {
 	testingFramework.assert = testingFramework;
 }
 
+function exposeSupportedFeatures() {
+	testingFramework.supports = {
+		setup: true,
+		teardown: true
+	};
+}
+
 // do not pollute global namespace, put all our stuff under single object
 function registerTarget(targetName) {
 	check.verify.string(targetName, 'missing target name');
@@ -108,6 +115,7 @@ function init(options) {
 	TestRunner.init(config);
 	bindTestingFramework();
 	exposeAlternativeAssertions();
+	exposeSupportedFeatures();
 
 	check.verify.array(config.target, 'targets should be an array');
 	config.target.forEach(registerTarget);
