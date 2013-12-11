@@ -1,6 +1,6 @@
 {
   "name": "gt",
-  "version": "0.8.20",
+  "version": "0.8.21",
   "description": "Simple javascript unit testing framework, similar to QUnit, but with JS code coverage via istanbul",
   "author": {
     "name": "Gleb Bahmutov",
@@ -29,28 +29,28 @@
     "sprintf": "~0.1.3",
     "optimist": "~0.6.0",
     "custom-logger": "~0.2.1",
-    "istanbul": "~0.1.44",
+    "istanbul": "~0.1.46",
     "nodewatch": "~0.3.2",
-    "glob": "~3.2.6",
+    "glob": "~3.2.7",
     "amdefine": "~0.1.0",
     "untested": "~0.1.5",
-    "lodash": "~2.2.1",
-    "check-types": "~1.1.0",
+    "lodash": "~2.4.1",
+    "check-types": "~1.1.1",
     "async": "~0.2.9",
     "allong.es": "~0.14.0",
     "update-notifier": "~0.1.7",
     "q": "~0.9.7",
-    "string": "~1.6.1"
+    "string": "~1.7.0"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.7.1",
-    "grunt-bump": "0.0.11",
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-bump": "0.0.13",
     "jsc": "~0.3.11",
     "grunt-deps-ok": "~0.1.7",
     "grunt-nice-package": "~0.1.5",
     "matchdep": "~0.3.0",
-    "pre-git": "0.0.13",
+    "pre-git": "0.0.14",
     "grunt-complexity": "~0.1.3"
   },
   "engines": {
@@ -63,7 +63,10 @@
     "complexity": "node ./node_modules/jsc gt.js src/assertions/*.js src/utils/*.js src/*.js src/UnitTest/*.js --colors false",
     "doc": "xplain --title gt -v 0.8.* -i src/assertions/*.js"
   },
-  "pre-commit": ["grunt", "npm test"],
+  "pre-commit": [
+    "grunt",
+    "npm test"
+  ],
   "pre-push": [
     "rm -rf node_modules",
     "npm install",
