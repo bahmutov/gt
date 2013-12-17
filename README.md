@@ -65,3 +65,6 @@ The MIT License, see [*MIT-License.txt*](gt/blob/master/MIT-License.txt "MIT-Lic
 ## Contact
 
 Gleb Bahmutov <gleb.bahmutov@gmail.com>
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bahmutov/gt/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
