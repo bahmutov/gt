@@ -102,6 +102,9 @@ function getCallerFilename() {
   	// stack.shift();
   	//console.log(stack[0]);
   	// console.log(stack[0].receiver);
+    if (!stack[0].receiver) {
+      return null;
+    }
   	return stack[0].receiver.filename;
   };
   console.log('could not find filename');
