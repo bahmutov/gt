@@ -1,4 +1,13 @@
 
+0.8.22 / 2014-01-09
+==================
+
+  * fixed v0.11 support, fixes #19
+  * updated dependencies
+  * bumped to latest istanbul
+  * Merge pull request #17 from bitdeli-chef/master
+  * Add a Bitdeli badge to README
+
 0.8.20 / 2013-11-09
 ==================
 
