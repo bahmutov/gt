@@ -6,4 +6,4 @@ var testFile = path.join(__dirname, 'twoFailing.js');
 
 gt.async('two failing unit tests', 1, function () {
 	gt.exec('node', [gtPath, testFile], 2, 'gt returns 2');
-}, 4000);
+}, 10000);

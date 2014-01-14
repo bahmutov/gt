@@ -6,4 +6,4 @@ var testFile = path.join(__dirname, 'skip.js');
 
 gt.async('call skip tests', 1, function () {
 	gt.exec('node', [gtPath, testFile], 0, 'gt returns 0');
-}, 4000);
+}, 10000);
