@@ -88,6 +88,7 @@ var TestRunner = {
 
 			test.hasCrashed = true;
 			test.finished = new Date();
+      test.async = false;
 		} finally {
 			if (TestRunInfo._currentTest && !TestRunInfo._currentTest.async) {
 				TestRunInfo._currentTest.finished = new Date();
@@ -205,5 +206,13 @@ _.extend(TestRunner, BasicAssertions, SecondaryAssertions, TertiaryAssertions);
 TestRunner.getBindMethods = function () {
 	return this.basic().concat(this.secondary()).concat(TertiaryAssertions.assertions());
 };
+
+process.on('error', function (err) {
+  if (TestRunInfo._currentTest) {
+    console.error('Crash in test', TestRunner._currentTest);
+    console.error(err);
+    process.exit(1);
+  }
+});
 
 exports.TestRunner = TestRunner;
