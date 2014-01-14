@@ -1,3 +1,4 @@
+/*jshint indent:false */
 var optimist = require('optimist');
 
 function getArguments() {
@@ -49,7 +50,7 @@ function getArguments() {
 	.options('output', {
 		boolean: true,
 		default: false,
-    alias: 'o',
+		alias: 'o',
 		description: 'show standard and warning console output messages'
 	})
 	.options('watch', {

@@ -37,3 +37,4 @@ See *examples/coffee* folder.
 
 See example **examples/browser**
 
+{%= _.doc("./docs/api.md") %}
