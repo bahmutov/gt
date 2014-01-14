@@ -32,6 +32,13 @@ module.exports = function (grunt) {
                 push: true,
                 pushTo: 'origin'
             }
+        },
+        readme: {
+            options: {
+                readme: './docs/README.tmpl.md',
+                templates: './docs',
+                docs: '.'
+            }
         }
     });
 

@@ -1,28 +1,7 @@
-# gt
+# Goals
 
-Simple JS unit testing framework similar to QUnit.
-
-[![NPM info](https://nodei.co/npm/gt.png?downloads=true)](https://nodei.co/npm/gt.png?downloads=true)
-
-[![Travis build status](https://travis-ci.org/bahmutov/gt.png?branch=master)](https://travis-ci.org/bahmutov/gt)
-[![dependencies](https://david-dm.org/bahmutov/gt.png)](https://david-dm.org/bahmutov/gt)
-
-[![endorse](https://api.coderwall.com/bahmutov/endorsecount.png)](https://coderwall.com/bahmutov)
-
-## Goals
 1. Make sure QUnit tests work with [istanbul](https://github.com/gotwarlost/istanbul "Istanbul at GitHub") JS coverage tool
 2. Experiment with JS unit testing by writing a framework from scratch.
-
-## Install and run
-
-**gt** requires *nodejs* and a few modules to run. Assuming you wrote a few qunit tests in tests.js:
-
-	npm install -g gt
-	gt tests.js
-
-	some of the options (-h for all):
-		-l <debug level> 0 = debug, 1 = default, 2 = warnings, 3 = errors
-		-r <report level> 0 = all (default), 1 = failed tests only
 
 ## Example
 
@@ -57,14 +36,4 @@ See *examples/coffee* folder.
 ## Running in browser
 
 See example **examples/browser**
-
-## License
-
-The MIT License, see [*MIT-License.txt*](gt/blob/master/MIT-License.txt "MIT-License.txt")
-
-## Contact
-
-Gleb Bahmutov <gleb.bahmutov@gmail.com>
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bahmutov/gt/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
