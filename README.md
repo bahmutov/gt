@@ -1,4 +1,4 @@
-# gt v0.8.23
+# gt v0.8.24
 
 > JavaScript native QUnit runner with code coverage and multiple extensions
 
@@ -82,7 +82,7 @@ checks the exit code. Automatically restarts the test queue
 ```js
 gt.async('run Nodejs program', function () {
   gt.exec('node', ['index.js', 'arg1', 'arg2'], 0, 
-    'expect node index.js arg1 arg2 to exit with code 0');
+    'expect "node index.js arg1 arg2" to exit with code 0');
 });
 ```
 
