@@ -20,7 +20,19 @@ module.exports = function (grunt) {
         'nice-package': {
             all: {}
         },
-        complexity: grunt.file.readJSON('complexity.json')
+        complexity: grunt.file.readJSON('complexity.json'),
+        bump: {
+            options: {
+                commit: true,
+                commitMessage: 'Release v%VERSION%',
+                commitFiles: ['-a'], // '-a' for all files
+                createTag: true,
+                tagName: '%VERSION%',
+                tagMessage: 'Version %VERSION%',
+                push: true,
+                pushTo: 'origin'
+            }
+        }
     });
 
     var plugins = module.require('matchdep').filterDev('grunt-*');
@@ -29,4 +41,5 @@ module.exports = function (grunt) {
     grunt.registerTask('pre-check', ['deps-ok', 'jsonlint',
         'jshint', 'nice-package', 'complexity']);
     grunt.registerTask('default', ['pre-check']);
+    grunt.registerTask('release', ['bump-only:patch', 'readme', 'bump-commit']);
 };
