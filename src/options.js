@@ -49,6 +49,7 @@ function getArguments() {
 	.options('output', {
 		boolean: true,
 		default: false,
+    alias: 'o',
 		description: 'show standard and warning console output messages'
 	})
 	.options('watch', {
