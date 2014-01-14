@@ -1,6 +1,6 @@
-# gt v0.8.22
+# gt v0.8.23
 
-> Simple javascript unit testing framework, similar to QUnit, but with JS code coverage via istanbul
+> JavaScript native QUnit runner with code coverage and multiple extensions
 
 [![NPM][gt-icon] ][gt-url]
 
