@@ -61,7 +61,8 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "node gt.js ./examples/all.js ./tests/all.js --colors true",
+    "test": "npm run unit && npm run e2e",
+    "unit": "node gt.js ./examples/all.js ./tests/all.js --colors true",
     "e2e": "node gt.js tests/all.js --colors true",
     "cover": "istanbul cover gt tests",
     "complexity": "node ./node_modules/jsc gt.js src/assertions/*.js src/utils/*.js src/*.js src/UnitTest/*.js --colors false",
