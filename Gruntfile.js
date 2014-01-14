@@ -6,9 +6,15 @@ module.exports = function (grunt) {
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
+                reporter: require('jshint-stylish')
             },
             'default': {
                 src: [ '*.js', 'src/*.js' ]
+            }
+        },
+        jsonlint: {
+            all: {
+                src: ['*.json']
             }
         },
         'nice-package': {
@@ -20,5 +26,7 @@ module.exports = function (grunt) {
     var plugins = module.require('matchdep').filterDev('grunt-*');
     plugins.forEach(grunt.loadNpmTasks);
 
-    grunt.registerTask('default', ['deps-ok', 'nice-package', 'jshint', 'complexity']);
+    grunt.registerTask('pre-check', ['deps-ok', 'jsonlint',
+        'jshint', 'nice-package', 'complexity']);
+    grunt.registerTask('default', ['pre-check']);
 };
