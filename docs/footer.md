@@ -10,5 +10,5 @@ License: [MIT](MIT-License.txt) - do anything with the code, but don't blame me 
 
 Spread the word: tweet, star on github, etc.
 
-Support: if you find any problems with this module, email / tweet / 
-open [issue on Github](https://github.com/bahmutov/gt/issues)
+Support: if you find any problems with this module, email / tweet /
+[open issue](https://github.com/bahmutov/gt/issues) on Github.
