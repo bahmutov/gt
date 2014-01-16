@@ -1,6 +1,6 @@
 {
   "name": "gt",
-  "version": "0.8.27",
+  "version": "0.8.28",
   "description": "JavaScript native QUnit runner with code coverage and multiple extensions",
   "author": {
     "name": "Gleb Bahmutov",
