@@ -27,4 +27,7 @@ gt.module('server tests', {
 });
 ```
 
-See [module tests](examples/moduleSetupTeardown/test.js) for more information and examples
+See [module tests](examples/moduleSetupTeardown/test.js) for more information and examples.
+
+A very convenient feature: each method can return a promise object
+to tell the test engine when it is done. See [example](examples/async/asyncSetup.js)
