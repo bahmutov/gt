@@ -41,7 +41,8 @@
     "allong.es": "~0.14.0",
     "update-notifier": "~0.1.7",
     "q": "~1.0.0",
-    "string": "~1.8.0"
+    "string": "~1.8.0",
+    "console.json": "~0.1.1"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

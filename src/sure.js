@@ -14,6 +14,7 @@ var config = {
 	quickFail: false,
 	target: ['gt', 'QUnit'] // register global framework under these names
 };
+var initCalled = false;
 
 require('./shiv.js');
 var Reporter = require('./Reporter').Reporter;
@@ -131,13 +132,21 @@ function init(options) {
 
 	require('./dohInterface');
 	require('./jsunityInterface');
+	initCalled = true;
 }
 
-function collectTests() {
-	verify.array(config.files, 'config files is not an array');
-	var allTestModules = TestCollection.collectTests(config.files,
-		config.modules, config.filter);
-	return allTestModules;
+function collectTests(files) {
+	if (typeof files === 'string') {
+		files = [files];
+	}
+	files = files || config.files;
+	verify.array(files, 'files is not an array ' + JSON.stringify(files, null, 2));
+
+	if (!initCalled) {
+		init();
+	}
+	var testFilenames = TestCollection.collectTests(files, config.modules, config.filter);
+	return testFilenames;
 }
 
 function runTests(callback) {
@@ -185,6 +194,7 @@ function reportFinalCount() {
 module.exports = {
 	init: init,
 	collect: collectTests,
+	getAllTests: TestCollection.getAllTests.bind(TestCollection),
 	run: function (callback) {
 		verify.fn(callback, 'missing all tests completed callback');
 		var allTestModules = collectTests();
