@@ -57,7 +57,9 @@
     "grunt-jsonlint": "~1.0.4",
     "grunt-readme": "~0.4.5",
     "time-grunt": "~0.2.8",
-    "grunt-lineending": "~0.2.1"
+    "grunt-lineending": "~0.2.1",
+    "mocha": "~1.17.0",
+    "assert": "~1.1.0"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -68,7 +70,8 @@
     "e2e": "node gt.js tests/all.js --colors true --output",
     "cover": "istanbul cover gt tests",
     "complexity": "node ./node_modules/jsc gt.js src/assertions/*.js src/utils/*.js src/*.js src/UnitTest/*.js --colors false",
-    "doc": "xplain --title gt -v 0.8.* -i src/assertions/*.js"
+    "doc": "xplain --title gt -v 0.8.* -i src/assertions/*.js",
+    "mocha": "node node_modules/mocha/bin/_mocha tests/mocha"
   },
   "pre-commit": [
     "grunt",

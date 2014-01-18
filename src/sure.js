@@ -2,7 +2,7 @@ var _ = require('lodash');
 // support loading .coffee source files
 require('coffee-script');
 var defaults = require('./utils/utils').defaults;
-var check = require('check-types');
+var verify = require('check-types').verify;
 
 var config = {
 	files: [], // test and code files to process
@@ -47,15 +47,15 @@ var testingFramework = {};
 
 function bindTestingFramework() {
 	var collectionMethods = TestCollection.getBindMethods();
-	check.verify.array(collectionMethods, 'expected list of method names');
+	verify.array(collectionMethods, 'expected list of method names');
 	collectionMethods.forEach(function (method) {
 		testingFramework[method] = TestCollection[method].bind(TestCollection);
 	});
 
 	var assertionMethods = TestRunner.getBindMethods();
-	check.verify.array(assertionMethods, 'expected list of method names');
+	verify.array(assertionMethods, 'expected list of method names');
 	assertionMethods.forEach(function (method) {
-		check.verify.fn(TestRunner[method], 'could not function ' + method);
+		verify.fn(TestRunner[method], 'could not function ' + method);
 		testingFramework[method] = TestRunner[method].bind(TestRunner);
 	});
 }
@@ -89,7 +89,7 @@ function exposeSupportedFeatures() {
 
 // do not pollute global namespace, put all our stuff under single object
 function registerTarget(targetName) {
-	check.verify.string(targetName, 'missing target name');
+	verify.string(targetName, 'missing target name');
 	global[targetName] = testingFramework;
 }
 
@@ -104,13 +104,13 @@ function verifyIntegrity() {
 
 function init(options) {
 	initConfig(options);
-	check.verify.object(config, 'undefined config');
+	verify.object(config, 'undefined config');
 
-	check.verify.object(TestCollection, 'TestCollection is undefined');
-	check.verify.object(TestRunner, 'cannot find TestRunner');
+	verify.object(TestCollection, 'TestCollection is undefined');
+	verify.object(TestRunner, 'cannot find TestRunner');
 
 	log.debug('binding methods to preserve original object information in global invocations');
-	check.verify.fn(Function.prototype.bind, 'bind is unavailable!');
+	verify.fn(Function.prototype.bind, 'bind is unavailable!');
 
 	// clear any preexisting results (tests might be run multiple times)
 	TestCollection.init();
@@ -119,13 +119,13 @@ function init(options) {
 	exposeAlternativeAssertions();
 	exposeSupportedFeatures();
 
-	check.verify.array(config.target, 'targets should be an array');
+	verify.array(config.target, 'targets should be an array');
 	config.target.forEach(registerTarget);
 
-	check.verify.fn(_.extend, 'missing extend function');
+	verify.fn(_.extend, 'missing extend function');
 	testingFramework.extend = function (target, extras) {
-		check.verify.object(target, 'cannot find target to extend');
-		check.verify.object(extras, 'cannot find object to extend with');
+		verify.object(target, 'cannot find target to extend');
+		verify.object(extras, 'cannot find object to extend with');
 		target = _.extend(target, extras);
 	};
 
@@ -134,15 +134,15 @@ function init(options) {
 }
 
 function collectTests() {
-	check.verify.array(config.files, 'config files is not an array');
+	verify.array(config.files, 'config files is not an array');
 	var allTestModules = TestCollection.collectTests(config.files,
 		config.modules, config.filter);
 	return allTestModules;
 }
 
 function runTests(callback) {
-	check.verify.array(TestCollection.modules, 'modules should be an array');
-	check.verify.fn(callback, 'expected callback function');
+	verify.array(TestCollection.modules, 'modules should be an array');
+	verify.fn(callback, 'expected callback function');
 
 	TestRunner.modules = TestCollection.modules;
 	TestRunner.runTests(verifyIntegrity, function (err) {
@@ -163,7 +163,7 @@ function writeReport() {
 
 function reportFinalCount() {
 	var failedTests = TestCollection.getFailedTests();
-	check.verify.array(failedTests, 'could not get failed tests', failedTests);
+	verify.array(failedTests, 'could not get failed tests', failedTests);
 
 	var clc = require('cli-color');
 	var color = (failedTests.length > 0 ? clc.redBright : clc.greenBright);
@@ -184,10 +184,11 @@ function reportFinalCount() {
 
 module.exports = {
 	init: init,
+	collect: collectTests,
 	run: function (callback) {
-		check.verify.fn(callback, 'missing all tests completed callback');
+		verify.fn(callback, 'missing all tests completed callback');
 		var allTestModules = collectTests();
-		check.verify.array(allTestModules, 'all test modules should be an array');
+		verify.array(allTestModules, 'all test modules should be an array');
 
 		runTests(function (err) {
 			if (err) {
