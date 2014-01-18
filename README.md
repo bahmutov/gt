@@ -1,4 +1,4 @@
-# gt v0.8.29
+# gt v0.8.30
 
 > JavaScript native QUnit runner with code coverage and multiple extensions
 
@@ -103,7 +103,11 @@ gt.module('server tests', {
 });
 ```
 
-See [module tests](examples/moduleSetupTeardown/test.js) for more information and examples
+See [module tests](examples/moduleSetupTeardown/test.js) for more information and examples.
+
+A very convenient feature: each method can return a promise object
+to tell the test engine when it is done. See [example](examples/async/asyncSetup.js)
+
 
 
 ### exec
@@ -135,8 +139,8 @@ License: [MIT](MIT-License.txt) - do anything with the code, but don't blame me 
 
 Spread the word: tweet, star on github, etc.
 
-Support: if you find any problems with this module, email / tweet / 
-open [issue on Github](https://github.com/bahmutov/gt/issues)
+Support: if you find any problems with this module, email / tweet /
+[open issue](https://github.com/bahmutov/gt/issues) on Github.
 
 
 
