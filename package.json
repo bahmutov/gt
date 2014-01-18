@@ -51,7 +51,7 @@
     "grunt-deps-ok": "~0.1.7",
     "grunt-nice-package": "~0.1.5",
     "matchdep": "~0.3.0",
-    "pre-git": "0.0.14",
+    "pre-git": "0.0.15",
     "grunt-complexity": "~0.1.4",
     "jshint-stylish": "~0.1.5",
     "grunt-jsonlint": "~1.0.4",
