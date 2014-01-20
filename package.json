@@ -66,13 +66,13 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "npm run unit && npm run e2e",
+    "test": "npm run mocha && npm run unit && npm run e2e",
     "unit": "node gt.js ./examples/all.js --colors true --output",
     "e2e": "node gt.js tests/all.js --colors true --output",
     "cover": "istanbul cover gt tests",
     "complexity": "node ./node_modules/jsc gt.js src/assertions/*.js src/utils/*.js src/*.js src/UnitTest/*.js --colors false",
     "doc": "xplain --title gt -v 0.8.* -i src/assertions/*.js",
-    "mocha": "node node_modules/mocha/bin/_mocha tests/mocha"
+    "mocha": "node node_modules/mocha/bin/_mocha tests/mocha -R spec"
   },
   "pre-commit": [
     "grunt",

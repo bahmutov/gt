@@ -1,5 +1,12 @@
 #!/usr/bin/env node
 
+var covered = require('./src/covered');
+var sure = require('./src/sure');
+module.exports = {
+	TestingWithCoverage: covered,
+	TestingFramework: sure
+};
+
 if (!module.parent) {
 
 	try {
@@ -15,10 +22,7 @@ if (!module.parent) {
 		options.module = [options.module];
 	}
 
-	var covered = require('./src/covered');
-	console.assert(typeof covered === 'object', 'could not load test framework');
 
-	var sure = require('./src/sure');
 	var logger = require('optional-color-logger');
 
 	var discoverSourceFiles = require('./src/utils/discoverFiles').discoverSourceFiles;
@@ -51,6 +55,3 @@ if (!module.parent) {
 		});
 	}
 }
-
-exports.TestingWithCoverage = covered;
-exports.TestingFramework = sure;

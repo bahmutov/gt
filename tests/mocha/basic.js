@@ -1,9 +1,10 @@
-var assert = require("assert")
-describe('Array', function(){
-  describe('#indexOf()', function(){
-    it('should return -1 when the value is not present', function(){
-      assert.equal(-1, [1,2,3].indexOf(5));
-      assert.equal(-1, [1,2,3].indexOf(0));
-    })
-  })
+var assert = require('assert');
+var _ = require('lodash');
+var gt = require('../../gt');
+
+describe('gt', function(){
+  it('should be available as a module', function() {
+    assert(_.isObject(gt), 'gt is an object');
+    assert(_.isObject(gt.TestingFramework), 'has testing TestingFramework');
+  });
 });
