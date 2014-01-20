@@ -1,27 +1,28 @@
 #!/usr/bin/env node
 
-try {
-	require('custom-logger');
-} catch (err) {
-	console.error(err);
-	console.error('could not load custom logger, have you forgot to run npm install?');
-	process.exit(-1);
-}
-
-var options = require('./src/options').run();
-if (typeof options.module === 'string') {
-	options.module = [options.module];
-}
-
-var covered = require('./src/covered');
-console.assert(typeof covered === 'object', 'could not load test framework');
-
-var sure = require('./src/sure');
-var logger = require('optional-color-logger'); 
-
-var discoverSourceFiles = require('./src/utils/discoverFiles').discoverSourceFiles;
-
 if (!module.parent) {
+
+	try {
+		require('custom-logger');
+	} catch (err) {
+		console.error(err);
+		console.error('could not load custom logger, have you forgot to run npm install?');
+		process.exit(-1);
+	}
+
+	var options = require('./src/options').run();
+	if (typeof options.module === 'string') {
+		options.module = [options.module];
+	}
+
+	var covered = require('./src/covered');
+	console.assert(typeof covered === 'object', 'could not load test framework');
+
+	var sure = require('./src/sure');
+	var logger = require('optional-color-logger');
+
+	var discoverSourceFiles = require('./src/utils/discoverFiles').discoverSourceFiles;
+
 	var updateNotifier = require('update-notifier');
 	var notifier = updateNotifier();
 	if (notifier.update) {
