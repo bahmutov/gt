@@ -76,7 +76,9 @@
   },
   "pre-commit": [
     "grunt",
-    "npm test"
+    "npm run mocha",
+    "npm run unit",
+    "npm run e2e"
   ],
   "pre-push": [
     "rm -rf node_modules",
