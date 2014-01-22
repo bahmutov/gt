@@ -124,6 +124,23 @@ gt.async('run Nodejs program', function () {
 
 Full [exec unit test](examples/exec/tests.js)
 
+**shortcuts:**
+
+```js
+gt.exec(cmd, [...], 'msg');
+// same as 
+gt.exec(cmd, [...], 0, 'msg');
+
+gt.exec(cmd, 'msg');
+// same as
+gt.exec(cmd, [], 0, msg);
+
+gt.exec(cmd);
+// same as
+gt.exec(cmd, [], 0);
+```
+
+
 
 
 
