@@ -191,8 +191,16 @@ var SecondaryAssertions = {
 	exec: function (command, args, expectedExitCode, message) {
 		verify.object(TestRunInfo._currentTest, "current test is undefined");
 		verify.string(command, 'command should be a string');
+		if (!Array.isArray(args)) {
+			message = expectedExitCode;
+			expectedExitCode = args;
+			args = [];
+		}
 		if (check.string(expectedExitCode)) {
 			message = expectedExitCode;
+			expectedExitCode = 0;
+		}
+		if (typeof expectedExitCode === 'undefined') {
 			expectedExitCode = 0;
 		}
 		console.assert(expectedExitCode >= 0, 'invalid expected exit code', expectedExitCode);
