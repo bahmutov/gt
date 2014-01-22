@@ -7,6 +7,7 @@ var spawn = require('child_process').spawn;
 var folder = __dirname;
 var fooPath = path.join(folder, 'foo.js');
 
+/*
 gt.test('foo is valid', function () {
 	gt.ok(fs.existsSync(fooPath), fooPath, 'exists');
 });
@@ -35,4 +36,9 @@ gt.async('test without arguments', function () {
 gt.async('test with 1 argument', function () {
 	gt.exec('node', [fooPath, 2], 1, 
 		'should return 1 if there is 1 argument');
+});
+*/
+
+gt.async('without exit code assumes code 0', function () {
+	gt.exec('node', [fooPath],  'should return 0 without any arguments');
 });

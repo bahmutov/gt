@@ -1,12 +1,13 @@
 var TestRunInfo = require('../TestRunInfo').TestRunInfo;
 var joinArguments = require('../utils/joinArguments');
 var check = require('check-types');
+var verify = check.verify;
 var spawn = require('child_process').spawn;
 
 // returns total execution time
 function timeCode(code, n) {
-	check.verify.fn(code, 'missing code to time');
-	check.verify.positiveNumber(n, 'incorrect number of times to execute', n);
+	verify.fn(code, 'missing code to time');
+	verify.positiveNumber(n, 'incorrect number of times to execute', n);
 	var start = new Date();
 	var k = n;
 	for(; k > 0; k -= 1) {
@@ -26,9 +27,9 @@ var SecondaryAssertions = {
 	@category Secondary assertions
 	*/
 	sameResults: function (f1, f2, inputs, message) {
-		check.verify.fn(f1, 'missing first function');
-		check.verify.fn(f2, 'missing second function');
-		check.verify.array(inputs, 'inputs should be a array');
+		verify.fn(f1, 'missing first function');
+		verify.fn(f2, 'missing second function');
+		verify.array(inputs, 'inputs should be a array');
 		if (!check.string(message)) {
 			message = f1.name + ' vs ' + f2.name;
 		}
@@ -40,7 +41,7 @@ var SecondaryAssertions = {
 	},
 
 	deferCall: function(fn) {
-		check.verify.fn(fn, 'expected a function');
+		verify.fn(fn, 'expected a function');
 		var args = Array.prototype.slice.call(arguments, 1);
 		return function() {
 			return fn.apply(null, args);
@@ -55,14 +56,14 @@ var SecondaryAssertions = {
 	@category Performance assertions
 	*/
 	faster: function (name, code, n, limitMs) {
-		check.verify.string(name, 'name should be a string');
-		check.verify.fn(code, 'missing function code');
+		verify.string(name, 'name should be a string');
+		verify.fn(code, 'missing function code');
 		if (check.positiveNumber(n) && !limitMs) {
 			limitMs = n;
 			n = 1;
 		}
-		check.verify.positiveNumber(n, 'incorrect number of times to execute', n);
-		check.verify.positiveNumber(limitMs, 'missing limit ms', limitMs);
+		verify.positiveNumber(n, 'incorrect number of times to execute', n);
+		verify.positiveNumber(limitMs, 'missing limit ms', limitMs);
 
 		var time = timeCode(code, n);
 		gt.ok(time < limitMs, name + ' ' + n + ' time(s) took '
@@ -77,9 +78,9 @@ var SecondaryAssertions = {
 	@category Performance assertions
 	*/
 	fasterThan: function (name, f1, f2, n) {
-		check.verify.string(name, 'name should be a string');
-		check.verify.fn(f1, 'missing first function');
-		check.verify.fn(f2, 'missing second function');
+		verify.string(name, 'name should be a string');
+		verify.fn(f1, 'missing first function');
+		verify.fn(f2, 'missing second function');
 		if (!check.positiveNumber(n)) {
 			n = 1;
 		}
@@ -171,8 +172,8 @@ var SecondaryAssertions = {
 	@category Secondary assertions
 	*/
 	arity: function (f, n, message) {
-		check.verify.object(TestRunInfo, 'missing test run info');
-		check.verify.object(TestRunInfo._currentTest, "current test is undefined");
+		verify.object(TestRunInfo, 'missing test run info');
+		verify.object(TestRunInfo._currentTest, "current test is undefined");
 		this.func(f, message);
 		if (TestRunInfo._currentTest.expected) {
 			TestRunInfo._currentTest.expected += 1;
@@ -188,9 +189,14 @@ var SecondaryAssertions = {
 	@category Secondary assertions
 	*/
 	exec: function (command, args, expectedExitCode, message) {
-		check.verify.object(TestRunInfo._currentTest, "current test is undefined");
-		check.verify.string(command, 'command should be a string');
+		verify.object(TestRunInfo._currentTest, "current test is undefined");
+		verify.string(command, 'command should be a string');
+		if (check.string(expectedExitCode)) {
+			message = expectedExitCode;
+			expectedExitCode = 0;
+		}
 		console.assert(expectedExitCode >= 0, 'invalid expected exit code', expectedExitCode);
+
 		// throw new Error('gt.exec is not implemented yet');
 		var program = spawn(command, args);
 		program.stdout.setEncoding('utf-8');

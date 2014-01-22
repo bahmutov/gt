@@ -50,7 +50,7 @@ TestAsync.prototype.checkTestIsStillRunning = function() {
 TestAsync.prototype.continueWithTest = function() {
 	// console.log('start called on test', this.name);
 	console.assert(this.async, 'only async unit tests should call start()');
-	console.assert(this.timeoutId, 'missing timeout id');
+	console.assert(this.timeoutId, 'missing timeout id when continuing test', this);
 	clearTimeout(this.timeoutId);
 	delete this.timeoutId;
 
