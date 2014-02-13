@@ -84,6 +84,7 @@ function getArguments() {
 	.options('test', {
 		string: true,
 		default: null,
+		alias: 'filter',
 		description: 'only run tests with name matching regular expression'
 	})
 	.argv;

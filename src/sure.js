@@ -145,10 +145,11 @@ function collectTests(files, filter) {
 	if (!initCalled) {
 		init();
 	}
+	filter = filter || config.filter;
 	if (filter) {
 		console.assert(_.isRegExp(filter), 'expected filter to be a RegExp');
 	}
-	var testFilenames = TestCollection.collectTests(files, config.modules, filter || config.filter);
+	var testFilenames = TestCollection.collectTests(files, config.modules, filter);
 	return testFilenames;
 }
 

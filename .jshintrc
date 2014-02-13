@@ -68,5 +68,8 @@
     "passfail"      : false,
     "white"         : true,
 
-    "predef"        : ["log"]
+    "predef"        : ["log"],
+    "globals": {
+        "gt": true
+    }
 }
