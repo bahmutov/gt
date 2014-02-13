@@ -1,10 +1,12 @@
+/* jshint indent:2 */
+/* globals describe, it */
 var assert = require('assert');
 var join = require('path').join;
 var _ = require('lodash');
 require('console.json');
 
-describe('gt', function(){
-  describe('test collection', function(){
+describe('gt', function () {
+  describe('test collection', function () {
     var gt = require('../..').TestingFramework;
 
     it('has collect method', function () {
@@ -42,5 +44,9 @@ describe('gt', function(){
       assert.equal(typeof code, 'string', 'code can be serialized');
       assert(/gt\.array/.test(code), 'has correct content');
     });
+  });
+
+  describe('filtering collected tests', function () {
+
   });
 });

@@ -20,6 +20,9 @@ module.exports = function (grunt) {
             },
             'default': {
                 src: [ '*.js', 'src/*.js', 'src/UnitTest/ModuleTests.js' ]
+            },
+            mocha: {
+                src: ['tests/mocha/*.js']
             }
         },
         jsonlint: {
