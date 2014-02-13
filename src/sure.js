@@ -135,7 +135,7 @@ function init(options) {
 	initCalled = true;
 }
 
-function collectTests(files) {
+function collectTests(files, filter) {
 	if (typeof files === 'string') {
 		files = [files];
 	}
@@ -145,7 +145,10 @@ function collectTests(files) {
 	if (!initCalled) {
 		init();
 	}
-	var testFilenames = TestCollection.collectTests(files, config.modules, config.filter);
+	if (filter) {
+		console.assert(_.isRegExp(filter), 'expected filter to be a RegExp');
+	}
+	var testFilenames = TestCollection.collectTests(files, config.modules, filter || config.filter);
 	return testFilenames;
 }
 

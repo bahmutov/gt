@@ -1,41 +1,45 @@
 /* jshint indent:2 */
-/* globals describe, it */
+/* globals describe, it, beforeEach */
 var assert = require('assert');
 var join = require('path').join;
 var _ = require('lodash');
 require('console.json');
 
 describe('gt', function () {
-  describe('test collection', function () {
-    var gt = require('../..').TestingFramework;
+  var gt = require('../..').TestingFramework;
+  var testsFilename = join(__dirname, '../../examples/basic/tests.js');
 
-    it('has collect method', function () {
-      assert.equal(typeof gt.collect, 'function');
+  it('test basics', function () {
+    assert.equal(typeof gt.collect, 'function', 'collect function');
+    assert(require('fs').existsSync(testsFilename), 'test file exists');
+  });
+
+  describe('all test collection', function () {
+
+    beforeEach(function () {
+      gt.init();
     });
 
     it('collects test functions', function () {
-      var filename = join(__dirname, '../../examples/basic/tests.js');
-      var filenames = gt.collect(filename);
+      var filenames = gt.collect(testsFilename);
       assert(Array.isArray(filenames), 'returns array');
       assert.equal(filenames.length, 1, 'single file');
     });
 
     it('can get all tests after collection', function () {
-      var filename = join(__dirname, '../../examples/basic/tests.js');
-      gt.collect(filename);
-      var modules = gt.getAllTests();
-      assert(Array.isArray(modules), 'returns an array of tests');
-      assert(modules.length > 10, 'there are lots of tests');
-      assert(modules.every(function (t) {
+      gt.collect(testsFilename);
+      var tests = gt.getAllTests();
+      assert(Array.isArray(tests), 'returns an array of tests');
+      assert(tests.length > 10, 'there are lots of tests');
+      assert(tests.every(function (t) {
         return t.name;
       }), 'every test has a name');
     });
 
     it('look at one test', function () {
-      var filename = join(__dirname, '../../examples/basic/tests.js');
-      gt.collect(filename);
-      var modules = gt.getAllTests();
-      var t = _.find(modules, {
+      gt.collect(testsFilename);
+      var tests = gt.getAllTests();
+      var t = _.find(tests, {
         name: 'array check'
       });
       assert.equal(t.name, 'array check');
@@ -47,6 +51,17 @@ describe('gt', function () {
   });
 
   describe('filtering collected tests', function () {
+
+    beforeEach(function () {
+      gt.init();
+    });
+
+    it('filters function by name', function () {
+      var filter = /^array/;
+      gt.collect(testsFilename, filter);
+      var tests = gt.getAllTests();
+      assert.equal(tests.length, 2, '2 unit tests with array in the name');
+    });
 
   });
 });
