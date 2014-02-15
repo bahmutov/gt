@@ -1,15 +1,58 @@
 {
   "name": "gt",
-  "version": "0.8.33",
   "description": "JavaScript native QUnit runner with code coverage and multiple extensions",
+  "version": "0.8.33",
   "author": {
     "name": "Gleb Bahmutov",
     "email": "gleb.bahmutov@gmail.com",
     "website": "http://glebbahmutov.com"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bahmutov/gt.git"
+  "_from": "gt@",
+  "_id": "gt@0.8.5",
+  "bin": {
+    "gt": "./gt.js"
+  },
+  "dependencies": {
+    "allong.es": "~0.14.0",
+    "amdefine": "~0.1.0",
+    "async": "~0.2.10",
+    "check-types": "~1.1.1",
+    "cli-color": "~0.2.3",
+    "coffee-script": "~1.6.3",
+    "console.json": "~0.1.1",
+    "custom-logger": "~0.2.1",
+    "glob": "~3.2.8",
+    "istanbul": "~0.2.4",
+    "lodash": "~2.4.1",
+    "nodewatch": "~0.3.2",
+    "optimist": "~0.6.1",
+    "optional-color-logger": "0.0.6",
+    "q": "~1.0.0",
+    "sprintf": "~0.1.3",
+    "string": "~1.8.0",
+    "untested": "~0.1.5",
+    "update-notifier": "~0.1.7"
+  },
+  "devDependencies": {
+    "assert": "~1.1.1",
+    "grunt": "~0.4.2",
+    "grunt-bump": "0.0.13",
+    "grunt-complexity": "~0.1.4",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-deps-ok": "~0.1.7",
+    "grunt-jsonlint": "~1.0.4",
+    "grunt-lineending": "~0.2.2",
+    "grunt-nice-package": "~0.2.1",
+    "grunt-readme": "~0.4.5",
+    "jsc": "~0.3.11",
+    "jshint-stylish": "~0.1.5",
+    "matchdep": "~0.3.0",
+    "mocha": "~1.17.1",
+    "pre-git": "0.0.15",
+    "time-grunt": "~0.2.9"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
   },
   "keywords": [
     "testing",
@@ -23,57 +66,8 @@
     "qunit",
     "node"
   ],
-  "dependencies": {
-    "optional-color-logger": "0.0.6",
-    "coffee-script": "~1.6.3",
-    "cli-color": "~0.2.3",
-    "sprintf": "~0.1.3",
-    "optimist": "~0.6.0",
-    "custom-logger": "~0.2.1",
-    "istanbul": "~0.2.3",
-    "nodewatch": "~0.3.2",
-    "glob": "~3.2.8",
-    "amdefine": "~0.1.0",
-    "untested": "~0.1.5",
-    "lodash": "~2.4.1",
-    "check-types": "~1.1.1",
-    "async": "~0.2.9",
-    "allong.es": "~0.14.0",
-    "update-notifier": "~0.1.7",
-    "q": "~1.0.0",
-    "string": "~1.8.0",
-    "console.json": "~0.1.1"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-bump": "0.0.13",
-    "jsc": "~0.3.11",
-    "grunt-deps-ok": "~0.1.7",
-    "grunt-nice-package": "~0.1.5",
-    "matchdep": "~0.3.0",
-    "pre-git": "0.0.15",
-    "grunt-complexity": "~0.1.4",
-    "jshint-stylish": "~0.1.5",
-    "grunt-jsonlint": "~1.0.4",
-    "grunt-readme": "~0.4.5",
-    "time-grunt": "~0.2.8",
-    "grunt-lineending": "~0.2.1",
-    "mocha": "~1.17.0",
-    "assert": "~1.1.0"
-  },
-  "engines": {
-    "node": ">= 0.8.0"
-  },
-  "scripts": {
-    "test": "npm run mocha && npm run unit && npm run e2e",
-    "unit": "node gt.js ./examples/all.js --colors true --output",
-    "e2e": "node gt.js tests/all.js --colors true --output",
-    "cover": "istanbul cover gt tests",
-    "complexity": "node ./node_modules/jsc gt.js src/assertions/*.js src/utils/*.js src/*.js src/UnitTest/*.js --colors false",
-    "doc": "xplain --title gt -v 0.8.* -i src/assertions/*.js",
-    "mocha": "node node_modules/mocha/bin/_mocha tests/mocha -R spec"
-  },
+  "license": "MIT",
+  "main": "./gt.js",
   "pre-commit": [
     "grunt",
     "npm run mocha",
@@ -86,14 +80,20 @@
     "grunt",
     "npm test"
   ],
-  "license": "MIT",
   "preferGlobal": true,
-  "main": "./gt.js",
-  "bin": {
-    "gt": "./gt.js"
-  },
   "readme": "# gt\r\n\r\nSimple JS unit testing framework similar to QUnit.\r\n\r\n## Goals\r\n1. Make sure QUnit tests work with [istanbul](https://github.com/gotwarlost/istanbul \"Istanbul at GitHub\") JS coverage tool\r\n2. Experiment with JS unit testing by writing a framework from scratch.\r\n\r\n## Install and run\r\n\r\n**gt** requires *nodejs* and a few modules to run. Assuming you wrote a few qunit tests in tests.js:\r\n\r\n\tnpm install -g gt\r\n\tgt tests.js\r\n\r\n\tsome of the options (-h for all):\r\n\t\t-l <debug level> 0 = debug, 1 = default, 2 = warnings, 3 = errors\r\n\t\t-r <report level> 0 = all (default), 1 = failed tests only\r\n\r\n## Example\r\n\r\nA simple example is in [examples subfolder](gt/tree/master/examples/basic \"gt Examples\")\r\n\r\nUnit tests follow QUnit approach:\r\n\r\n```javascript\r\ngt.module(\"Basic tests\");\r\n\r\ngt.test(\"get N '='\", function () {\r\n\tgt.ok(typeof getLines === \"function\", \"getLines is a function\");\r\n\tgt.equal(getLines(0), \"\", \"0 character\");\r\n\tgt.equal(getLines(1), \"=\", \"1 character\");\r\n});\r\n```\r\n\r\nCreates unit test report (stdout only) and JS code coverage (stdout plus Lines of Code + HTML in folder cover)\r\n\r\n\tgt ./examples/basic/tests ./examples/basic/exceptionTests\r\n\r\nSample unit test output [image](gt/blob/master/examples/example.png \"Console screenshot\")\r\n\r\nSample JS coverage output [image](gt/blob/master/examples/coverage.png \"Coverage page screenshot\")\r\n\r\n## CoffeeScript support\r\n\r\nYou can write your unit tests using [coffeescript](http://coffeescript.org/), which allows very concise code. \r\nSo far, the code coverage does not include the unit test files themselves, they will be omitted from the coverage report.\r\nSee *examples/coffee* folder.\r\n\r\n## Running in browser\r\n\r\nSee example **examples/browser**\r\n\r\n## License\r\n\r\nThe MIT License, see [*MIT-License.txt*](gt/blob/master/MIT-License.txt \"MIT-License.txt\")\r\n\r\n## Contact\r\n\r\nGleb Bahmutov <gleb.bahmutov@gmail.com>",
   "readmeFilename": "README.md",
-  "_id": "gt@0.8.5",
-  "_from": "gt@"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bahmutov/gt.git"
+  },
+  "scripts": {
+    "test": "npm run mocha && npm run unit && npm run e2e",
+    "unit": "node gt.js ./examples/all.js --colors true --output",
+    "e2e": "node gt.js tests/all.js --colors true --output",
+    "cover": "istanbul cover gt tests",
+    "complexity": "node ./node_modules/jsc gt.js src/assertions/*.js src/utils/*.js src/*.js src/UnitTest/*.js --colors false",
+    "doc": "xplain --title gt -v 0.8.* -i src/assertions/*.js",
+    "mocha": "node node_modules/mocha/bin/_mocha tests/mocha -R spec"
+  }
 }
