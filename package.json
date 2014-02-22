@@ -49,7 +49,8 @@
     "matchdep": "~0.3.0",
     "mocha": "~1.17.1",
     "pre-git": "0.0.15",
-    "time-grunt": "~0.2.9"
+    "time-grunt": "~0.2.9",
+    "coveralls": "~2.8.0"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -94,6 +95,7 @@
     "cover": "istanbul cover gt tests",
     "complexity": "node ./node_modules/jsc gt.js src/assertions/*.js src/utils/*.js src/*.js src/UnitTest/*.js --colors false",
     "doc": "xplain --title gt -v 0.8.* -i src/assertions/*.js",
-    "mocha": "node node_modules/mocha/bin/_mocha tests/mocha -R spec"
+    "mocha": "node node_modules/mocha/bin/_mocha tests/mocha -R spec",
+    "coveralls": "cat cover/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   }
 }
