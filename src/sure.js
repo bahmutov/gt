@@ -132,6 +132,7 @@ function init(options) {
 
 	require('./dohInterface');
 	require('./jsunityInterface');
+	require('./equiv');
 	initCalled = true;
 }
 

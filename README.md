@@ -1,4 +1,4 @@
-# gt v0.8.33
+# gt v0.8.34
 
 > JavaScript native QUnit runner with code coverage and multiple extensions
 
@@ -139,6 +139,13 @@ gt.exec(cmd);
 // same as
 gt.exec(cmd, [], 0);
 ```
+
+
+
+### gt.equiv
+
+Performs deep equality comparison between two objects.
+
 
 
 
