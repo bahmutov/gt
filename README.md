@@ -1,4 +1,4 @@
-# gt v0.8.34
+# gt v0.8.36
 
 > JavaScript native QUnit runner with code coverage and multiple extensions
 
@@ -151,6 +151,21 @@ Performs deep equality comparison between two objects.
 
 
 
+
+
+
+## command line options
+
+### --no-cover part-of-path
+
+gt excludes certain common paths from coverage,
+speeding up the test runs: node_modules, bower_components, etc.
+You can add paths to this list, for example to exclude all files
+loaded from `vendor` folders:
+
+    gt --no-cover vendor src/*.js tests/*.js
+
+The option is used as case insensitive regular expression.
 
 
 

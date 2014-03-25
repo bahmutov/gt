@@ -87,6 +87,11 @@ function getArguments() {
 		alias: 'filter',
 		description: 'only run tests with name matching regular expression'
 	})
+	.options('no-cover', {
+		string: true,
+		default: null,
+		description: 'skip coverage for given regexp'
+	})
 	.argv;
 
 	if (args.version) {
