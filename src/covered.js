@@ -42,6 +42,7 @@ function excludeFromCoverage(filename) {
 	check.verify.string(filename, 'expected filename');
 
 	var excluded = [
+		/bower_components/i,
 		/node_modules/i,
 		/dohInterface.js/i,
 		/jsunityInterface.js/i
