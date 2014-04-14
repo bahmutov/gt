@@ -4,7 +4,6 @@ var coverage = require('../lib/coverage');
 var path = require('path');
 var fs = require('fs');
 var untested = require('untested');
-var _ = require('lodash');
 var check = require('check-types');
 var verify = check.verify;
 var unary = require('allong.es').es.unary;
@@ -52,7 +51,13 @@ function excludeFromCoverage(filename) {
 	if (config.noCover) {
 		excluded.push(new RegExp(config.noCover), 'i');
 	}
-	return _(excluded).invoke('test', filename).some();
+	var shouldCover = excluded.some(function (reg) {
+		return reg.test(filename);
+	});
+	if (!shouldCover) {
+		log.debug('Covering source', filename);
+	}
+	return shouldCover;
 }
 
 function installCoverage(testModules) {
