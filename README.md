@@ -1,4 +1,4 @@
-# gt v0.8.36
+# gt v0.8.37
 
 > JavaScript native QUnit runner with code coverage and multiple extensions
 
