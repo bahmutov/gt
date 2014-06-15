@@ -1,3 +1,5 @@
+console.log('one test fails on purpose');
+
 gt.module('fails to check exit code');
 
 gt.test('this test fails on purpose', function() {

@@ -207,13 +207,26 @@ var SecondaryAssertions = {
 
 		// throw new Error('gt.exec is not implemented yet');
 		var program = spawn(command, args);
+		var stdout = '', stderr = '';
 		program.stdout.setEncoding('utf-8');
+		program.stderr.setEncoding('utf-8');
 		program.stdout.on('data', function (data) {
+			stdout += data;
 			console.log('exec:', data.trim());
+		});
+		program.stderr.on('data', function (data) {
+			stderr += data;
+			console.log('exec err:', data.trim());
 		});
 		program.on('exit', function (code) {
 			console.log('exec exit code:', code);
-			gt.equal(code, expectedExitCode, message);
+			if (!message || check.string(message)) {
+				gt.equal(code, expectedExitCode, message);
+			} else {
+				gt.equal(code, expectedExitCode);
+				check.verify.fn(message, 'expected callback function');
+				message(stdout, stderr);
+			}
 			gt.start();
 		});
 	},

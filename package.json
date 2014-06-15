@@ -76,7 +76,6 @@
     "npm run e2e"
   ],
   "pre-push": [
-    "rm -rf node_modules",
     "npm install",
     "grunt",
     "npm test"
