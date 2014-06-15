@@ -28,12 +28,12 @@ gt.async('explicit spawn 2', function () {
 });
 
 gt.async('test without arguments', function () {
-	gt.exec('node', [fooPath], 0, 
+	gt.exec('node', [fooPath], 0,
 		'should return 0 without any arguments');
 });
 
 gt.async('test with 1 argument', function () {
-	gt.exec('node', [fooPath, 2], 1, 
+	gt.exec('node', [fooPath, 2], 1,
 		'should return 1 if there is 1 argument');
 });
 
@@ -42,9 +42,9 @@ gt.async('without exit code assumes code 0', function () {
 });
 
 gt.async('without arguments or exit code', function () {
-	gt.exec('npm', 'should return 0 without any arguments');
+	gt.exec('ls', 'should return 0 without any arguments');
 });
 
 gt.async('without message', function () {
-	gt.exec('npm');
+	gt.exec('node', ['-v']);
 });
