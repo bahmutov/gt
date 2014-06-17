@@ -11,3 +11,12 @@ QUnit.test('Use QUnit.equiv for deep equality', function () {
   foo2.bar = 'bar';
   QUnit.ok(QUnit.equiv(foo1, foo2), 'objects are equivalent');
 });
+
+QUnit.test('QUnit.equiv finds differences', function () {
+  var foo1 = {
+    bar: 'bar'
+  };
+  var foo2 = {};
+  foo2.bar = 'no bar';
+  QUnit.ok(!QUnit.equiv(foo1, foo2), 'objects are NOT equivalent');
+});
