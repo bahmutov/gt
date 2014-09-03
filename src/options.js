@@ -69,6 +69,11 @@ function getArguments() {
 		default: false,
 		description: 'unit tests follow Dojo DOH syntax (including define)'
 	})
+	.options('bdd', {
+		boolean: true,
+		default: false,
+		description: 'load BDD (Mocha, Jasmine) test spec (describe, it)'
+	})
 	.options('untested', {
 		boolean: true,
 		alias: 'u',

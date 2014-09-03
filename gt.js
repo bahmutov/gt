@@ -47,6 +47,10 @@ if (!module.parent) {
 		var dohAdapter = require('./src/dohAdapter');
 		failed = dohAdapter.run(options.module);
 	} else {
+		if (options.bdd) {
+			require('./src/bddInterface');
+		}
+
 		covered.init(options);
 		covered.run(function (failed) {
 			if (!options.watch) {

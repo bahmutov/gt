@@ -37,4 +37,9 @@ See *examples/coffee* folder.
 
 See example **examples/browser**
 
+## BDD support
+
+gt provides minimal BDD support and can run Mocha/Jasmine specs that have `describe` and `it` calls.
+See [spec example](examples/bdd/spec.js). You can run it using `gt --bdd spec.js` command.
+
 {%= _.doc("./docs/api.md") %}

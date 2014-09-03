@@ -1,4 +1,4 @@
-# gt v0.8.38
+# gt v0.8.40
 
 > JavaScript native QUnit runner with code coverage and multiple extensions
 
@@ -74,6 +74,11 @@ See *examples/coffee* folder.
 ### Running in browser
 
 See example **examples/browser**
+
+### BDD support
+
+gt provides minimal BDD support and can run Mocha/Jasmine specs that have `describe` and `it` calls.
+See [spec example](examples/bdd/spec.js). You can run it using `gt --bdd spec.js` command.
 
 ## API
 
@@ -163,6 +168,7 @@ gt.exec(cmd, [], 0);
 ### gt.equiv
 
 Performs deep equality comparison between two objects.
+
 
 
 

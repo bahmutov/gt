@@ -46,7 +46,8 @@ function excludeFromCoverage(filename) {
 		/bower_components/i,
 		/node_modules/i,
 		/dohInterface.js/i,
-		/jsunityInterface.js/i
+		/jsunityInterface.js/i,
+		/equiv.js/i
 	];
 	if (config.noCover) {
 		excluded.push(new RegExp(config.noCover), 'i');

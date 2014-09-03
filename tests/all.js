@@ -15,7 +15,8 @@ var mediumTests = [
 var largeTests = [
 './large/loadingCrashTest',
 './large/twoFailingTest',
-'./large/skipTest'
+'./large/skipTest',
+'./large/bddTest'
 ];
 
 smallTests.forEach(require);
