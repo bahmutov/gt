@@ -37,6 +37,7 @@ function initConfig(options) {
 	config.target = defaults(options.target, config.target);
 	config.quickFail = defaults(options.quickFail, config.quickFail);
 	config.noCover = options['no-cover'];
+	return true;
 }
 
 function excludeFromCoverage(filename) {
@@ -77,10 +78,10 @@ function installCoverage(testModules) {
 }
 
 function init(options) {
-	initConfig(options);
+	la(initConfig(options), 'could not init');
 
 	optional(installCoverage)(config.cover, config.files);
-	sure.init(options);
+	return sure.init(options);
 }
 
 function writeCoverageReport() {

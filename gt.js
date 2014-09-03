@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+require('lazy-ass');
 var covered = require('./src/covered');
 var sure = require('./src/sure');
 module.exports = {

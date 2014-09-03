@@ -9,8 +9,12 @@ describe('gt as module', function () {
   var gt = require('../..');
   la(check.object(gt), 'expected gt', gt);
 
-  it('has framework', function () {
+  it('has pure unit test framework (without coverage)', function () {
     la(check.object(gt.TestingFramework), 'missing pure testing framework', gt);
+  });
+
+  it('has unit test framework with coverage', function () {
+    la(check.object(gt.TestingWithCoverage), 'missing testing framework coverage', gt);
   });
 
   it('runs basic tests without coverage', function (done) {
@@ -36,6 +40,21 @@ describe('gt as module', function () {
     };
     la(gt.TestingFramework.init(options), 'could not init', options);
     gt.TestingFramework.run(function finished(failedN) {
+      la(failedN === 0, 'expected no failures');
+      done();
+    });
+  });
+
+  it('runs bdd test WITH coverage', function (done) {
+    var bddTestFilename = join(__dirname, '../../examples/bdd/spec.js');
+    la(exists(bddTestFilename), 'missing file', bddTestFilename);
+
+    var options = {
+      files: [bddTestFilename],
+      bdd: true
+    };
+    la(gt.TestingWithCoverage.init(options), 'could not init', options);
+    gt.TestingWithCoverage.run(function finished(failedN) {
       la(failedN === 0, 'expected no failures');
       done();
     });
