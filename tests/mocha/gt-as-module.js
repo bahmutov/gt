@@ -48,14 +48,17 @@ describe('gt as module', function () {
   it('runs bdd test WITH coverage', function (done) {
     var bddTestFilename = join(__dirname, '../../examples/bdd/spec.js');
     la(exists(bddTestFilename), 'missing file', bddTestFilename);
+    var outputCoverage = join(__dirname, 'coverage');
 
     var options = {
       files: [bddTestFilename],
-      bdd: true
+      bdd: true,
+      cover: outputCoverage
     };
     la(gt.TestingWithCoverage.init(options), 'could not init', options);
     gt.TestingWithCoverage.run(function finished(failedN) {
       la(failedN === 0, 'expected no failures');
+      la(exists(outputCoverage), 'created output coverage folder', outputCoverage);
       done();
     });
   });
