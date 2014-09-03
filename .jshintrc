@@ -70,6 +70,7 @@
 
     "predef"        : ["log"],
     "globals": {
-        "gt": true
+        "gt": true,
+        "la": true
     }
 }

@@ -42,6 +42,7 @@ function initConfig(options) {
 	}
 	config.target = _.flatten(config.target);
 	config.target = _.uniq(config.target);
+	return true;
 }
 
 var testingFramework = {};
@@ -134,6 +135,7 @@ function init(options) {
 	require('./jsunityInterface');
 	require('./equiv');
 	initCalled = true;
+	return true;
 }
 
 function collectTests(files, filter) {

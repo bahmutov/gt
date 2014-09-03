@@ -23,6 +23,7 @@
     "custom-logger": "0.3.0",
     "glob": "4.0.5",
     "istanbul": "0.3.0",
+    "lazy-ass": "0.5.1",
     "lodash": "2.4.1",
     "nodewatch": "0.3.2",
     "optimist": "0.6.1",
