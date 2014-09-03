@@ -24,6 +24,11 @@ var TestRunner = require('./TestRunner').TestRunner;
 
 function initConfig(options) {
 	options = defaults(options, {});
+
+	if (options.bdd) {
+		require('./bddInterface');
+	}
+
 	config.files = defaults(options.files, options.module, config.files);
 	if (options.test) {
 		config.filter = new RegExp(options.test, 'ig');
