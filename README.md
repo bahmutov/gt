@@ -43,7 +43,7 @@ some of the options (-h for all):
 
 ### Example
 
-A simple example is in [examples subfolder](gt/tree/master/examples/basic "gt Examples")
+A simple example is in [examples subfolder](examples/basic "gt Examples")
 
 Unit tests follow QUnit approach:
 
@@ -61,9 +61,9 @@ Creates unit test report (stdout only) and JS code coverage (stdout plus Lines o
 
 	gt ./examples/basic/tests ./examples/basic/exceptionTests
 
-Sample unit test output [image](gt/blob/master/examples/example.png "Console screenshot")
+Sample unit test output [image](examples/example.png "Console screenshot")
 
-Sample JS coverage output [image](gt/blob/master/examples/coverage.png "Coverage page screenshot")
+Sample JS coverage output [image](examples/coverage.png "Coverage page screenshot")
 
 ### CoffeeScript support
 
