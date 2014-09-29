@@ -14,10 +14,14 @@ describe('addition', function () {
 var ranAfterEach = false;
 
 describe('before and after', function () {
-  var setup = false;
+  var setup = 0;
 
   beforeEach(function () {
-    setup = true;
+    setup = 1;
+  });
+
+  beforeEach(function () {
+    setup = 2;
   });
 
   afterEach(function () {
@@ -25,8 +29,14 @@ describe('before and after', function () {
   });
 
   it('ran before each callback', function () {
-    console.assert(setup, 'setup is true');
+    console.assert(setup === 2, 'both before each blocks ran');
+    setup = 0;
   });
+
+  it('ran them again', function () {
+    console.assert(setup === 2, 'both before each blocks ran');
+  });
+
 });
 
 it('ran after each', function () {

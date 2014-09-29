@@ -3,21 +3,31 @@
 
 var beforeEachCallbacks, afterEachCallbacks;
 
-global.it = function it(name, code) {
-
+function runBefore() {
   if (Array.isArray(beforeEachCallbacks)) {
     beforeEachCallbacks.forEach(function (fn) {
       fn();
     });
   }
+}
 
-  gt.test(name, code);
-
+function runAfter() {
   if (Array.isArray(afterEachCallbacks)) {
     afterEachCallbacks.forEach(function (fn) {
       fn();
     });
   }
+}
+
+global.it = function it(name, code) {
+
+  function fullTest() {
+    runBefore();
+    code();
+    runAfter();
+  }
+
+  gt.test(name, fullTest);
 };
 
 global.describe = function describe(name, code) {
