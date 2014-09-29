@@ -1,30 +1,22 @@
 // mimics BDD (mocha, jasmine) interface using gt methods
 // only implements a basic few methods
 
-var beforeEachCallbacks, afterEachCallbacks;
+var beforeEachCallbacks = [], afterEachCallbacks = [];
 
-function runBefore() {
-  if (Array.isArray(beforeEachCallbacks)) {
-    beforeEachCallbacks.forEach(function (fn) {
-      fn();
-    });
-  }
-}
-
-function runAfter() {
-  if (Array.isArray(afterEachCallbacks)) {
-    afterEachCallbacks.forEach(function (fn) {
-      fn();
-    });
-  }
+function runCallbacks(callbacks) {
+  callbacks.forEach(function (fn) {
+    fn();
+  });
 }
 
 global.it = function it(name, code) {
 
+  var before = beforeEachCallbacks.slice(0);
+  var after = afterEachCallbacks.slice(0);
   function fullTest() {
-    runBefore();
+    runCallbacks(before);
     code();
-    runAfter();
+    runCallbacks(after);
   }
 
   gt.test(name, fullTest);
