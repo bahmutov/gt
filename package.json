@@ -1,7 +1,7 @@
 {
   "name": "gt",
   "description": "JavaScript native QUnit runner with code coverage and multiple extensions",
-  "version": "0.8.41",
+  "version": "0.8.42",
   "author": {
     "name": "Gleb Bahmutov",
     "email": "gleb.bahmutov@gmail.com",
@@ -74,7 +74,8 @@
     "grunt",
     "npm run mocha",
     "npm run unit",
-    "npm run e2e"
+    "npm run e2e",
+    "npm run bdd"
   ],
   "pre-push": [
     "npm install",
@@ -96,6 +97,7 @@
     "complexity": "node ./node_modules/jsc gt.js src/assertions/*.js src/utils/*.js src/*.js src/UnitTest/*.js --colors false",
     "doc": "xplain --title gt -v 0.8.* -i src/assertions/*.js",
     "mocha": "node node_modules/mocha/bin/_mocha tests/mocha -R spec",
-    "coveralls": "cat cover/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "cat cover/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "bdd": "node gt.js examples/bdd/spec.js --bdd"
   }
 }
