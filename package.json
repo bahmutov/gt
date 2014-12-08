@@ -1,7 +1,7 @@
 {
   "name": "gt",
   "description": "JavaScript native QUnit runner with code coverage and multiple extensions",
-  "version": "0.8.44",
+  "version": "0.8.45",
   "author": {
     "name": "Gleb Bahmutov",
     "email": "gleb.bahmutov@gmail.com",
@@ -12,6 +12,10 @@
   "bin": {
     "gt": "./gt.js"
   },
+  "bugs": {
+    "url": "https://github.com/bahmutov/gt/issues"
+  },
+  "contributors": [],
   "dependencies": {
     "allong.es": "0.14.0",
     "amdefine": "0.1.0",
@@ -56,6 +60,7 @@
   "engines": {
     "node": ">= 0.8.0"
   },
+  "homepage": "https://github.com/bahmutov/gt",
   "keywords": [
     "testing",
     "unit test",
