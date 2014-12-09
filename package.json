@@ -36,10 +36,10 @@
     "sprintf": "0.1.5",
     "string": "3.0.0",
     "untested": "0.1.5",
-    "update-notifier": "0.1.8"
+    "update-notifier": "0.2.2"
   },
   "devDependencies": {
-    "assert": "1.1.1",
+    "assert": "1.1.2",
     "coveralls": "2.11.2",
     "grunt": "0.4.5",
     "grunt-bump": "0.0.16",

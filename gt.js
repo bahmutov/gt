@@ -29,10 +29,10 @@ if (!module.parent) {
 	var discoverSourceFiles = require('./src/utils/discoverFiles').discoverSourceFiles;
 
 	var pkg = require('./package');
-	require('update-notifier').notify({
-		pkgName: pkg.name,
-		pkgVersion: pkg.version
-	});
+	require('update-notifier')({
+		packageName: pkg.name,
+		packageVersion: pkg.version
+	}).notify();
 
 	logger.init(options);
 	options.module = options.module.concat(options._);
