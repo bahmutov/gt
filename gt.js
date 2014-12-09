@@ -28,11 +28,11 @@ if (!module.parent) {
 
 	var discoverSourceFiles = require('./src/utils/discoverFiles').discoverSourceFiles;
 
-	var updateNotifier = require('update-notifier');
-	var notifier = updateNotifier();
-	if (notifier.update) {
-		notifier.notify();
-	}
+	var pkg = require('./package');
+	require('update-notifier').notify({
+		pkgName: pkg.name,
+		pkgVersion: pkg.version
+	});
 
 	logger.init(options);
 	options.module = options.module.concat(options._);
