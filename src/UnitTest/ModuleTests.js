@@ -68,7 +68,8 @@ ModuleTests.prototype.notRun = function () {
 ModuleTests.prototype.getFailedTests = function () {
   verify.array(this._tests, 'tests are not defined');
   var failedTests = this._tests.filter(pluck('hasFailed'));
-  return failedTests;
+  var crashedTests = this._tests.filter(pluck('hasCrashed'));
+  return failedTests.concat(crashedTests);
 };
 
 ModuleTests.prototype.getPassedTests = function () {

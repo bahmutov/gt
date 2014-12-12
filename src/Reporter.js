@@ -25,7 +25,10 @@ function _reportTests(tests, config) {
 			return;
 		}
 		if (!test.hasRun) {
-			return;
+			// crashes in module setup?
+			if (!test.hasCrashed) {
+				return;
+			}
 		}
 		var message = test.formMessage(lineLength);
 		var status = test.status();
@@ -78,7 +81,7 @@ function _report(modules, config) {
 	modules.forEach(function (module) {
 		check.verify.string(module.name, 'could not find name for module');
 
-		var failed = module.hasFailed();
+		var failed = module.hasFailed() || module.crashed;
 		if (!failed && config.quickFail) {
 			if (!module.notRun()) {
 				return;

@@ -188,6 +188,9 @@ var TestRunner = {
 					if (err) {
 						console.error('caught error in module "' + testModule.name + '"');
 						testModule.crashed = true;
+						testModule._tests.forEach(function (test) {
+							test.hasCrashed = true;
+						});
 					}
 					Q.when(runOnce(testModule.lifecycle.teardownOnce, allModuleTestsCompleted))
 					.then(function () {
