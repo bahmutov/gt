@@ -1,7 +1,7 @@
 {
   "name": "gt",
   "description": "JavaScript native QUnit runner with code coverage and multiple extensions",
-  "version": "0.8.46",
+  "version": "0.8.47",
   "author": {
     "name": "Gleb Bahmutov",
     "email": "gleb.bahmutov@gmail.com",
@@ -33,6 +33,7 @@
     "optimist": "0.6.1",
     "optional-color-logger": "0.0.6",
     "q": "2.0.2",
+    "quote": "0.2.2",
     "sprintf": "0.1.5",
     "string": "3.0.0",
     "untested": "0.1.5",

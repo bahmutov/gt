@@ -9,6 +9,7 @@ var _ = require('lodash');
 var async = require('async');
 var Q = require('q');
 var S = require('string');
+var quote = require('quote');
 
 var TestRunner = {
 	init: function (config) {
@@ -165,7 +166,7 @@ var TestRunner = {
 		var postEachTest = testModule.lifecycle.teardown;
 		check.verify.fn(postEachTest, 'module teardown should be a function');
 
-		log.debug('starting module', testModule.name);
+		log.debug('starting module', quote(testModule.name));
 		var testSteps = this.runSingleTest.bind(this, preEachTest, verifyIntegrity, postEachTest);
 
 		function runOnce(fn, errorCallback) {
@@ -175,7 +176,8 @@ var TestRunner = {
 			try {
 				return fn();
 			} catch (err) {
-				console.log('module run once error\n', err);
+				console.log('module', quote(testModule.name), 'run once error\n', err);
+				testModule.crashed = true;
 				errorCallback(err);
 			}
 		}
@@ -198,7 +200,7 @@ var TestRunner = {
 					});
 				});
 		}).catch(function (err) {
-			console.error('module error stack\n' + err.stack);
+			console.error('module', quote(module.name), 'error stack\n' + err.stack);
 			allModuleTestsCompleted(err);
 		});
 	}
