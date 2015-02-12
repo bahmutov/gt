@@ -1,6 +1,7 @@
 var TestRunInfo = require('../TestRunInfo').TestRunInfo;
 var check = require('check-types');
 var joinArguments = require('../utils/joinArguments');
+var quote = require('quote');
 
 function tooLong(str) {
 	check.verify.string(str, 'expected string to compare length');
@@ -94,14 +95,14 @@ var PrimaryAssertions = {
 		TestRunInfo._beforeAssertion();
 
 		if (!condition) {
-			var message = '"' + condition + '" failed';
+			var message = quote(condition) + ' failed';
 			message += ' ' + joinArguments(arguments, 1);
 			TestRunInfo._brokenAssertion(message);
 		}
 	},
 
 	push: function (condition, expected, actual, message) {
-		this.ok(condition, 'expected "' + expected + '" got "' + actual + '" ' + message);
+		this.ok(condition, 'expected ' + quote(expected) + ' got ' + quote(actual) + ' ' + message);
 	},
 
 	/**
@@ -134,13 +135,13 @@ var PrimaryAssertions = {
 				return;
 			}
 			var caughtType = error.name || typeof error;
-			TestRunInfo._brokenAssertion("expected exception of type '" + typeName + "', caught '" + caughtType + "' '" + message + "'");
+			TestRunInfo._brokenAssertion("expected exception of type " + quote(typeName) + ", caught " + quote(caughtType) + " " + quote(message));
 			return;
 		}
 		if (typeName) {
-			TestRunInfo._brokenAssertion("exception of type '" + typeName + "' not thrown, '" + message + "'");
+			TestRunInfo._brokenAssertion("exception of type " + quote(typeName) + " not thrown, " + quote(message));
 		} else {
-			TestRunInfo._brokenAssertion("exception NOT thrown, '" + message + "'");
+			TestRunInfo._brokenAssertion("exception NOT thrown, " + quote(message));
 		}
 	}
 };

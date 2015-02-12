@@ -1,4 +1,5 @@
 var check = require('check-types');
+var quote = require('quote');
 
 // async unit test support
 var TestAsync = function(options) {
@@ -40,7 +41,7 @@ TestAsync.prototype.checkTestIsStillRunning = function() {
 	if (typeof this.finished === 'undefined') {
 		this.finished = new Date();
 		this.timedOut = true;
-		log.error('test "' + this.name + '" is still executing, timed out after',
+		log.error('test ' + quote(this.name) + ' is still executing, timed out after',
 			(this.finished - this.started) + 'ms');
 		check.verify.fn(this.onFinished, 'missing on finished function');
 		setTimeout(this.onFinished, 1);
@@ -69,8 +70,8 @@ TestAsync.prototype.duration = function() {
 	if (this.skip) {
 		return 0;
 	}
-	console.assert(this.started, 'missing started timestamp for test "' + this.name + '"');
-	console.assert(this.finished, 'missing finished timestamp for test "' + this.name + '"');
+	console.assert(this.started, 'missing started timestamp for test ' + quote(this.name));
+	console.assert(this.finished, 'missing finished timestamp for test ' + quote(this.name));
 	return this.finished - this.started;
 }
 

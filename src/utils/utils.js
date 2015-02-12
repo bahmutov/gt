@@ -1,3 +1,4 @@
+var quote = require('quote');
 /**
 	@function optional
 	Replaces
@@ -58,6 +59,11 @@
 		return str;
 	}
 
+  function verifyLength(n, str) {
+    console.assert(str.length === n,
+      "need string with", n, "characters, got", str.length, "string", quote(str));
+  }
+
 	function centerMessage(n, message) {
 		console.assert(n > 0 && n < 200, "invalid number of characters", n);
 
@@ -73,7 +79,6 @@
 					start = 0;
 				}
 				var end = n - start - message.length;
-			// console.log("start", start, "message", message.length, "end", end);
 			str = getLines(start) + message;
 			if (end > 0) {
 				str += getLines(end);
@@ -85,7 +90,7 @@
 		str = getLines(n);
 	}
 
-	console.assert(str.length === n, "need string with", n, "characters, got", str.length, "string '" + str + "'");
+  verifyLength(n, str);
 	return str;
 }
 

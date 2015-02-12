@@ -1,6 +1,7 @@
 var ModuleTests = require("./ModuleTests").ModuleTests;
 var getCallerFilename = require('../utils/utils').getCallerFilename;
 var check = require('check-types');
+var quote = require('quote');
 
 var CollectionMethods = {
 	module: function (name, lifecycle) {
@@ -9,7 +10,7 @@ var CollectionMethods = {
 		check.verify.object(this.testOnlyModules, 'test modules should be an object');
 
 		if (this.shouldTestModule(name) && !this.shouldSkipModule(name)) {
-			log.debug("module '" + name + "'");
+			log.debug("module " + quote(name));
 			this.currentModule = new ModuleTests(name, lifecycle);
 			this.modules.push(this.currentModule);
 		}

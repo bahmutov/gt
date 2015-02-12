@@ -28,7 +28,7 @@ var TestRunner = {
 
 		test.check();
 		if (test.skip) {
-			log.info('skipping test "' + test.name + '"');
+			log.info('skipping test', quote(test.name));
 			callback();
 			return;
 		}
@@ -40,14 +40,14 @@ var TestRunner = {
 			if (hider) {
 				test.stdout = hider.restoreConsole();
 			}
-			log.debug('finished test "' + test.name + '"',
+			log.debug('finished test', quote(test.name),
 				TestRunInfo._currentTest.assertions + ' assertions,',
 				TestRunInfo._currentTest.broken, 'broken');
 
 			try {
 				TestRunInfo._afterTest();
 			} catch (err) {
-				console.error('caught error after test "' + test.name + '"');
+				console.error('caught error after test', quote(test.name));
 				console.error(err);
 				callback(err);
 				return;
@@ -79,11 +79,12 @@ var TestRunner = {
 				hider = new ConsoleHider();
 				hider.hideConsole();
 			} else {
-				log.info('starting test "' + test.name + '"');
+				log.info('starting test', quote(test.name));
 			}
 			test.code(global.gt);
 		} catch (errors) {
-			console.error('crash in test "' + test.name + '"\n', errors);
+			console.error('crash in test', quote(test.name));
+			console.error(errors);
 			// console.error(errors.stack);
 			printFirstStackLines(errors.stack);
 
@@ -188,7 +189,7 @@ var TestRunner = {
 				testSteps,
 				function (err) {
 					if (err) {
-						console.error('caught error in module "' + testModule.name + '"');
+						console.error('caught error in module', quote(testModule.name));
 						testModule.crashed = true;
 						testModule._tests.forEach(function (test) {
 							test.hasCrashed = true;
