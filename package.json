@@ -85,6 +85,7 @@
     "npm run e2e",
     "npm run bdd"
   ],
+  "post-commit": "npm version",
   "pre-push": [
     "npm install",
     "grunt",
