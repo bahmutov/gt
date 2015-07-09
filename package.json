@@ -78,6 +78,7 @@
   ],
   "license": "MIT",
   "main": "./gt.js",
+  "post-commit": "npm version",
   "pre-commit": [
     "grunt",
     "npm run mocha",
@@ -85,7 +86,6 @@
     "npm run e2e",
     "npm run bdd"
   ],
-  "post-commit": "npm version",
   "pre-push": [
     "npm install",
     "grunt",
