@@ -11,3 +11,7 @@ gt.test('gt.null', function () {
 gt.test('FAIL: not null', function () {
 	gt.null('foo', 'foo is not null');
 });
+
+gt.test('CRASH: crash on purpose', function () {
+  throw new Error('a problem');
+});
