@@ -1,7 +1,7 @@
 gt.module('BDD interface');
 
 var path = require('path');
-var gtPath = path.join(__dirname, '../../gt.js');
+var gtPath = path.join(__dirname, '../../bin/gt.js');
 var testFile = path.join(__dirname, '../../examples/bdd/spec.js');
 
 gt.async('bdd spec runs', 1, function () {

@@ -2,7 +2,7 @@
 gt.module('loading expected crash');
 
 var join = require('path').join;
-var gtPath = join(__dirname, '../../gt.js');
+var gtPath = join(__dirname, '../../bin/gt.js');
 var testFile = join(__dirname, 'filterCLI.js');
 
 gt.async('selecting only good test', 1, function () {
