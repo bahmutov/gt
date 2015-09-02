@@ -1,7 +1,7 @@
 {
   "name": "gt",
   "description": "JavaScript native QUnit runner with code coverage and multiple extensions",
-  "version": "0.8.48",
+  "version": "0.8.49",
   "author": {
     "name": "Gleb Bahmutov",
     "email": "gleb.bahmutov@gmail.com",
@@ -10,7 +10,7 @@
   "_from": "gt@",
   "_id": "gt@0.8.5",
   "bin": {
-    "gt": "./gt.js"
+    "gt": "./bin/gt.js"
   },
   "bugs": {
     "url": "https://github.com/bahmutov/gt/issues"
@@ -92,7 +92,6 @@
     "npm test"
   ],
   "preferGlobal": true,
-  "readme": "# gt\r\n\r\nSimple JS unit testing framework similar to QUnit.\r\n\r\n## Goals\r\n1. Make sure QUnit tests work with [istanbul](https://github.com/gotwarlost/istanbul \"Istanbul at GitHub\") JS coverage tool\r\n2. Experiment with JS unit testing by writing a framework from scratch.\r\n\r\n## Install and run\r\n\r\n**gt** requires *nodejs* and a few modules to run. Assuming you wrote a few qunit tests in tests.js:\r\n\r\n\tnpm install -g gt\r\n\tgt tests.js\r\n\r\n\tsome of the options (-h for all):\r\n\t\t-l <debug level> 0 = debug, 1 = default, 2 = warnings, 3 = errors\r\n\t\t-r <report level> 0 = all (default), 1 = failed tests only\r\n\r\n## Example\r\n\r\nA simple example is in [examples subfolder](gt/tree/master/examples/basic \"gt Examples\")\r\n\r\nUnit tests follow QUnit approach:\r\n\r\n```javascript\r\ngt.module(\"Basic tests\");\r\n\r\ngt.test(\"get N '='\", function () {\r\n\tgt.ok(typeof getLines === \"function\", \"getLines is a function\");\r\n\tgt.equal(getLines(0), \"\", \"0 character\");\r\n\tgt.equal(getLines(1), \"=\", \"1 character\");\r\n});\r\n```\r\n\r\nCreates unit test report (stdout only) and JS code coverage (stdout plus Lines of Code + HTML in folder cover)\r\n\r\n\tgt ./examples/basic/tests ./examples/basic/exceptionTests\r\n\r\nSample unit test output [image](gt/blob/master/examples/example.png \"Console screenshot\")\r\n\r\nSample JS coverage output [image](gt/blob/master/examples/coverage.png \"Coverage page screenshot\")\r\n\r\n## CoffeeScript support\r\n\r\nYou can write your unit tests using [coffeescript](http://coffeescript.org/), which allows very concise code. \r\nSo far, the code coverage does not include the unit test files themselves, they will be omitted from the coverage report.\r\nSee *examples/coffee* folder.\r\n\r\n## Running in browser\r\n\r\nSee example **examples/browser**\r\n\r\n## License\r\n\r\nThe MIT License, see [*MIT-License.txt*](gt/blob/master/MIT-License.txt \"MIT-License.txt\")\r\n\r\n## Contact\r\n\r\nGleb Bahmutov <gleb.bahmutov@gmail.com>",
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
