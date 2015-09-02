@@ -1,7 +1,7 @@
 gt.module('error in async test handled');
 
 var path = require('path');
-var gtPath = path.join(__dirname, '../../gt.js');
+var gtPath = path.join(__dirname, '../../bin/gt.js');
 var testFile = path.join(__dirname, 'errorInAsync.js');
 var fs = require('fs');
 
