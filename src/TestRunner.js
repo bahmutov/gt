@@ -8,7 +8,6 @@ var check = require('check-types');
 var _ = require('lodash');
 var async = require('async');
 var Q = require('q');
-var S = require('string');
 var quote = require('quote');
 
 var TestRunner = {
@@ -61,7 +60,7 @@ var TestRunner = {
 				return;
 			}
 
-			var lines = S(stack).lines();
+			var lines = stack.split('\n');
 			var maxLines = 5;
 			if (lines.length < maxLines) {
 				console.log('stack:\n', lines.join('\n'));
