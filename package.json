@@ -1,7 +1,7 @@
 {
   "name": "gt",
   "description": "JavaScript native QUnit runner with code coverage and multiple extensions",
-  "version": "0.8.49",
+  "version": "0.9.0",
   "author": {
     "name": "Gleb Bahmutov",
     "email": "gleb.bahmutov@gmail.com",
@@ -15,7 +15,29 @@
   "bugs": {
     "url": "https://github.com/bahmutov/gt/issues"
   },
+  "config": {
+    "pre-git": {
+      "commit-msg": "validate-commit-msg",
+      "pre-commit": [
+        "grunt",
+        "npm run mocha",
+        "npm run unit",
+        "npm run e2e",
+        "npm run bdd"
+      ],
+      "pre-push": [
+        "npm install",
+        "grunt",
+        "npm test"
+      ],
+      "post-commit": "npm version",
+      "post-merge": []
+    }
+  },
   "contributors": [],
+  "czConfig": {
+    "path": "node_modules/pre-git/node_modules/cz-conventional-changelog"
+  },
   "dependencies": {
     "allong.es": "0.14.0",
     "amdefine": "0.1.1",
@@ -56,7 +78,7 @@
     "jshint-stylish": "2.0.1",
     "matchdep": "0.3.0",
     "mocha": "2.2.5",
-    "pre-git": "0.6.2",
+    "pre-git": "1.2.4",
     "time-grunt": "1.2.1"
   },
   "engines": {
@@ -77,19 +99,6 @@
   ],
   "license": "MIT",
   "main": "./gt.js",
-  "post-commit": "npm version",
-  "pre-commit": [
-    "grunt",
-    "npm run mocha",
-    "npm run unit",
-    "npm run e2e",
-    "npm run bdd"
-  ],
-  "pre-push": [
-    "npm install",
-    "grunt",
-    "npm test"
-  ],
   "preferGlobal": true,
   "readmeFilename": "README.md",
   "repository": {
@@ -105,6 +114,7 @@
     "doc": "xplain --title gt -v 0.8.* -i src/assertions/*.js",
     "mocha": "node node_modules/mocha/bin/_mocha tests/mocha -R spec",
     "coveralls": "cat cover/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "bdd": "node bin/gt.js examples/bdd/spec.js --bdd"
+    "bdd": "node bin/gt.js examples/bdd/spec.js --bdd",
+    "commit": "commit-wizard"
   }
 }
