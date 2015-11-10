@@ -1,4 +1,4 @@
-require('lazy-ass');
+require('lazy-ass').globalRegister();
 var covered = require('./src/covered');
 var sure = require('./src/sure');
 module.exports = {

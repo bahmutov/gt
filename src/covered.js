@@ -1,3 +1,4 @@
+var la = require('lazy-ass');
 var sure = require('./sure');
 var watchFiles = require('./utils/WatchFiles').watchFiles;
 var coverage = require('../lib/coverage');

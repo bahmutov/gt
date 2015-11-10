@@ -1,6 +1,8 @@
 // BDD interface for GT example
 // you can confirm this test is typical BDD
 //  mocha -R spec spec.js
+var la = require('lazy-ass');
+
 it('runs a stand alone test', function () {
   console.assert('foo' === 'foo');
 });
