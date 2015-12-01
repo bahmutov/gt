@@ -1,14 +1,12 @@
 {
   "name": "gt",
   "description": "JavaScript native QUnit runner with code coverage and multiple extensions",
-  "version": "0.9.1",
   "author": {
     "name": "Gleb Bahmutov",
     "email": "gleb.bahmutov@gmail.com",
     "website": "http://glebbahmutov.com"
   },
-  "_from": "gt@",
-  "_id": "gt@0.8.5",
+  "version": "0.0.0-semantic-release",
   "bin": {
     "gt": "./bin/gt.js"
   },
@@ -35,9 +33,6 @@
     }
   },
   "contributors": [],
-  "czConfig": {
-    "path": "node_modules/pre-git/node_modules/cz-conventional-changelog"
-  },
   "dependencies": {
     "allong.es": "0.14.0",
     "amdefine": "1.0.0",
@@ -78,8 +73,9 @@
     "jshint-stylish": "2.0.1",
     "matchdep": "1.0.0",
     "mocha": "2.3.3",
-    "pre-git": "1.2.4",
-    "time-grunt": "1.2.2"
+    "pre-git": "1.4.0",
+    "time-grunt": "1.2.2",
+    "semantic-release": "^4.3.5"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -115,6 +111,7 @@
     "e2e": "node bin/gt.js tests/all.js --colors true --output",
     "mocha": "node node_modules/mocha/bin/_mocha tests/mocha -R spec",
     "test": "npm run mocha && npm run unit && npm run e2e",
-    "unit": "node bin/gt.js ./examples/all.js --colors true --output"
+    "unit": "node bin/gt.js ./examples/all.js --colors true --output",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   }
 }
