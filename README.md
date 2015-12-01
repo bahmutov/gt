@@ -1,4 +1,4 @@
-# gt v0.9.1
+# gt v0.0.0-semantic-release
 
 > JavaScript native QUnit runner with code coverage and multiple extensions
 

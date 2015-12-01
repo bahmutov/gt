@@ -1,12 +1,12 @@
 {
   "name": "gt",
   "description": "JavaScript native QUnit runner with code coverage and multiple extensions",
+  "version": "0.0.0-semantic-release",
   "author": {
     "name": "Gleb Bahmutov",
     "email": "gleb.bahmutov@gmail.com",
     "website": "http://glebbahmutov.com"
   },
-  "version": "0.0.0-semantic-release",
   "bin": {
     "gt": "./bin/gt.js"
   },
@@ -17,7 +17,7 @@
     "pre-git": {
       "commit-msg": "validate-commit-msg",
       "pre-commit": [
-        "grunt",
+        "npm run build",
         "npm run mocha",
         "npm run unit",
         "npm run e2e",
@@ -25,8 +25,7 @@
       ],
       "pre-push": [
         "npm install",
-        "grunt",
-        "npm test"
+        "npm run build"
       ],
       "post-commit": "npm version",
       "post-merge": []
@@ -62,6 +61,7 @@
     "cute-stack": "1.2.1",
     "grunt": "0.4.5",
     "grunt-bump": "0.6.0",
+    "grunt-cli": "0.1.13",
     "grunt-complexity": "0.3.0",
     "grunt-contrib-jshint": "0.11.3",
     "grunt-deps-ok": "0.8.0",
@@ -74,8 +74,8 @@
     "matchdep": "1.0.0",
     "mocha": "2.3.3",
     "pre-git": "1.4.0",
-    "time-grunt": "1.2.2",
-    "semantic-release": "^4.3.5"
+    "semantic-release": "4.3.5",
+    "time-grunt": "1.2.2"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -103,6 +103,7 @@
   },
   "scripts": {
     "bdd": "node bin/gt.js examples/bdd/spec.js --bdd",
+    "build": "grunt",
     "commit": "commit-wizard",
     "complexity": "node ./node_modules/jsc gt.js src/assertions/*.js src/utils/*.js src/*.js src/UnitTest/*.js --colors false",
     "cover": "istanbul cover gt tests",
@@ -110,8 +111,8 @@
     "doc": "xplain --title gt -v 0.8.* -i src/assertions/*.js",
     "e2e": "node bin/gt.js tests/all.js --colors true --output",
     "mocha": "node node_modules/mocha/bin/_mocha tests/mocha -R spec",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "npm run mocha && npm run unit && npm run e2e",
-    "unit": "node bin/gt.js ./examples/all.js --colors true --output",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "unit": "node bin/gt.js ./examples/all.js --colors true --output"
   }
 }
