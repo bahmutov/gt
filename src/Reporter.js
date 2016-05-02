@@ -9,8 +9,11 @@ var check = require('check-types');
 var Test = require('./UnitTest/Test').Test;
 check.verify.string(Test.PASS, 'Test.PASS is undefined');
 
-var lineLength = process.stdout.isTTY ?
-process.stdout.getWindowSize()[0] : 100;
+var lineLength = process.stdout.isTTY ? process.stdout.getWindowSize()[0] : 100;
+if (!lineLength) {
+	// could happen inside Docker container for example
+	lineLength = 100;
+}
 check.verify.positiveNumber(lineLength, 'invalid terminal line length', lineLength);
 
 function _reportTests(tests, config) {
