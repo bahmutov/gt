@@ -68,7 +68,7 @@
     "grunt-deps-ok": "0.8.0",
     "grunt-jsonlint": "1.0.6",
     "grunt-lineending": "0.2.4",
-    "grunt-nice-package": "0.9.4",
+    "grunt-nice-package": "0.10.4",
     "grunt-readme": "0.4.5",
     "jsc": "0.3.11",
     "jshint-stylish": "2.0.1",
