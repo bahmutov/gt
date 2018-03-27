@@ -59,7 +59,7 @@
     "bad-line": "0.1.1",
     "condition-node-version": "1.3.0",
     "coveralls": "2.11.4",
-    "cute-stack": "1.2.1",
+    "cute-stack": "1.4.3",
     "grunt": "0.4.5",
     "grunt-bump": "0.6.0",
     "grunt-cli": "0.1.13",
