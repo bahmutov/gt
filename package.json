@@ -34,10 +34,10 @@
   "contributors": [],
   "dependencies": {
     "allong.es": "0.14.0",
-    "amdefine": "1.0.0",
+    "amdefine": "1.0.1",
     "async": "1.5.0",
     "check-types": "1.4.0",
-    "cli-color": "1.1.0",
+    "cli-color": "1.2.0",
     "coffee-script": "1.6.3",
     "console.json": "0.2.1",
     "custom-logger": "0.3.1",
@@ -48,7 +48,7 @@
     "nodewatch": "0.3.2",
     "optimist": "0.6.1",
     "optional-color-logger": "0.0.6",
-    "q": "1.4.1",
+    "q": "1.5.1",
     "quote": "0.4.0",
     "sprintf": "0.1.5",
     "untested": "0.1.5",
@@ -74,7 +74,7 @@
     "jshint-stylish": "2.0.1",
     "matchdep": "1.0.0",
     "mocha": "2.3.3",
-    "pre-git": "1.4.0",
+    "pre-git": "3.17.1",
     "semantic-release": "4.3.5",
     "time-grunt": "1.2.2"
   },
@@ -120,6 +120,7 @@
     "verifyConditions": {
       "path": "condition-node-version",
       "node": "4"
-    }
+    },
+    "analyzeCommits": "simple-commit-message"
   }
 }
