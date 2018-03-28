@@ -35,7 +35,7 @@
   "dependencies": {
     "allong.es": "0.14.0",
     "amdefine": "1.0.1",
-    "async": "1.5.0",
+    "async": "1.5.2",
     "check-types": "1.4.0",
     "cli-color": "1.2.0",
     "coffee-script": "1.6.3",
