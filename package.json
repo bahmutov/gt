@@ -42,7 +42,7 @@
     "console.json": "0.2.1",
     "custom-logger": "0.3.1",
     "glob": "5.0.15",
-    "istanbul": "0.4.0",
+    "istanbul": "0.4.5",
     "lazy-ass": "1.0.0",
     "lodash": "3.10.1",
     "nodewatch": "0.3.2",
