@@ -73,7 +73,7 @@
     "jsc": "0.3.11",
     "jshint-stylish": "2.0.1",
     "matchdep": "1.0.0",
-    "mocha": "2.3.3",
+    "mocha": "2.5.3",
     "pre-git": "3.17.1",
     "semantic-release": "4.3.5",
     "time-grunt": "1.2.2"
